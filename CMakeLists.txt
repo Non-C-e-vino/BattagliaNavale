@@ -22,4 +22,6 @@ target_include_directories(humanPlayer PUBLIC ${CMAKE_SOURCE_DIR}/include)
 
 target_include_directories(coord PUBLIC ${CMAKE_SOURCE_DIR}/include)
 
-target_link_libraries(battaglia_navale gameLoops player humanPlayer bot ship coord)
+target_include_directories(gameHandler PUBLIC ${CMAKE_SOURCE_DIR}/include)
+
+target_link_libraries(battaglia_navale gameLoops gameHandler player humanPlayer bot ship coord)
