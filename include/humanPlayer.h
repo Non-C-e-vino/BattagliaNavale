@@ -5,7 +5,7 @@
 
 class HumanPlayer : public Player{
 public:
-    Coord getInput() override;
+    Coord get_input() override;
 };
 
 #endif

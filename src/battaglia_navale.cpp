@@ -1,10 +1,13 @@
 #include<iostream>
-#include"gameLoops.h"
 #include<cstring>
+#include "gameLoops.h"
 
 void argsError();
 
 int main(int argc, char *argv[]){
+    
+    GameHandler g{};
+    
     bool pc;
 
     if(argc != 2){
@@ -18,7 +21,7 @@ int main(int argc, char *argv[]){
         argsError();
         return 0;
     }
-    gameLoops::gameLoop(pc);
+    gameLoops::game_loop(pc);
     return 0;
 }
 
