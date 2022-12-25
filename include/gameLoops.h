@@ -4,11 +4,12 @@
 #include "player.h"
 #include "humanPlayer.h"
 #include "bot.h"
+#include "gameHandler.h"
 
 namespace gameLoops{
-    void initLoop(const std::unique_ptr<Player> &, const std::unique_ptr<Player> &);
-    void mainLoop();
-    void gameLoop(bool);
+    void init_loop(const std::unique_ptr<Player> &, const std::unique_ptr<Player> &, GameHandler&);
+    void main_loop(const std::unique_ptr<Player> &, const std::unique_ptr<Player> &, GameHandler&);
+    void game_loop(bool);
 }
 
 #endif

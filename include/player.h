@@ -5,8 +5,8 @@
 
 class Player{
 public:
-    virtual Coord getInput() = 0;
-    //legge coordinate, usa coordCnvert
+    virtual Coord get_input() = 0;
+    //legge coordinate, usa coord_convert()
 };
 
 #endif
