@@ -17,6 +17,10 @@ int GameHandler::set_ship(Admirals adm, ShipType st, XY (&xy)[2]){
     
     return 0;
 }
+void GameHandler::display_grid(Admirals adm) const{
+    //...
+    return;
+}
 
 bool GameHandler::check_c_oob(XY &c){
     //...

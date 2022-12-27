@@ -7,7 +7,7 @@
 
 class GameHandler{
 public:
-    void diplay_grid(Admirals) const;
+    void display_grid(Admirals) const;
     void clear_grid(Admirals);
     int set_ship(Admirals, ShipType, XY (&xy)[2]);
     int move_ship(Admirals, XY (&xy)[2]);

@@ -4,7 +4,7 @@
 
 class Bot : public Player{
 public:
-    int get_input(char *) override;
+    int get_input(char *) const override;
     // ovviamente le gen va sepre a buon fine, return sempre = 0;
 private: 
     // variabili tipo difficolta' in caso di ia non comp. randomica
