@@ -7,8 +7,8 @@
 #include "gameHandler.h"
 
 namespace gameLoops{
-    void init_loop(const std::unique_ptr<Player> &, const std::unique_ptr<Player> &, GameHandler&);
-    void main_loop(const std::unique_ptr<Player> &, const std::unique_ptr<Player> &, GameHandler&);
+    void init_loop(const std::unique_ptr<Player> (&player)[2], GameHandler&);
+    void main_loop(const std::unique_ptr<Player> (&player)[2], GameHandler&);
     void game_loop(bool);
 }
 

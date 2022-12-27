@@ -1,6 +1,7 @@
 #include "bot.h"
+#include <iostream>
 
-Coord Bot::get_input() {
+int Bot::get_input(char *inp) {
     std::cout << "INPUT_ROBOTICO\n";
-    return Coord{};
+    return 0;
 }

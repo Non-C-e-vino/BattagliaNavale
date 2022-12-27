@@ -1,14 +1,14 @@
 #ifndef BOT_H
 #define BOT_H
 #include "player.h"
-#include <iostream>
 
 class Bot : public Player{
 public:
-    Coord get_input() override;
+    int get_input(char *) override;
+    // ovviamente le gen va sepre a buon fine, return sempre = 0;
 private: 
     // variabili tipo difficolta' in caso di ia non comp. randomica
-    Coord gen_rand_coord();
+    void gen_rand_coord(char *);
 };
 
 #endif

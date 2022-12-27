@@ -5,7 +5,7 @@
 
 class Player{
 public:
-    virtual Coord get_input() = 0;
+    virtual int get_input(char *) = 0;  //forse (&char)[6] meglio? piu' leggibile
     //legge coordinate, usa coord_convert()
 };
 

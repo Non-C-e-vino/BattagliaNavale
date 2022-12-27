@@ -2,22 +2,22 @@
 #define GAMEHAMDLER_H
 #include "coord.h"
 #include "ship.h"
-
-enum Admirals{ BlueAdm, RedAdm };
+#include "admiral.h"
+#include "gameVars.h"
 
 class GameHandler{
 public:
     void diplay_grid(Admirals) const;
     void clear_grid(Admirals);
-    int set_ship(Admirals, Coord, Coord); //da valutare se coord, rotation
-    int move_ship(Admirals, Coord, Coord);
-    int action_ship(Admirals, Coord, Coord);
+    int set_ship(Admirals, ShipType, XY (&xy)[2]);
+    int move_ship(Admirals, XY (&xy)[2]);
+    int action_ship(Admirals, XY (&xy)[2]);
 private:
-    struct Admiral{
-        Ship* ships;
-    };
     int turn = 0;
-    Admiral admirals[2];
+    Admiral admiral[2];
+    bool check_c_oob(XY &); //out of bounds
+    bool check_c_allign(XY &, XY &); // allineamento 
+    bool is_free_space(XY &, XY &);
 };
 
 #endif
