@@ -19,6 +19,7 @@ int HumanPlayer::get_input(char *inp){
         if(std::cin.peek() > 'A' && std::cin.peek() < 'Z') 
             std::cin.get(inp[i]);
         else{
+            std::cout << i;
             std::cin.ignore(264, '\n');
             return -1;
         }
