@@ -1,6 +1,6 @@
 #include "coord.h"
 
-Coord coordConvert(char x, char y){
-    Coord c;
-    return c;
+void coord_convert(XY (&xy)[2], char (&inp)[6]){
+    //...
+    return;
 }

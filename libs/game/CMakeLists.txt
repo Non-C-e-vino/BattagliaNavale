@@ -1,4 +1,4 @@
 add_library(ship ship.cpp)
 add_library(gameLoops gameLoops.cpp)
 add_library(gameHandler gameHandler.cpp)
-#add_library(admiral admiral.cpp)
+add_library(admiral admiral.cpp)

@@ -3,10 +3,10 @@
 
 enum Rotation{ vert, oriz };
 
-struct Coord{
+struct XY{
     int xy[2]; 
 };
 
-Coord coord_convert(char, char);
+void coord_convert(XY (&xy)[2], char (&inp)[6]);
 
 #endif
