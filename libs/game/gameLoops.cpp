@@ -16,7 +16,7 @@ void gameLoops::init_loop(const std::unique_ptr<Player> (&player)[2], GameHandle
             continue;
         }
         coord_convert(xy, playerInput);
-        if(int err = gh.set_ship(Admirals((i + coin)%2), ShipType(2-i/3), xy)){
+        if(int err = gh.set_ship(Admirals((i + coin)%2), ShipType(2), xy)){
             std::cout << "Posizione non valida: " << err << std::endl;
             continue;
         }
