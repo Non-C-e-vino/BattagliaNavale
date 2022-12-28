@@ -19,7 +19,6 @@ int HumanPlayer::get_input(char *inp) const {
             std::cin.get(inp[i]);
             ++i;
         }else{
-            std::cout << i;
             std::cin.ignore(264, '\n');
             return -1;
         }

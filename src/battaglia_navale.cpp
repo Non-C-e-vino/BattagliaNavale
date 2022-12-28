@@ -6,8 +6,7 @@ void argsError();
 
 int main(int argc, char *argv[]){
     
-    GameHandler g{};
-    
+    GameHandler g{}; 
     bool pc;
 
     if(argc != 2){

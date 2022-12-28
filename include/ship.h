@@ -1,25 +1,39 @@
 #ifndef SHIP_H
 #define SHIP_H
 #include "coord.h"
-//potrebbe essere interna ma difficile
-enum Action{Fire, MoveAndRepair, MoveAndSearch};
-enum ShipType{Cor, NDS, Sot};
 
-struct Hull{ 
-    XY c; 
-    bool armor; 
-};
+enum class Action{Fire, MoveAndRepair, MoveAndSearch};
+enum class ShipType{Cor, NDS, Sot};
+
+struct Hull;
 
 class Ship{
 public:
-    virtual void action() const = 0;
-    virtual bool isHit(XY) const = 0;
-    virtual bool isCore(/**/) const = 0;
-    bool isSunk(){ return !hp; }
-                    // GROSSO PROBLEMA: non posso cercare tra tutte le coordinate di tutte le navi
-                    // per tutte le caselle di move e repair tutte le volte. Forse urge STL?
-private:
+    virtual Action action() const = 0;
+    virtual bool is_hit(XY &) const = 0;
+    virtual bool set_damage(XY &) = 0;
+    virtual bool is_core(Hull &) const = 0;
+    virtual Hull & get_hull(int x) = 0; 
+    bool is_sunk(){ return !hp; }
+protected:
     int hp;
+};
+
+struct Hull{
+public:
+    Hull(){}
+    Hull(Ship* owner, XY& c) : owner{owner}, c{c}, armor{true}{}
+    Ship * getOwner(){ return owner; }
+    bool is_hit() const { return armor; }
+    void set_hit(){ armor = false; }    //si potrebbero aggiungere controlli
+    void heal(){ armor = true; }
+    XY get_c() const { return c; }
+    void set_c(XY &c){ this->c = c; }
+
+private:
+    XY c; 
+    bool armor;
+    Ship * owner; 
 };
 
 #endif
