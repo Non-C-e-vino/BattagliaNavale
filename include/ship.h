@@ -12,9 +12,9 @@ struct Hull{
 
 class Ship{
 public:
-    virtual void action() = 0;
-    virtual bool isHit(XY) const;
-    virtual bool isCore(/**/) const;
+    virtual void action() const = 0;
+    virtual bool isHit(XY) const = 0;
+    virtual bool isCore(/**/) const = 0;
     bool isSunk(){ return !hp; }
                     // GROSSO PROBLEMA: non posso cercare tra tutte le coordinate di tutte le navi
                     // per tutte le caselle di move e repair tutte le volte. Forse urge STL?

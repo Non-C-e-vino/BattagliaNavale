@@ -1,7 +1,6 @@
 #ifndef GAMEHANDLER_H
 #define GAMEHAMDLER_H
-#include "coord.h"
-#include "ship.h"
+#include <memory>
 #include "admiral.h"
 #include "gameVars.h"
 
@@ -15,9 +14,11 @@ public:
 private:
     int turn = 0;
     Admiral admiral[2];
-    bool check_c_oob(XY &); //out of bounds
-    bool check_c_allign(XY &, XY &); // allineamento 
-    bool is_free_space(XY &, XY &);
+    bool check_c_oob(XY &) const; //out of bounds
+    bool is_free_space(XY &) const;
+    int gen_ship_c(XY *, XY (&xy)[2], int ) const;
+    void set_ship_on_map(std::unique_ptr<Ship> &);
+    void detach_ship_from_map(std::unique_ptr<Ship> &);
 };
 
 #endif

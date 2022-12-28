@@ -44,18 +44,20 @@ void gameLoops::init_loop(const std::unique_ptr<Player> (&player)[2], GameHandle
             continue;
         }
         coord_convert(xy, playerInput);
+
         if(xy[0]==XY{-1, -1}){
             gh.display_grid(Admirals((i + coin)%2));
             continue;
         }
 
-        //...
+        //clear_arr_grill...
 
-        if(int err = gh.set_ship(Admirals((i + coin)%2), ShipType(2), xy)){
+        if(int err = gh.set_ship(Admirals((i + coin)%2), ShipType(2 -i/6), xy)){
             std::cout << "Posizione non valida: " << err << std::endl;
             continue;
         }
         std::cout << "Schieramento riuscito." << std::endl;
+        l.log(playerInput);
         ++i;
     }
 }

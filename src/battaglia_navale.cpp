@@ -1,5 +1,5 @@
-#include<iostream>
-#include<cstring>
+#include <iostream>
+#include <cstring>
 #include "gameLoops.h"
 
 void argsError();
