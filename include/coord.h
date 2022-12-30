@@ -11,5 +11,7 @@ struct XY{
 };
 
 void coord_convert(XY (&xy)[2], char (&inp)[6]);
+void coord_to_char(XY (&xy)[2], char* inp);
+bool check_c_oob(XY &); //out of bounds
 
 #endif

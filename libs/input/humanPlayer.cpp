@@ -2,7 +2,15 @@
 #include "gameHandler.h"
 #include <cstring>
 
-int HumanPlayer::get_input(char *inp) const {
+int HumanPlayer::get_ship_pos(char *inp){
+    return get_input(inp);
+}
+
+int HumanPlayer::get_ship_act(char *inp){
+    return get_input(inp);
+}
+
+int HumanPlayer::get_input(char *inp){
     int i = 0;
     //bug: imposibile inserire coordinate con la lettera X (58+ caselle, sorvolabile)
     if(std::cin.peek() == 'X' || std::cin.peek() == 'Y' || std::cin.peek() == 'Z'){

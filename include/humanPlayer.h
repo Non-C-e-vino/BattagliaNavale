@@ -6,7 +6,10 @@
 
 class HumanPlayer : public Player{
 public:
-    int get_input(char *) const override;
+    int get_ship_pos(char *) override;
+    int get_ship_act(char *) override;
+private: 
+    int get_input(char *) override;
         //scrive su di un array di 6 char (2-3 char x coordinata)
         //ritorna codice reelativo al risultato dell' op (avvenuta, errori di sorta..) 
         //se sono presenti caratteri extra dopo il comando, li ignora

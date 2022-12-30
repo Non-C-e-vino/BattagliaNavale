@@ -15,13 +15,12 @@ public:
 private:
     int turn = 0;
     Admiral admiral[2];
-    bool check_c_oob(XY &) const; //out of bounds
     int gen_ship_c(XY *, XY (&xy)[2], int, Admirals) const;
     void set_ship_on_map(std::unique_ptr<Ship> &, Admirals);
     void detach_ship_from_map(std::unique_ptr<Ship> &);
-    bool action_fire(XY &);
-    bool action_move_heal(XY &);
-    bool action_move_search(XY &);
+    int action_fire(XY&, Admirals);
+    int action_move_heal(XY&, Admirals);
+    int action_move_search(XY&, Admirals);
 };
 
 #endif

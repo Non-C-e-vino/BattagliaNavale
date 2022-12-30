@@ -4,8 +4,10 @@
 
 class Replayer : public Player{
 public:
-    int get_input(char *) const override; 
-private:
+    int get_ship_pos(char *) override;
+    int get_ship_act(char *) override;
+private: 
+    int get_input(char *) override;
     void read_log_input(char *);
 };
 

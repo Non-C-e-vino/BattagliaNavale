@@ -1,4 +1,5 @@
 #include "coord.h"
+#include "gameVars.h"
 #include <cctype>
 #include <iostream>
 
@@ -30,6 +31,23 @@ void coord_convert(XY (&xy)[2], char (&inp)[6]){
     return;
 }
 
+void coord_to_char(XY (&xy)[2], char *inp){
+
+    int i = 0;
+    for(int c = 0; c < 2; c++){
+        inp[i] = (char)('A' + xy[c].xy[0]);
+        ++i;
+        if(xy[c].xy[1] > 9){
+            inp[i] = (char)('0' + (xy[c].xy[1] + 1)/10);
+            ++i;
+        }
+        inp[i] = (char)('0' + (xy[c].xy[1] + 1)%10);
+        ++i;
+    }
+    if(i < 6) inp [i] = '\0';
+    return;
+}
+
 XY::XY(int x, int y) : xy{x,y} {};
 
 bool XY::operator==(const XY&ref){
@@ -39,5 +57,10 @@ bool XY::operator==(const XY&ref){
 
 bool XY::operator!=(const XY&ref){
     if(*this == ref) return false;
+    return true;
+}
+
+bool check_c_oob(XY &c) {
+    if(c.xy[0] >= 0 && c.xy[0] < GRIDSIZE && c.xy[1] >= 0 && c.xy[1] < GRIDSIZE) return false;
     return true;
 }

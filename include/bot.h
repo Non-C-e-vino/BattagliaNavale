@@ -4,11 +4,15 @@
 
 class Bot : public Player{
 public:
-    int get_input(char *) const override;
+    int get_ship_pos(char *) override;
+    int get_ship_act(char *) override;
     // ovviamente le gen va sepre a buon fine, return sempre = 0;
 private: 
+    int shipCount;
+    int get_input(char *) override;
+    void gen_rand_coord(XY (&xy)[2]) const;
+    void gen_rand_ship_coord(XY (&xy)[2]) const;
     // variabili tipo difficolta' in caso di ia non comp. randomica
-    void gen_rand_coord(char *);
 };
 
 #endif
