@@ -10,8 +10,8 @@ struct Hull;
 class Ship{
 public:
     virtual Action action() const = 0;
-    virtual bool is_hit(XY &) const = 0; //prob inutile
-    bool set_damage(); //non serve, ma non capisco perche' non si possa definire virtual
+    //virtual bool is_hit(XY &) const = 0;
+    bool set_damage(); 
     virtual bool is_core(Hull &) const = 0;
     virtual Hull & get_hull(int x) = 0; 
     virtual int get_size() const = 0; 
