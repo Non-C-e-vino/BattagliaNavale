@@ -8,8 +8,8 @@
 enum Admirals{ RedAdm, BlueAdm };
 
 struct Admiral{
-    Hull *defGrid[MAPSIZE][MAPSIZE];
-    char attGrid[MAPSIZE][MAPSIZE];
+    Hull *defGrid[GRIDSIZE][GRIDSIZE];
+    char attGrid[GRIDSIZE][GRIDSIZE];
     Ship *ships[SHIPSN/2];
     int shipLc;
     //ipoteticamente ci sono 3 opzioni per i data memb:

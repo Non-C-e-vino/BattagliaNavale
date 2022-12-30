@@ -1,5 +1,6 @@
 #include "coord.h"
-#include<cstring>
+#include <cctype>
+#include <iostream>
 
 void coord_convert(XY (&xy)[2], char (&inp)[6]){
 
@@ -16,8 +17,16 @@ void coord_convert(XY (&xy)[2], char (&inp)[6]){
         return;
     }
 
-    //...
-
+    for(int i = 0, c = 0; i < 6 && inp[i] != '\0'; c++){
+        xy[c].xy[0] = (int)(inp[i] - 'A');
+        ++i;
+        if(std::isdigit(inp[i+1])){
+            xy[c].xy[1] += ((int)(inp[i] - '0')*10);
+            ++i;
+        }
+        xy[c].xy[1] += (int)(inp[i] - '1');
+        ++i;
+    }
     return;
 }
 
@@ -26,4 +35,9 @@ XY::XY(int x, int y) : xy{x,y} {};
 bool XY::operator==(const XY&ref){
     if(this->xy[0] == ref.xy[0]  && this->xy[1] == ref.xy[1]) return true;
     return false;
+}
+
+bool XY::operator!=(const XY&ref){
+    if(*this == ref) return false;
+    return true;
 }

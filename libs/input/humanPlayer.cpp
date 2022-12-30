@@ -7,15 +7,13 @@ int HumanPlayer::get_input(char *inp) const {
     //bug: imposibile inserire coordinate con la lettera X (58+ caselle, sorvolabile)
     if(std::cin.peek() == 'X' || std::cin.peek() == 'Y' || std::cin.peek() == 'Z'){
         std::cin.read(inp, 5);
+        inp[5] = '\0';
         if(!std::cin.eof()) std::cin.ignore(264, '\n');
-        if(!(std::strcmp(inp, "XX XX") && std::strcmp(inp, "YY YY") && std::strcmp(inp, "ZZ ZZ"))) {
-            inp[5] = '\0';
-            return 0;
-        }
-        else return -4;
+        if(!(std::strcmp(inp, "XX XX") && std::strcmp(inp, "YY YY") && std::strcmp(inp, "ZZ ZZ"))) return 0;
+        return -4;
     }
     do{
-        if(std::cin.peek() > 'A' && std::cin.peek() < 'X'){
+        if(std::cin.peek() >= 'A' && std::cin.peek() < 'X'){
             std::cin.get(inp[i]);
             ++i;
         }else{
