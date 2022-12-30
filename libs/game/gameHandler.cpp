@@ -37,9 +37,9 @@ void GameHandler::display_grids(Admirals adm) const {
     std::cout << "\t----GRIGLIA DI DIFESA----\t----GRIGLIA D'ATTACCO----\n" << std::endl;
     std::cout << "\t";
 
-    for(int c = 0; c < GRIDSIZE; ++c) std::cout << ' ' <<  c%9 +1;
+    for(int c = 0; c < GRIDSIZE; ++c) std::cout << ' ' <<  (c+1)%10;
     std::cout << "\t";
-    for(int c = 0; c < GRIDSIZE; ++c) std::cout << ' ' <<  c%9 +1;
+    for(int c = 0; c < GRIDSIZE; ++c) std::cout << ' ' <<  (c+1)%10;
 
     std::cout << "\n";
     for(int i = 0; i < GRIDSIZE; ++i){
