@@ -26,7 +26,7 @@ public:
     Hull(Ship* owner, XY& c) : owner{owner}, c{c}{}
     Ship * getOwner(){ return owner; }
     bool is_hit() const { return !armor; }
-    void set_hit(){ armor = false; }    //si potrebbero aggiungere controlli
+    bool set_hit();
     void heal(){ armor = true; }
     XY get_c() const { return c; }
     void set_c(XY &c){ this->c = c; }
