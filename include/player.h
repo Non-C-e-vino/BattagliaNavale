@@ -1,7 +1,7 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 #include "coord.h"
-
+#include "gameHandler.h"
 
 class Player{
 public:

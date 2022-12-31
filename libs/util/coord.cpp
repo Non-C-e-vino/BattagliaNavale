@@ -37,7 +37,7 @@ void coord_to_char(XY (&xy)[2], char *inp){
     for(int c = 0; c < 2; c++){
         inp[i] = (char)('A' + xy[c].xy[0]);
         ++i;
-        if(xy[c].xy[1] > 9){
+        if(xy[c].xy[1]+1 > 9){
             inp[i] = (char)('0' + (xy[c].xy[1] + 1)/10);
             ++i;
         }
@@ -45,6 +45,7 @@ void coord_to_char(XY (&xy)[2], char *inp){
         ++i;
     }
     if(i < 6) inp [i] = '\0';
+    std::cout << inp;
     return;
 }
 

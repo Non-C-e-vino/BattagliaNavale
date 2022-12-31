@@ -37,7 +37,7 @@ int GameHandler::set_ship(Admirals adm, ShipType st, XY (&xy)[2]){
 int GameHandler::ship_action(Admirals adm, XY (&xy)[2]){
     if(check_c_oob(xy[0])) return -1;
     Hull* h = admiral[(int)adm].defGrid[xy[0].xy[0]][xy[0].xy[1]];
-    if(h != nullptr && h->getOwner()->is_core(h))
+    if(h != nullptr && h->getOwner()->is_core(h) && !h->getOwner()->is_sunk())
         switch((int)(h->getOwner()->get_action())){
             case 0:
                 if(int err = action_fire(xy[1], adm))
@@ -64,8 +64,10 @@ int GameHandler::action_fire(XY& xy, Admirals adm){
     if(h != nullptr){
         h->set_hit();
         h->getOwner()->set_damage();
-        std::cout << "yes";
-    }else return -2;
+        //destroy ship & remove from cores if sunk
+        admiral[(int)adm].attGrid[xy.xy[0]][xy.xy[1]] = 'X';
+    }else admiral[(int)adm].attGrid[xy.xy[0]][xy.xy[1]] = 'O';
+
     return 0;
 }
 
@@ -150,11 +152,32 @@ int GameHandler::gen_ship_c(XY *shipC, XY (&xy)[2], int size, Admirals adm) cons
 void GameHandler::set_ship_on_map(std::unique_ptr<Ship> &ship, Admirals adm){
     //fa si che le corrette caselle della gliglia di difesa puntino ai relativi scafi che le occupano  (movimento e creazione)
     for(int i = 0; i < ship->get_size(); i++){
-        XY c = ship->get_hull(i).get_c();
-        admiral[(int)adm].defGrid[c.xy[0]][c.xy[1]] = &ship->get_hull(i);
+        XY c = ship->get_hull(i)->get_c();
+        admiral[(int)adm].defGrid[c.xy[0]][c.xy[1]] = ship->get_hull(i);
     }
 }
 
 void GameHandler::detach_ship_from_map(std::unique_ptr<Ship> &ship){
     //setta le caselle della griglia che al momento puntano allo scafo di ship a nullptr (movimento e distruzione) 
+}
+
+void GameHandler::set_cores(){
+    for(int i = 0; i < 2; ++i)
+        for(int c = 0; c < SHIPSN/2; ++c)
+            if(admiral[i].ships[c] != nullptr) cores.push_back(admiral[i].ships[c]->get_hull(admiral[i].ships[c]->get_size()/2));
+}
+
+Hull* GameHandler::get_core(int i){
+    return cores.at(i);
+}
+
+bool GameHandler::next_turn() {
+    if(turn > MAXTURNS) return false; 
+    ++turn;
+    return true; 
+}
+
+void GameHandler::throw_coin() {
+    coin = rand()%2; 
+    return; 
 }

@@ -13,7 +13,7 @@ public:
     //virtual bool is_hit(XY &) const = 0;
     bool set_damage(); 
     virtual bool is_core(Hull *) const = 0;
-    virtual Hull & get_hull(int x) = 0; 
+    virtual Hull* get_hull(int x) = 0; 
     virtual int get_size() const = 0; 
     bool is_sunk(){ return !hp; }
 protected:

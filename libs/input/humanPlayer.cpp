@@ -1,5 +1,4 @@
 #include "humanPlayer.h"
-#include "gameHandler.h"
 #include <cstring>
 
 int HumanPlayer::get_ship_pos(char *inp){
