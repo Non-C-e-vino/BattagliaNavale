@@ -1,9 +1,9 @@
 #ifndef GAMEHANDLER_H
 #define GAMEHAMDLER_H
 #include <memory>
+#include <vector>
 #include "admiral.h"
 #include "gameVars.h"
-#include <vector>
 
 class GameHandler{
 public:
@@ -11,7 +11,6 @@ public:
     void clear_att_grid(Admirals);
     void clear_miss_sonar(Admirals);
     int set_ship(Admirals, ShipType, XY (&xy)[2]);
-    int move_ship(Admirals, XY (&xy)[2]);
     int ship_action(Admirals, XY (&xy)[2]);
     Hull* get_core(int);
     void set_cores();
@@ -28,8 +27,9 @@ private:
     void set_ship_on_map(std::unique_ptr<Ship> &, Admirals);
     void detach_ship_from_map(std::unique_ptr<Ship> &);
     int action_fire(XY&, Admirals);
-    int action_move_heal(XY&, Admirals);
+    int action_move_heal(Hull* h, XY& xy, Admirals adm);
     int action_move_search(XY&, Admirals);
+    bool move_ship(Hull* h, XY& xy, Admirals adm);
 };
 
 #endif

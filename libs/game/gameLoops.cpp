@@ -37,6 +37,7 @@ void gameLoops::replay_loop(){
 void gameLoops::init_loop(const std::unique_ptr<Player> (&player)[2], GameHandler& gh, Logger& l, char (&playerInput)[6]){
 
     for(int i = 0, once = -1; i < SHIPSN;){
+
         if(once != i){
             std::cout << "\nGiocatore " << (i + gh.get_coin())%2 +1<< ",\n"; 
             std::cout << "inserire coppia di coordinate oppure [XX XX] [YY YY] [ZZ ZZ]" << std::endl;
@@ -76,7 +77,7 @@ void gameLoops::init_loop(const std::unique_ptr<Player> (&player)[2], GameHandle
             continue;
         }
 
-        if(int err = gh.set_ship(Admirals((i + gh.get_coin())%2), ShipType(2 -i/6), xy)){
+        if(int err = gh.set_ship(Admirals((i + gh.get_coin())%2), ShipType(2 - i/6), xy)){
             std::cout << "Posizione non valida: " << err << std::endl;
             continue;
         }

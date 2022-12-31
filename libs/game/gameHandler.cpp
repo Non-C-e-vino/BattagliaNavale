@@ -17,7 +17,8 @@ int GameHandler::set_ship(Admirals adm, ShipType st, XY (&xy)[2]){
             ship = std::make_unique<Corazzata>(shipC);
             break;
         case 1:
-            //manca implementazione nave
+            ship = std::make_unique<NaveSupporto>(shipC);
+            break;
         case 0:
             //manca implementazione nave
         default:
@@ -44,7 +45,7 @@ int GameHandler::ship_action(Admirals adm, XY (&xy)[2]){
                     return err -10;
                 break;
             case 1:
-                if(int err = action_move_heal(xy[1], adm))
+                if(int err = action_move_heal(h, xy[0], adm))
                     return err -10;
                 break;
             case 2:
@@ -71,13 +72,24 @@ int GameHandler::action_fire(XY& xy, Admirals adm){
     return 0;
 }
 
-int GameHandler::action_move_heal(XY& xy, Admirals adm){
-    return -1;
+int GameHandler::action_move_heal(Hull* h, XY& xy, Admirals adm){
+    if(check_c_oob(xy)) return -1;
+    if(move_ship(h, xy, adm)){
+        //heal
+        std::cout << "HEAL\n";
+    }else return -2;
+    return 0;
 }
 
 int GameHandler::action_move_search(XY& xy, Admirals adm){
+    if(check_c_oob(xy)) return -1;
 
     return -1;
+}
+
+bool GameHandler::move_ship(Hull* h, XY& xy, Admirals adm){
+
+    return true;
 }
 
 void GameHandler::display_grids(Admirals adm) const {
