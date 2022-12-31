@@ -10,6 +10,7 @@ int Bot::get_ship_pos(char *inp){
     XY xy[2];
     gen_rand_ship_coord(xy);
     coord_to_char(xy, inp);
+    std::cout << "Bot input." << std::endl;
     return 0;
 }
 
@@ -17,6 +18,7 @@ int Bot::get_ship_act(char *inp){
     XY xy[2];
     gen_rand_coord(xy);
     coord_to_char(xy, inp);
+    std::cout << "Bot input." << std::endl;
     return 0;
 }
 

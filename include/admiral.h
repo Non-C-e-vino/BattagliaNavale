@@ -2,6 +2,7 @@
 #define ADMIRAL_H
 #include <memory>
 #include "corazzata.h"
+#include "naveSupporto.h"
 #include "gameVars.h"
 
 
