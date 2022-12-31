@@ -146,7 +146,6 @@ int GameHandler::gen_ship_c(XY *shipC, XY (&xy)[2], int size, Admirals adm) cons
     //utile in fase di creazione e di spostamento
     //controlla: is free space, is alligned, in ship-coherent. (-1, -2, -3)
 
-    //
     int sign = -1;
     int dim = 1;
     if(xy[0].xy[0]==xy[1].xy[0])
