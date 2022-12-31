@@ -32,6 +32,8 @@ private:
     bool move_ship(Hull* h, XY& xy, Admirals adm);
 };
 
-//TODO: metodo sonar, metodo game end, migliorare tourn counter
+//TODO: metodo sonar, metodo gameover, migliorare turn counter, 
+//metodo eliminazione navi(singole e multiple, quest'ultimo prob distruttore di admiral) 
+//(dalla defGrid, dalla heap, da cores, da admiral::ships)
 
 #endif
