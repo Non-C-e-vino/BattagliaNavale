@@ -1,4 +1,4 @@
 # BattagliaNavale
 Progetto finale corso Laboratorio di Programmazione
 
-Status: incompleto
+Status: beta battaglia tra corazzate
