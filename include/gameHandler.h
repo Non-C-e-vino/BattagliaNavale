@@ -32,4 +32,6 @@ private:
     bool move_ship(Hull* h, XY& xy, Admirals adm);
 };
 
+//TODO: metodo sonar, metodo game end, migliorare tourn counter
+
 #endif

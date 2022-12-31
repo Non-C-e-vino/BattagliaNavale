@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.0)
 
 project(BattagliaNavale)
 
-include_directories(${CMAKE_SOURCE_DIR}/include)
+include_directories(include)
 
 add_executable(battaglia_navale src/battaglia_navale.cpp)
 
