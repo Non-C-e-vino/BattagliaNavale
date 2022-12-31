@@ -92,11 +92,12 @@ void gameLoops::init_loop(const std::unique_ptr<Player> (&player)[2], GameHandle
 void gameLoops::main_loop(const std::unique_ptr<Player> (&player)[2], GameHandler& gh, Logger& l, char (&playerInput)[6]){
 
     gh.set_cores();
+    int baseTurn = gh.get_turn();
 
-    for(int i = gh.get_turn(), once = gh.get_turn()-1; i < MAXTURNS;){
+    for(int i = baseTurn, once = gh.get_turn()-1; i < MAXTURNS;){
         if(once != i){
-            std::cout << "\nGiocatore " << (i + gh.get_coin())%2 +1<< ",\n"; 
-            std::cout << "inserire coppia di coordinate oppure [XX XX] [YY YY] [ZZ ZZ]" << std::endl;
+            std::cout << "\nGiocatore " << (i + gh.get_coin())%2 +1 << ", Turno " << gh.get_turn() - baseTurn + 1 <<  ".\n"; 
+            std::cout << "Inserire coppia di coordinate oppure [XX XX] [YY YY] [ZZ ZZ]" << std::endl;
             std::cout << "Coordinate nave e bersaglio:  ";
             ++once;
         }

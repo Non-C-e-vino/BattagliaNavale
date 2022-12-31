@@ -38,7 +38,8 @@ int GameHandler::set_ship(Admirals adm, ShipType st, XY (&xy)[2]){
 int GameHandler::ship_action(Admirals adm, XY (&xy)[2]){
     if(check_c_oob(xy[0])) return -1;
     Hull* h = admiral[(int)adm].defGrid[xy[0].xy[0]][xy[0].xy[1]];
-    if(h != nullptr && h->getOwner()->is_core(h) && !h->getOwner()->is_sunk())
+    if(h->getOwner()->is_sunk()) return -2;
+    if(h != nullptr && h->getOwner()->is_core(h))
         switch((int)(h->getOwner()->get_action())){
             case 0:
                 if(int err = action_fire(xy[1], adm))
@@ -52,9 +53,9 @@ int GameHandler::ship_action(Admirals adm, XY (&xy)[2]){
                 if(int err = action_move_search(xy[1], adm))
                     return err -10;
                 break;
-            default: return -3;
+            default: return -4;
         }
-    else return -2;
+    else return -3;
     return 0;
 }
 
@@ -64,7 +65,6 @@ int GameHandler::action_fire(XY& xy, Admirals adm){
     Hull* h = admiral[(int)enemy].defGrid[xy.xy[0]][xy.xy[1]];
     if(h != nullptr){
         h->set_hit();
-        h->getOwner()->set_damage();
         //destroy ship & remove from cores if sunk
         admiral[(int)adm].attGrid[xy.xy[0]][xy.xy[1]] = 'X';
     }else admiral[(int)adm].attGrid[xy.xy[0]][xy.xy[1]] = 'O';
@@ -106,8 +106,20 @@ void GameHandler::display_grids(Admirals adm) const {
         std::cout << "\t";
         for(int c = 0; c < GRIDSIZE; ++c){
             if (admiral[(int)adm].defGrid[i][c] == nullptr) std::cout << " ~";
-            else if(admiral[(int)adm].defGrid[i][c]->is_hit()) std::cout << " @";
-            else std::cout << " C";
+            else switch(admiral[(int)adm].defGrid[i][c]->getOwner()->get_size()){
+                case 5: 
+                    if(admiral[(int)adm].defGrid[i][c]->is_hit()) std::cout << " @";
+                    else std::cout << " C";
+                    break;
+                case 3:
+                    if(admiral[(int)adm].defGrid[i][c]->is_hit()) std::cout << " $";
+                    else std::cout << " S";
+                    break;
+                case 1:
+                    if(admiral[(int)adm].defGrid[i][c]->is_hit()) std::cout << " £";
+                    else std::cout << " E";
+                    break;
+            }
         }
         std::cout << "\t";
         for(int c = 0; c < GRIDSIZE; ++c){
