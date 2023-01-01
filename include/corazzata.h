@@ -5,7 +5,8 @@ class Corazzata : public Ship{
 public:
     Corazzata(XY *);
     Action get_action() const override{ return Action::Fire; }
-    //bool is_hit(XY &) const override;
+    bool full_heal(); 
+    bool heal(); 
     bool is_core(Hull *) const override; //possibilmente helper f 
     Hull* get_hull(int x) override { return &hull[x]; }
     int get_size() const override { return size; }

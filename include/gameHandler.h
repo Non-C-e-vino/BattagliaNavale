@@ -24,12 +24,14 @@ private:
     Admiral admiral[2];
     std::vector<Hull*> cores;
     int gen_ship_c(XY *, XY (&xy)[2], int, Admirals) const;
-    void set_ship_on_map(std::unique_ptr<Ship> &, Admirals);
-    void detach_ship_from_map(std::unique_ptr<Ship> &);
+    void set_ship_on_map(std::unique_ptr<Ship>& , Admirals);
+    void set_ship_on_map(Ship*, Admirals);
+    void detach_ship_from_map(Ship*, Admirals);
     int action_fire(XY&, Admirals);
-    int action_move_heal(Hull* h, XY& xy, Admirals adm);
+    int action_move_heal(Hull*, XY&, Admirals);
     int action_move_search(XY&, Admirals);
-    bool move_ship(Hull* h, XY& xy, Admirals adm);
+    bool move_ship(Hull*, XY&, Admirals);
+    void heal_aoe(Hull*, Admirals);
 };
 
 //TODO: metodo sonar, metodo gameover, migliorare turn counter, 

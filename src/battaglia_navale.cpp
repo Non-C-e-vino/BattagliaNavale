@@ -6,6 +6,10 @@ void argsError();
 
 int main(int argc, char *argv[]){
     
+    XY offset = XY{3,3} - XY{6,6};
+
+    std::cout << offset.xy[0] << "  " << offset.xy[1] <<"\n";
+
     GameHandler g{}; 
     bool pc;
 

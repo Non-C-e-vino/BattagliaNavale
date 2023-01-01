@@ -56,12 +56,26 @@ bool XY::operator==(const XY&ref){
     return false;
 }
 
-bool XY::operator!=(const XY&ref){
+bool XY::operator!=(const XY& ref){
     if(*this == ref) return false;
     return true;
 }
 
-bool check_c_oob(XY &c) {
+XY XY::operator+=(const XY& ref){
+    xy[0] += ref.xy[0];
+    xy[1] += ref.xy[1];
+    return *this;
+}
+
+XY operator-(const XY& c1, const XY& c2){
+    return XY{c1.xy[0]-c2.xy[0], c1.xy[1]-c2.xy[1]};   
+}
+
+XY operator+(const XY& c1, const XY& c2){
+    return XY {c1.xy[0]+c2.xy[0], c1.xy[1]+c2.xy[1]};
+}
+
+bool check_c_oob(const XY& c) {
     if(c.xy[0] >= 0 && c.xy[0] < GRIDSIZE && c.xy[1] >= 0 && c.xy[1] < GRIDSIZE) return false;
     return true;
 }
