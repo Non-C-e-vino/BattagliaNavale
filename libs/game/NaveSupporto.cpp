@@ -23,6 +23,5 @@ bool NaveSupporto::full_heal(){
 bool NaveSupporto::heal(){
     if(hp == size) return false;
     ++hp;
-    std::cout << "HEAL\n\n\nXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n\n\n" << std::endl;
     return true;
 }
