@@ -3,6 +3,6 @@
 
 int constexpr GRIDSIZE = 12;
 int constexpr SHIPSN = 12;
-int constexpr MAXTURNS = 500;
+int constexpr MAXTURNS = 1000;
 
 #endif

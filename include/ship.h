@@ -10,8 +10,9 @@ struct Hull;
 class Ship{
 public:
     virtual Action get_action() const = 0;
-    //virtual bool is_hit(XY &) const = 0;
-    bool set_damage(); 
+    bool set_damage();
+    virtual bool full_heal() = 0; 
+    virtual bool heal() = 0;
     virtual bool is_core(Hull *) const = 0;
     virtual Hull* get_hull(int x) = 0; 
     virtual int get_size() const = 0; 
@@ -27,9 +28,9 @@ public:
     Ship * getOwner(){ return owner; }
     bool is_hit() const { return !armor; }
     bool set_hit();
-    void heal(){ armor = true; }
     XY get_c() const { return c; }
     void set_c(XY &c){ this->c = c; }
+    bool heal();
 
 private:
     XY c; 

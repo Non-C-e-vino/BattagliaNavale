@@ -112,7 +112,7 @@ void gameLoops::main_loop(const std::unique_ptr<Player> (&player)[2], GameHandle
         coord_convert(xy, playerInput);
 
         //std::cout << "\n" << (i + coin)%2 << ' ' << xy[0].xy[0] << ' '  << xy[0].xy[1] << ' '  << xy[1].xy[0] << ' '  << xy[1].xy[1] << '\n';
- 
+
         if(xy[0]==XY{-1, -1}){
             gh.display_grids(Admirals((i + gh.get_coin())%2));
             continue;
@@ -125,7 +125,6 @@ void gameLoops::main_loop(const std::unique_ptr<Player> (&player)[2], GameHandle
             gh.clear_miss_sonar(Admirals((i + gh.get_coin())%2));
             continue;
         }
-
         if(int err = gh.ship_action(Admirals((i + gh.get_coin())%2), xy)){
             std::cout << "Coordinate non valide: " << err << std::endl;
             continue;
