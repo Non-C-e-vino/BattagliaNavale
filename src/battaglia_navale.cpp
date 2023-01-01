@@ -5,12 +5,12 @@
 void argsError();
 
 int main(int argc, char *argv[]){
-    
-    XY offset = XY{3,3} - XY{6,6};
 
-    std::cout << offset.xy[0] << "  " << offset.xy[1] <<"\n";
-
-    GameHandler g{}; 
+    if(SHIPSN%2){
+        std::cout << "Il numero totale delle navi in gioco deve essere pari.";
+        return 0;
+    }
+     
     bool pc;
 
     if(argc != 2){

@@ -35,6 +35,37 @@ int GameHandler::set_ship(Admirals adm, ShipType st, XY (&xy)[2]){
     return 0;
 }
 
+int GameHandler::gen_ship_c(XY *shipC, XY (&xy)[2], int size, Admirals adm) const {
+    //da due coord. restituisce un array di coordinate contigne (dove sarà la barca)
+    //utile in fase di creazione e di spostamento
+    //controlla: is free space, is alligned, in ship-coherent. (-1, -2, -3)
+
+    int sign = -1;
+    int dim = 1;
+    if(xy[0].xy[0]==xy[1].xy[0])
+        if(xy[0].xy[1]<=xy[1].xy[1]) sign = 0;
+        else sign = 1;
+    if(xy[0].xy[1]==xy[1].xy[1]){
+        dim = 0;
+        if(xy[0].xy[0]<=xy[1].xy[0]) sign = 0;
+        else sign = 1;
+    }
+    if(sign == -1) return -1;
+
+    XY c = xy[0];
+    for(int i = 0; i < size; i++){
+        if(admiral[(int)adm].defGrid[c.xy[0]][c.xy[1]] != nullptr) return -2;
+        shipC[i] = c;
+        //std::cout << "\n" << c.xy[0] << ' ' << "\n" << c.xy[1] << '\n';
+        if(sign) --c.xy[dim];
+        else ++c.xy[dim];
+    }
+
+    if(shipC[size-1] != xy[1]) return -3;
+    
+    return 0;
+}
+
 int GameHandler::ship_action(Admirals adm, XY (&xy)[2]){
     if(check_c_oob(xy[0])) return -1;
     Hull* h = admiral[(int)adm].defGrid[xy[0].xy[0]][xy[0].xy[1]];
@@ -165,37 +196,6 @@ void GameHandler::clear_miss_sonar(Admirals adm){
     return;
 }
 
-int GameHandler::gen_ship_c(XY *shipC, XY (&xy)[2], int size, Admirals adm) const {
-    //da due coord. restituisce un array di coordinate contigne (dove sarà la barca)
-    //utile in fase di creazione e di spostamento
-    //controlla: is free space, is alligned, in ship-coherent. (-1, -2, -3)
-
-    int sign = -1;
-    int dim = 1;
-    if(xy[0].xy[0]==xy[1].xy[0])
-        if(xy[0].xy[1]<=xy[1].xy[1]) sign = 0;
-        else sign = 1;
-    if(xy[0].xy[1]==xy[1].xy[1]){
-        dim = 0;
-        if(xy[0].xy[0]<=xy[1].xy[0]) sign = 0;
-        else sign = 1;
-    }
-    if(sign == -1) return -1;
-
-    XY c = xy[0];
-    for(int i = 0; i < size; i++){
-        if(admiral[(int)adm].defGrid[c.xy[0]][c.xy[1]] != nullptr) return -2;
-        shipC[i] = c;
-        //std::cout << "\n" << c.xy[0] << ' ' << "\n" << c.xy[1] << '\n';
-        if(sign) --c.xy[dim];
-        else ++c.xy[dim];
-    }
-
-    if(shipC[size-1] != xy[1]) return -3;
-    
-    return 0;
-}
-
 void GameHandler::set_ship_on_map(std::unique_ptr<Ship>& ship, Admirals adm){
     //fa si che le corrette caselle della gliglia di difesa puntino ai relativi scafi che le occupano  (movimento e creazione)
     for(int i = 0; i < ship->get_size(); i++){
@@ -236,7 +236,7 @@ bool GameHandler::next_turn() {
     return true; 
 }
 
-void GameHandler::throw_coin() {
+void GameHandler::flip_coin() {
     coin = rand()%2; 
     return; 
 }

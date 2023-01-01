@@ -16,7 +16,7 @@ public:
     void set_cores();
     bool next_turn();
     int get_turn(){ return turn; }
-    void throw_coin();
+    void flip_coin();
     int get_coin(){ return (int)coin; }
 private:
     int turn = 0;
