@@ -3,7 +3,9 @@
 #include "ship.h"
 class Ricognitore : public Ship{
 public:
+    Ricognitore(const Ricognitore&) = delete;
     Ricognitore(XY *);
+    Ricognitore operator=(const Ricognitore&) = delete;
     Action get_action() const override{ return Action::MoveAndSearch; }
     bool full_heal(); 
     bool heal();  

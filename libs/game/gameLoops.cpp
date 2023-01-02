@@ -15,9 +15,9 @@ void gameLoops::game_loop(bool pc){
     gh.flip_coin();
     char playerInput[6];
     
-    std::cout << "---Fase preparatoria---" << std::endl;
+    std::cout << "\n\n---Fase preparatoria---" << std::endl;
     init_loop(player, gh, l, playerInput);
-    std::cout << "---Fase di combattimento---" << std::endl;
+    std::cout << "\n\n---Fase di combattimento---" << std::endl;
     main_loop(player, gh, l, playerInput);
 }
 
@@ -60,7 +60,8 @@ void gameLoops::init_loop(const std::unique_ptr<Player> (&player)[2], GameHandle
         }
 
         if(int err = player[activePlayer]->get_ship_pos(playerInput)){
-            std::cout << "Formato input non valido: " << err << std::endl;
+            //std::cout << "Formato input non valido: " << err << std::endl;
+            std::cout << "Formato input non valido. Riprova: ";
             continue;
         }
 
@@ -82,7 +83,8 @@ void gameLoops::init_loop(const std::unique_ptr<Player> (&player)[2], GameHandle
         }
 
         if(int err = gh.set_ship(activePlayer, ShipType(shipType), xy)){
-            std::cout << "Posizione non valida: " << err << std::endl;
+            //std::cout << "Posizione non valida: " << err << std::endl;
+            std::cout << "Posizione non valida. Riprova: ";
             continue;
         }
         std::cout << "Schieramento riuscito." << std::endl;
@@ -108,7 +110,8 @@ void gameLoops::main_loop(const std::unique_ptr<Player> (&player)[2], GameHandle
         }
 
         if(int err = player[activePlayer]->get_ship_act(playerInput)){
-            std::cout << "Formato input non valido: " << err << std::endl;
+            //std::cout << "Formato input non valido: " << err << std::endl;
+            std::cout << "Formato input non valido. Riprova: ";
             continue;
         }
 
@@ -129,7 +132,8 @@ void gameLoops::main_loop(const std::unique_ptr<Player> (&player)[2], GameHandle
             continue;
         }
         if(int err = gh.ship_action(activePlayer, xy)){
-            std::cout << "Coordinate non valide: " << err << std::endl;
+            //std::cout << "Coordinate non valide: " << err << std::endl;
+            std::cout << "Coordinate non valide. Riprova: ";
             continue;
         }
         std::cout << "Azione avvenuta." << std::endl;
@@ -143,4 +147,3 @@ void gameLoops::main_loop(const std::unique_ptr<Player> (&player)[2], GameHandle
         gh.next_turn();
     }while(gh.get_turn() < MAXTURNS);
 }
-

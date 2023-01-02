@@ -3,7 +3,9 @@
 #include "ship.h"
 class Corazzata : public Ship{
 public:
+    Corazzata(const Corazzata&) = delete;
     Corazzata(XY *);
+    Corazzata operator=(const Corazzata&) = delete;
     Action get_action() const override{ return Action::Fire; }
     bool full_heal(); 
     bool heal(); 

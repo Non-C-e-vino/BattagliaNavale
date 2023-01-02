@@ -1,6 +1,6 @@
 #include "ricognitore.h"
 
-Ricognitore::Ricognitore(XY * xy) {
+Ricognitore::Ricognitore(XY * xy){
     hp = size;
     hull[0] = Hull{this, xy[0]};
 }

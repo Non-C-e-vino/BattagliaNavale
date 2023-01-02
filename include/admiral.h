@@ -10,6 +10,9 @@
 enum Admirals{ RedAdm, BlueAdm };
 
 struct Admiral{
+    Admiral(void){};
+    Admiral(const Admiral&) = delete;
+    Admiral operator=(const Admiral&) = delete; //non dovrebbe essere necessario con C++ 11
     Hull *defGrid[GRIDSIZE][GRIDSIZE];
     char attGrid[GRIDSIZE][GRIDSIZE];
     Ship *ships[SHIPSN/2];
@@ -20,7 +23,6 @@ struct Admiral{
     //  flessibile (?troppo): vettore di puntatori a generiche navi
     void delete_ship(Ship*);
     void add_ship(std::unique_ptr<Ship>&);
-    //MANCA IL DISTRUTTORE
     ~Admiral();
 };
     

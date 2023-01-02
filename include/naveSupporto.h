@@ -3,7 +3,9 @@
 #include "ship.h"
 class NaveSupporto : public Ship{
 public:
+    NaveSupporto(const NaveSupporto&) = delete;
     NaveSupporto(XY *);
+    NaveSupporto operator=(const NaveSupporto&) = delete;
     Action get_action() const override{ return Action::MoveAndRepair; }
     bool full_heal(); 
     bool heal();  

@@ -1,8 +1,7 @@
 #include "naveSupporto.h"
 #include <iostream>
 
-
-NaveSupporto::NaveSupporto(XY * xy) {
+NaveSupporto::NaveSupporto(XY* xy){
     hp = size;
     for(int i = 0; i < size; ++i)
         hull[i] = Hull{this, xy[i]};
