@@ -6,8 +6,8 @@ enum Rotation{ vert, oriz };
 struct XY{
     XY(int x = 0, int y = 0);
     int xy[2]; 
-    bool operator==(const XY&);
-    bool operator!=(const XY&);
+    bool operator==(const XY&) const;
+    bool operator!=(const XY&) const;
     XY operator+=(const XY&);
 };
 XY operator-(const XY&, const XY&);

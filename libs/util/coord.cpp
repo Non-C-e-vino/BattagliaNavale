@@ -51,12 +51,12 @@ void coord_to_char(XY (&xy)[2], char *inp){
 
 XY::XY(int x, int y) : xy{x,y} {};
 
-bool XY::operator==(const XY&ref){
+bool XY::operator==(const XY&ref) const {
     if(this->xy[0] == ref.xy[0]  && this->xy[1] == ref.xy[1]) return true;
     return false;
 }
 
-bool XY::operator!=(const XY& ref){
+bool XY::operator!=(const XY& ref) const {
     if(*this == ref) return false;
     return true;
 }
