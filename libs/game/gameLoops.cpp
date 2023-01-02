@@ -41,7 +41,8 @@ void gameLoops::init_loop(const std::unique_ptr<Player> (&player)[2], GameHandle
 
     for(int i = 0, once = -1; i < SHIPSN;){ 
         if(once != i){
-            if( i == CORA || i == SUPP+CORA ) --shipType;
+            if(i == CORA) --shipType;
+            if(i == SUPP+CORA) --shipType;
             std::cout << "\nGiocatore " << (i + coin)%2 + 1 << ",\n"; 
             std::cout << "inserire coppia di coordinate oppure [XX XX] [YY YY] [ZZ ZZ]" << std::endl;
             std::cout << "Coordinate nave " << i/2 + 1;
@@ -133,7 +134,12 @@ void gameLoops::main_loop(const std::unique_ptr<Player> (&player)[2], GameHandle
             continue;
         }
         std::cout << "Azione avvenuta." << std::endl;
-        gh.display_grids(Admirals((i + coin)%2)); //TEMP
+        gh.remove_all_sunk(Admirals((i + coin+1)%2));
+        if(gh.game_end(Admirals((i + coin+1)%2))){
+            std::cout << "Vince il giocatore " << (i + coin)%2 + 1 << "!" << std::endl;
+            return;
+        }
+        gh.display_grids(Admirals((i + coin+1)%2)); //TEMP
         gh.next_turn();
         ++i;
         l.log(playerInput);

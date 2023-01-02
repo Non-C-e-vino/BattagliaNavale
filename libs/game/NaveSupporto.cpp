@@ -15,8 +15,7 @@ bool NaveSupporto::is_core(Hull* ref) const{
 
 bool NaveSupporto::full_heal(){
     if(hp == size) return false;
-    for(int i = 0; i < size; ++i)
-        hull[i].heal();
+    hull[0].heal();
     return true;
 }
 

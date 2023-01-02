@@ -15,9 +15,12 @@ public:
     Hull* get_core(int);
     void set_cores();
     bool next_turn();
+    bool game_end(Admirals adm);
     int get_turn(){ return turn; }
     void flip_coin();
     int get_coin(){ return (int)coin; }
+    int get_active_ships_n(Admirals adm){ return admiral[(int)adm].shipC; }
+    void remove_all_sunk(Admirals);
 private:
     int turn = 0;
     bool coin;
@@ -29,13 +32,12 @@ private:
     void detach_ship_from_map(Ship*, Admirals);
     int action_fire(XY&, Admirals);
     int action_move_heal(Hull*, XY&, Admirals);
-    int action_move_search(XY&, Admirals);
+    int action_move_search(Hull*, XY&, Admirals);
     bool move_ship(Hull*, XY&, Admirals);
     void heal_aoe(Hull*, Admirals);
+    void ricognizione(XY&, Admirals);
 };
 
-//TODO: metodo sonar, metodo gameover, migliorare turn counter, 
-//metodo eliminazione navi(singole e multiple, quest'ultimo prob distruttore di admiral) 
-//(dalla defGrid, dalla heap, da cores, da admiral::ships)
+//TODO: migliorare turn counter, 
 
 #endif
