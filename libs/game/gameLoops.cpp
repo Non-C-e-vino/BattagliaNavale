@@ -15,9 +15,9 @@ void gameLoops::game_loop(bool pc){
     gh.flip_coin();
     char playerInput[6];
     
-    std::cout << "\n\n---Fase preparatoria---" << std::endl;
+    std::cout << "\n\n-----Fase di schieramento-----" << std::endl;
     init_loop(player, gh, l, playerInput);
-    std::cout << "\n\n---Fase di combattimento---" << std::endl;
+    std::cout << "\n\n-----Fase di combattimento-----" << std::endl;
     main_loop(player, gh, l, playerInput);
 }
 
@@ -39,7 +39,7 @@ void gameLoops::init_loop(const std::unique_ptr<Player> (&player)[2], GameHandle
     int shipType = 2;
     int once = -1;
 
-    do{ 
+    while(gh.get_turn() < SHIPSN && gh.get_turn() < MAXTURNS){ 
         Admirals activePlayer = Admirals((gh.get_turn() + gh.get_coin())%2);
 
         if(once != gh.get_turn()){
@@ -91,7 +91,7 @@ void gameLoops::init_loop(const std::unique_ptr<Player> (&player)[2], GameHandle
         gh.display_grids(activePlayer); //TEMP
         l.log(playerInput);
         gh.next_turn();
-    }while(gh.get_turn() < SHIPSN);
+    }
 }
 
 void gameLoops::main_loop(const std::unique_ptr<Player> (&player)[2], GameHandler& gh, Logger& l, char (&playerInput)[6]){
@@ -99,7 +99,7 @@ void gameLoops::main_loop(const std::unique_ptr<Player> (&player)[2], GameHandle
     gh.set_cores();
     int once = gh.get_turn()-1;
 
-    do{
+    while(gh.get_turn() < MAXTURNS){
         Admirals activePlayer = Admirals((gh.get_turn() + gh.get_coin())%2);
 
         if(once != gh.get_turn()){
@@ -145,5 +145,5 @@ void gameLoops::main_loop(const std::unique_ptr<Player> (&player)[2], GameHandle
         gh.display_grids(Admirals((gh.get_turn() + gh.get_coin() + 1)%2)); //TEMP
         l.log(playerInput);
         gh.next_turn();
-    }while(gh.get_turn() < MAXTURNS);
+    }
 }
