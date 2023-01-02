@@ -20,7 +20,7 @@ Una volta buildato il progetto, saranno prodotti due eseguibili. Per giocare a b
 ```
 L'estensione puo' essere diversa
 
-Per vedere i replay:
+Per riguardare le partite:
 ```bash
 ./<percorso dove e' stato salvato l'eseguibile>/replay.exe
 ```
