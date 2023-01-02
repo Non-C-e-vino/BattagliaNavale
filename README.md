@@ -24,3 +24,5 @@ Per vedere i replay:
 ```bash
 ./<percorso dove e' stato salvato l'eseguibile>/replay.exe
 ```
+## Note
+Allo stato attuale e' possibile modificare alcune variabili di gioco, quali numero navi per tipo, grandezza griglia di gioco, numero massimo turni, modificando il file gameVars.h (sara' necessario un rebuild). Per visualizzare correttamnete un replay, le variabili devono essere nello stesso stato di quando e' stata disputata la partita salvata.
