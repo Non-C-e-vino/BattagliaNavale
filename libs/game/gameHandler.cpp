@@ -196,12 +196,17 @@ void GameHandler::display_grids(Admirals adm) const {
 }
 
 void GameHandler::clear_att_grid(Admirals adm){
-    //...
+    for(int i = 0; i < GRIDSIZE; ++i)
+        for(int c = 0; c < GRIDSIZE; ++c)
+            admiral[adm].attGrid[i][c] = 0;
     return;
 }
 
 void GameHandler::clear_miss_sonar(Admirals adm){
-    //...
+    for(int i = 0; i < GRIDSIZE; ++i)
+        for(int c = 0; c < GRIDSIZE; ++c)
+            if(admiral[adm].attGrid[i][c] == 'O' || admiral[adm].attGrid[i][c] == 'Y')
+                admiral[adm].attGrid[i][c] = 0;
     return;
 }
 

@@ -2,10 +2,10 @@
 #define GAMEVARS_H
 
 int constexpr GRIDSIZE = 12;
-int constexpr CORA = 6;
-int constexpr SUPP = 16;
-int constexpr ESPL = 6;
+int constexpr CORA = 12;
+int constexpr SUPP = 0;
+int constexpr ESPL = 20;
 int constexpr SHIPSN = CORA + SUPP + ESPL;
-int constexpr MAXTURNS = 10000; //conta i turni iniziali
+int constexpr MAXTURNS = 150; //conta i turni iniziali
 
 #endif

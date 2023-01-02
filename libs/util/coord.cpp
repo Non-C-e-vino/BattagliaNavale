@@ -45,7 +45,7 @@ void coord_to_char(XY (&xy)[2], char *inp){
         ++i;
     }
     if(i < 6) inp [i] = '\0';
-    std::cout << inp;
+    //std::cout << inp;
     return;
 }
 

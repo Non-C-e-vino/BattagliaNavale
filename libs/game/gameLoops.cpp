@@ -36,28 +36,30 @@ void gameLoops::replay_loop(){
 
 void gameLoops::init_loop(const std::unique_ptr<Player> (&player)[2], GameHandler& gh, Logger& l, char (&playerInput)[6]){
 
-    int coin = gh.get_coin();
     int shipType = 2;
+    int once = -1;
 
-    for(int i = 0, once = -1; i < SHIPSN;){ 
-        if(once != i){
-            if(i == CORA) --shipType;
-            if(i == SUPP+CORA) --shipType;
-            std::cout << "\nGiocatore " << (i + coin)%2 + 1 << ",\n"; 
-            std::cout << "inserire coppia di coordinate oppure [XX XX] [YY YY] [ZZ ZZ]" << std::endl;
-            std::cout << "Coordinate nave " << i/2 + 1;
-            switch(i/6){
-                case 0: std::cout << ", corazzata: ";
+    do{ 
+        Admirals activePlayer = Admirals((gh.get_turn() + gh.get_coin())%2);
+
+        if(once != gh.get_turn()){
+            if(gh.get_turn() == CORA) --shipType;
+            if(gh.get_turn() == SUPP+CORA) --shipType;
+            std::cout << "\nGiocatore " << activePlayer + 1 << ", Turno " << gh.get_turn() + 1 <<  ".\n"; 
+            std::cout << "Inseri coppia di coordinate oppure [XX XX] [YY YY] [ZZ ZZ]" << std::endl;
+            std::cout << "Coordinate ";
+            switch(gh.get_turn()/6){
+                case 0: std::cout << "corazzata: ";
                 break;
-                case 1: std::cout << ", nave di supporto: ";
+                case 1: std::cout << "nave di supporto: ";
                 break;
-                case 2: std::cout << ", sottomarino: ";
+                case 2: std::cout << "Sottomarino di esplorazione: ";
                 break;
             }
             ++once;
         }
 
-        if(int err = player[(i + coin)%2]->get_ship_pos(playerInput)){
+        if(int err = player[activePlayer]->get_ship_pos(playerInput)){
             std::cout << "Formato input non valido: " << err << std::endl;
             continue;
         }
@@ -65,48 +67,47 @@ void gameLoops::init_loop(const std::unique_ptr<Player> (&player)[2], GameHandle
         XY xy[2];
 
         coord_convert(xy, playerInput);
-
-        //std::cout << "\n" << (i + coin)%2 << ' ' << xy[0].xy[0] << ' '  << xy[0].xy[1] << ' '  << xy[1].xy[0] << ' '  << xy[1].xy[1] << '\n';
  
         if(xy[0]==XY{-1, -1}){
-            gh.display_grids(Admirals((i + coin)%2));
+            gh.display_grids(activePlayer);
             continue;
         }
         if(xy[0]==XY{-2, -2}){
-            gh.clear_att_grid(Admirals((i + coin)%2));
+            gh.clear_att_grid(activePlayer);
             continue;
         }
         if(xy[0]==XY{-3, -3}){
-            gh.clear_miss_sonar(Admirals((i + coin)%2));
+            gh.clear_miss_sonar(activePlayer);
             continue;
         }
 
-        if(int err = gh.set_ship(Admirals((i + coin)%2), ShipType(shipType), xy)){
+        if(int err = gh.set_ship(activePlayer, ShipType(shipType), xy)){
             std::cout << "Posizione non valida: " << err << std::endl;
             continue;
         }
         std::cout << "Schieramento riuscito." << std::endl;
-        gh.display_grids(Admirals((i + coin)%2)); //TEMP
-        gh.next_turn();
-        ++i;
+        gh.display_grids(activePlayer); //TEMP
         l.log(playerInput);
-    }
+        gh.next_turn();
+    }while(gh.get_turn() < SHIPSN);
 }
 
 void gameLoops::main_loop(const std::unique_ptr<Player> (&player)[2], GameHandler& gh, Logger& l, char (&playerInput)[6]){
 
     gh.set_cores();
-    int coin = gh.get_coin();
+    int once = gh.get_turn()-1;
 
-    for(int i = gh.get_turn(), once = gh.get_turn()-1; i < MAXTURNS;){
-        if(once != i){
-            std::cout << "\nGiocatore " << (i + coin)%2 +1 << ", Turno " << gh.get_turn() + 1 <<  ".\n"; 
+    do{
+        Admirals activePlayer = Admirals((gh.get_turn() + gh.get_coin())%2);
+
+        if(once != gh.get_turn()){
+            std::cout << "\nGiocatore " << activePlayer + 1 << ", Turno " << gh.get_turn() + 1 <<  ".\n"; 
             std::cout << "Inserire coppia di coordinate oppure [XX XX] [YY YY] [ZZ ZZ]" << std::endl;
             std::cout << "Coordinate nave e bersaglio:  ";
             ++once;
         }
 
-        if(int err = player[(i + coin)%2]->get_ship_act(playerInput)){
+        if(int err = player[activePlayer]->get_ship_act(playerInput)){
             std::cout << "Formato input non valido: " << err << std::endl;
             continue;
         }
@@ -115,34 +116,31 @@ void gameLoops::main_loop(const std::unique_ptr<Player> (&player)[2], GameHandle
 
         coord_convert(xy, playerInput);
 
-        //std::cout << "\n" << (i + coin)%2 << ' ' << xy[0].xy[0] << ' '  << xy[0].xy[1] << ' '  << xy[1].xy[0] << ' '  << xy[1].xy[1] << '\n';
-
         if(xy[0]==XY{-1, -1}){
-            gh.display_grids(Admirals((i + coin)%2));
+            gh.display_grids(activePlayer);
             continue;
         }
         if(xy[0]==XY{-2, -2}){
-            gh.clear_att_grid(Admirals((i + coin)%2));
+            gh.clear_att_grid(activePlayer);
             continue;
         }
         if(xy[0]==XY{-3, -3}){
-            gh.clear_miss_sonar(Admirals((i + coin)%2));
+            gh.clear_miss_sonar(activePlayer);
             continue;
         }
-        if(int err = gh.ship_action(Admirals((i + coin)%2), xy)){
+        if(int err = gh.ship_action(activePlayer, xy)){
             std::cout << "Coordinate non valide: " << err << std::endl;
             continue;
         }
         std::cout << "Azione avvenuta." << std::endl;
-        gh.remove_all_sunk(Admirals((i + coin+1)%2));
-        if(gh.game_end(Admirals((i + coin+1)%2))){
-            std::cout << "Vince il giocatore " << (i + coin)%2 + 1 << "!" << std::endl;
+        gh.remove_all_sunk(Admirals((activePlayer + 1)%2));
+        if(gh.game_end(Admirals((activePlayer + 1)%2))){
+            std::cout << "Vince il giocatore " << activePlayer + 1 << "!" << std::endl;
             return;
         }
-        gh.display_grids(Admirals((i + coin+1)%2)); //TEMP
-        gh.next_turn();
-        ++i;
+        gh.display_grids(Admirals((gh.get_turn() + gh.get_coin() + 1)%2)); //TEMP
         l.log(playerInput);
-    }
+        gh.next_turn();
+    }while(gh.get_turn() < MAXTURNS);
 }
 
