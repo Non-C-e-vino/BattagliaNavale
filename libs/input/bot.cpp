@@ -53,7 +53,10 @@ void Bot::gen_rand_ship_coord(XY (&xy)[2]) const {
     //std::cout << "\n" << xy[0].xy[0] << ' '  << xy[0].xy[1] << ' '  << xy[1].xy[0] << ' '  << xy[1].xy[1] << '\n';
 }
 void Bot::gen_rand_coord(XY (&xy)[2]) const {
-    xy[0] = gh->get_core(rand()%(SHIPSN/2) + (SHIPSN/2)*((gh->get_turn() + gh->get_coin())%2))->get_c();
+    if(Admirals((gh->get_turn() + gh->get_coin())%2) == RedAdm)
+        xy[0] = gh->get_core(rand()%gh->get_active_ships_n(RedAdm))->get_c();
+    else
+        xy[0] = gh->get_core(gh->get_active_ships_n(RedAdm) + rand()%gh->get_active_ships_n(BlueAdm))->get_c();
     xy[1].xy[0] = rand() % GRIDSIZE;
     xy[1].xy[1] = rand() % GRIDSIZE;
 }

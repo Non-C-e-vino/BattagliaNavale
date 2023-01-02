@@ -3,6 +3,7 @@
 #include <memory>
 #include "corazzata.h"
 #include "naveSupporto.h"
+#include "ricognitore.h"
 #include "gameVars.h"
 
 
@@ -12,13 +13,16 @@ struct Admiral{
     Hull *defGrid[GRIDSIZE][GRIDSIZE];
     char attGrid[GRIDSIZE][GRIDSIZE];
     Ship *ships[SHIPSN/2];
-    int shipLc = 0;
+    int shipC = 0;
     //ipoteticamente ci sono 3 opzioni per i data memb:
     //  meno flessibile: 3 array per 3 tipi di navi
     //  medio flessibile: array di puntatori a generiche navi <-----------
     //  flessibile (?troppo): vettore di puntatori a generiche navi
+    void delete_ship(Ship*);
     void add_ship(std::unique_ptr<Ship>&);
     //MANCA IL DISTRUTTORE
+    ~Admiral();
 };
+    
 
 #endif
