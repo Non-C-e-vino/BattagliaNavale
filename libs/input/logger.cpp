@@ -3,6 +3,7 @@
 #include <fstream>
 #include <iostream>
 #include <memory>
+#include <cctype>
 
 Logger::Logger(std::string& fileName){
     std::unique_ptr<std::ifstream> ifs= std::make_unique<std::ifstream>(fileName);
@@ -11,6 +12,7 @@ Logger::Logger(std::string& fileName){
 }
 
 int Logger::read_log(char *inp){
+    if(!std::isalpha(ifsptr->peek())) return -1;
     if(ifsptr->is_open()){
         int i = 0;
         for(; ifsptr->peek() != '-'; ++i)

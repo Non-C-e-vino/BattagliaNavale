@@ -157,6 +157,8 @@ void GameHandler::ricognizione(XY& xy, Admirals adm){
 }
 
 void GameHandler::display_grids(Admirals adm) const {
+
+    //BARRE SUPERIORI
     std::cout << "\t----GRIGLIA DI DIFESA----\t----GRIGLIA D'ATTACCO----\n" << std::endl;
     std::cout << "\t";
 
@@ -164,6 +166,7 @@ void GameHandler::display_grids(Admirals adm) const {
     std::cout << "\t";
     for(int c = 0; c < GRIDSIZE; ++c) std::cout << ' ' <<  (c+1)%10;
 
+    //GRIGLIA DI ATTACCO
     std::cout << "\n";
     for(int i = 0; i < GRIDSIZE; ++i){
         std::cout << (char)('A' + i);
@@ -185,12 +188,13 @@ void GameHandler::display_grids(Admirals adm) const {
                     break;
             }
         }
+        //GRIGLIA DI DIFESA
         std::cout << "\t";
         for(int c = 0; c < GRIDSIZE; ++c){
             if (admiral[(int)adm].attGrid[i][c] == 0) std::cout << " ~";
             else std::cout << ' ' << admiral[(int)adm].attGrid[i][c];
         }
-        std::cout << "\n";
+        std::cout << std::endl;;
     }
     return;
 }

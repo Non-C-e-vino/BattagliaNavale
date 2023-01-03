@@ -5,6 +5,7 @@
 #include <string>
 #include <thread>
 #include <chrono>
+#include <cctype>
 
 void gameLoops::game_loop(bool pc){
     GameHandler gh{};
@@ -26,15 +27,15 @@ void gameLoops::game_loop(bool pc){
     main_loop(player, gh, playerInput);
 }
 
-void gameLoops::replay_loop(std::string& fileName){
+void gameLoops::replay_loop(std::string& fileName, bool delay){
     GameHandler gh{};
     Logger l(fileName);
     char playerInput[6];
     
     std::cout << "\n\n-----Fase di schieramento-----" << std::endl;
-    replay_init_loop(l, gh, playerInput);
+    replay_init_loop(l, gh, playerInput, delay);
     std::cout << "\n\n-----Fase di combattimento-----" << std::endl;
-    replay_main_loop(l, gh, playerInput);
+    replay_main_loop(l, gh, playerInput, delay);
 }
 
 void gameLoops::init_loop(const std::unique_ptr<Player> (&player)[2], GameHandler& gh, char (&playerInput)[6]){
@@ -57,7 +58,7 @@ void gameLoops::init_loop(const std::unique_ptr<Player> (&player)[2], GameHandle
                 break;
                 case 1: std::cout << "nave di supporto: ";
                 break;
-                case 2: std::cout << "Sottomarino di esplorazione: ";
+                case 2: std::cout << "sottomarino di esplorazione: ";
                 break;
             }
             ++once;
@@ -144,7 +145,7 @@ void gameLoops::main_loop(const std::unique_ptr<Player> (&player)[2], GameHandle
         std::cout << "Azione avvenuta." << std::endl;
         gh.remove_all_sunk(Admirals((activePlayer + 1)%2));
         if(gh.game_end(Admirals((activePlayer + 1)%2))){
-            std::cout << "Vince il giocatore " << activePlayer + 1 << "!" << std::endl;
+            std::cout << "\nVince il giocatore " << activePlayer + 1 << "!" << std::endl;
             return;
         }
         
@@ -152,36 +153,38 @@ void gameLoops::main_loop(const std::unique_ptr<Player> (&player)[2], GameHandle
     }
 }
 
-void gameLoops::replay_init_loop(Logger & l, GameHandler& gh, char (&playerInput)[6]){
+void gameLoops::replay_init_loop(Logger & l, GameHandler& gh, char (&playerInput)[6], bool delay){
 
     int shipType = 2;
-    int once = -1;
 
     while(gh.get_turn() < SHIPSN && gh.get_turn() < MAXTURNS){ 
 
-        std::this_thread::sleep_for(std::chrono::milliseconds(200));
-
         Admirals activePlayer = Admirals((gh.get_turn())%2);
 
-        if(once != gh.get_turn()){
-            if(gh.get_turn() == CORA) --shipType;
-            if(gh.get_turn() == SUPP+CORA) --shipType;
-            std::cout << "\nGiocatore " << activePlayer + 1 << ", Turno " << gh.get_turn() + 1 <<  ".\n"; 
-            std::cout << "Coordinate ";
-            switch(gh.get_turn()/6){
-                case 0: std::cout << "corazzata: ";
-                break;
-                case 1: std::cout << "nave di supporto: ";
-                break;
-                case 2: std::cout << "Sottomarino di esplorazione: ";
-                break;
-            }
-            ++once;
+        if(gh.get_turn() == CORA) --shipType;
+        if(gh.get_turn() == SUPP+CORA) --shipType;
+        std::cout << "\nGiocatore " << activePlayer + 1 << ", Turno " << gh.get_turn() + 1 <<  ".\n"; 
+        std::cout << "Coordinate ";
+        switch(gh.get_turn()/6){
+            case 0: std::cout << "corazzata: ";
+            break;
+            case 1: std::cout << "nave di supporto: ";
+            break;
+            case 2: std::cout << "sottomarino di esplorazione: ";
+            break;
         }
 
-        l.read_log(playerInput);
+        if(l.read_log(playerInput)){
+            std::cout << "Partita tarminata prematuramente."<< std::endl;
+            return;
+        }
 
-        std::cout << playerInput << std::endl;
+        std::cout << playerInput[0];
+        for(int i = 1; i < 6 && playerInput[i] != '\0'; ++i){
+            if(std::isalpha(playerInput[i])) std::cout << ' ';
+            std::cout << playerInput[i];
+        }
+        std::cout << "\n "<< std::endl;
 
         XY xy[2];
 
@@ -190,12 +193,13 @@ void gameLoops::replay_init_loop(Logger & l, GameHandler& gh, char (&playerInput
         gh.set_ship(activePlayer, ShipType(shipType), xy);
         gh.display_grids(activePlayer);
         gh.next_turn();
+
+        if(delay) std::this_thread::sleep_for(std::chrono::seconds(1));
     }
 }
 
-void gameLoops::replay_main_loop(Logger & l, GameHandler& gh, char (&playerInput)[6]){
+void gameLoops::replay_main_loop(Logger & l, GameHandler& gh, char (&playerInput)[6], bool delay){
 
-    std::this_thread::sleep_for(std::chrono::milliseconds(200));
     gh.set_cores();
 
     while(gh.get_turn() < MAXTURNS){
@@ -204,7 +208,17 @@ void gameLoops::replay_main_loop(Logger & l, GameHandler& gh, char (&playerInput
         std::cout << "\nGiocatore " << activePlayer + 1 << ", Turno " << gh.get_turn() + 1 <<  ".\n"; 
         std::cout << "Coordinate nave e bersaglio:  ";
 
-        l.read_log(playerInput);
+        if(l.read_log(playerInput)){
+            std::cout << "Partita tarminata prematuramente."<< std::endl;
+            return;
+        }
+        
+        std::cout << playerInput[0];
+        for(int i = 1; i < 6 && playerInput[i] != '\0'; ++i){
+            if(std::isalpha(playerInput[i])) std::cout << ' ';
+            std::cout << playerInput[i];
+        }
+        std::cout << "\n "<< std::endl;
 
         XY xy[2];
 
@@ -215,10 +229,11 @@ void gameLoops::replay_main_loop(Logger & l, GameHandler& gh, char (&playerInput
         gh.display_grids(activePlayer);
 
         if(gh.game_end(Admirals((activePlayer + 1)%2)) || gh.game_end(activePlayer)){
-            std::cout << "Vince il giocatore " << activePlayer + 1 << "!" << std::endl;
+            std::cout << "\nVince il giocatore " << activePlayer + 1 << "!" << std::endl;
             return;
         }
-
         gh.next_turn();
+
+        if(delay) std::this_thread::sleep_for(std::chrono::seconds(1));
     }
 }
