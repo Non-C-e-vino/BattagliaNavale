@@ -22,11 +22,6 @@ int Bot::get_ship_act(char *inp){
     return 0;
 }
 
-int Bot::get_input(char *inp){
-    //non serve
-    return -1;
-}
-
 void Bot::gen_rand_ship_coord(XY (&xy)[2]) const {
     xy[0].xy[0] = rand() % GRIDSIZE;
     xy[0].xy[1] = rand() % GRIDSIZE;

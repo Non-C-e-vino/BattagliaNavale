@@ -1,18 +1,13 @@
 #include "replayer.h"
-#include<iostream>
+#include <iostream>
+#include <fstream>
 
 int Replayer::get_ship_pos(char *inp){
-    
+    l.read_log(inp);
     return 0;
 }
 
 int Replayer::get_ship_act(char *inp){
-    
-    return 0;
-}
-
-int Replayer::get_input(char *inp){
-    //read log file
-    std::cout << "INPUT_REPLAY\n";
+    l.read_log(inp);
     return 0;
 }

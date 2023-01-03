@@ -10,7 +10,6 @@ public:
     // ovviamente le gen va sepre a buon fine, return sempre = 0;
 private: 
     GameHandler* gh;
-    int get_input(char *) override;
     void gen_rand_coord(XY (&xy)[2]) const;
     void gen_rand_ship_coord(XY (&xy)[2]) const;
     // variabili tipo difficolta' in caso di ia non comp. randomica

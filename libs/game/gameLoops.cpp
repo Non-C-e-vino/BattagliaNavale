@@ -1,7 +1,11 @@
 #include "gameLoops.h"
+#include "logger.h"
 #include <cstdlib>
 #include <ctime>
-#include "logger.h"
+#include <string>
+#include <thread>
+#include <chrono>
+
 void gameLoops::game_loop(bool pc){
     GameHandler gh{};
     std::unique_ptr<Player> player[2];
@@ -11,35 +15,35 @@ void gameLoops::game_loop(bool pc){
     player[1] = std::make_unique<Bot>(&gh);
 
     srand(time(NULL));
-    Logger l;
     gh.flip_coin();
+    char playerInput[6];
+
+    Log::reset_log_file();
+    
+    std::cout << "\n\n-----Fase di schieramento-----" << std::endl;
+    init_loop(player, gh, playerInput);
+    std::cout << "\n\n-----Fase di combattimento-----" << std::endl;
+    main_loop(player, gh, playerInput);
+}
+
+void gameLoops::replay_loop(std::string& fileName){
+    GameHandler gh{};
+    Logger l(fileName);
     char playerInput[6];
     
     std::cout << "\n\n-----Fase di schieramento-----" << std::endl;
-    init_loop(player, gh, l, playerInput);
+    replay_init_loop(l, gh, playerInput);
     std::cout << "\n\n-----Fase di combattimento-----" << std::endl;
-    main_loop(player, gh, l, playerInput);
+    replay_main_loop(l, gh, playerInput);
 }
 
-void gameLoops::replay_loop(){
-    /*GameHandler gh{};
-    std::unique_ptr<Player> player[2];
-
-    player[0] = std::make_unique<Replayer>();
-    player[1] = std::make_unique<Replayer>();
-    
-    std::cout << "---Fase preparatoria---" << std::endl;
-    init_loop(player, gh, );
-    std::cout << "---Fase di combattimento---" << std::endl;
-    main_loop(player, gh);*/
-}
-
-void gameLoops::init_loop(const std::unique_ptr<Player> (&player)[2], GameHandler& gh, Logger& l, char (&playerInput)[6]){
+void gameLoops::init_loop(const std::unique_ptr<Player> (&player)[2], GameHandler& gh, char (&playerInput)[6]){
 
     int shipType = 2;
     int once = -1;
 
     while(gh.get_turn() < SHIPSN && gh.get_turn() < MAXTURNS){ 
+
         Admirals activePlayer = Admirals((gh.get_turn() + gh.get_coin())%2);
 
         if(once != gh.get_turn()){
@@ -89,13 +93,12 @@ void gameLoops::init_loop(const std::unique_ptr<Player> (&player)[2], GameHandle
         }
         std::cout << "Schieramento riuscito." << std::endl;
         gh.display_grids(activePlayer); //TEMP
-        l.log(playerInput);
+        Log::log(playerInput);
         gh.next_turn();
     }
 }
 
-void gameLoops::main_loop(const std::unique_ptr<Player> (&player)[2], GameHandler& gh, Logger& l, char (&playerInput)[6]){
-
+void gameLoops::main_loop(const std::unique_ptr<Player> (&player)[2], GameHandler& gh, char (&playerInput)[6]){
     gh.set_cores();
     int once = gh.get_turn()-1;
 
@@ -136,14 +139,86 @@ void gameLoops::main_loop(const std::unique_ptr<Player> (&player)[2], GameHandle
             std::cout << "Coordinate non valide. Riprova: ";
             continue;
         }
+        Log::log(playerInput);
+        //gh.display_grids(Admirals((gh.get_turn() + gh.get_coin() + 1)%2)); //TEMP
         std::cout << "Azione avvenuta." << std::endl;
         gh.remove_all_sunk(Admirals((activePlayer + 1)%2));
         if(gh.game_end(Admirals((activePlayer + 1)%2))){
             std::cout << "Vince il giocatore " << activePlayer + 1 << "!" << std::endl;
             return;
         }
-        gh.display_grids(Admirals((gh.get_turn() + gh.get_coin() + 1)%2)); //TEMP
-        l.log(playerInput);
+        
+        gh.next_turn();
+    }
+}
+
+void gameLoops::replay_init_loop(Logger & l, GameHandler& gh, char (&playerInput)[6]){
+
+    int shipType = 2;
+    int once = -1;
+
+    while(gh.get_turn() < SHIPSN && gh.get_turn() < MAXTURNS){ 
+
+        std::this_thread::sleep_for(std::chrono::milliseconds(200));
+
+        Admirals activePlayer = Admirals((gh.get_turn())%2);
+
+        if(once != gh.get_turn()){
+            if(gh.get_turn() == CORA) --shipType;
+            if(gh.get_turn() == SUPP+CORA) --shipType;
+            std::cout << "\nGiocatore " << activePlayer + 1 << ", Turno " << gh.get_turn() + 1 <<  ".\n"; 
+            std::cout << "Coordinate ";
+            switch(gh.get_turn()/6){
+                case 0: std::cout << "corazzata: ";
+                break;
+                case 1: std::cout << "nave di supporto: ";
+                break;
+                case 2: std::cout << "Sottomarino di esplorazione: ";
+                break;
+            }
+            ++once;
+        }
+
+        l.read_log(playerInput);
+
+        std::cout << playerInput << std::endl;
+
+        XY xy[2];
+
+        coord_convert(xy, playerInput);
+
+        gh.set_ship(activePlayer, ShipType(shipType), xy);
+        gh.display_grids(activePlayer);
+        gh.next_turn();
+    }
+}
+
+void gameLoops::replay_main_loop(Logger & l, GameHandler& gh, char (&playerInput)[6]){
+
+    std::this_thread::sleep_for(std::chrono::milliseconds(200));
+    gh.set_cores();
+
+    while(gh.get_turn() < MAXTURNS){
+        Admirals activePlayer = Admirals((gh.get_turn() + gh.get_coin())%2);
+
+        std::cout << "\nGiocatore " << activePlayer + 1 << ", Turno " << gh.get_turn() + 1 <<  ".\n"; 
+        std::cout << "Coordinate nave e bersaglio:  ";
+
+        l.read_log(playerInput);
+
+        XY xy[2];
+
+        coord_convert(xy, playerInput);
+
+        gh.ship_action(activePlayer, xy);
+        gh.remove_all_sunk(Admirals((activePlayer + 1)%2));
+        gh.display_grids(activePlayer);
+
+        if(gh.game_end(Admirals((activePlayer + 1)%2)) || gh.game_end(activePlayer)){
+            std::cout << "Vince il giocatore " << activePlayer + 1 << "!" << std::endl;
+            return;
+        }
+
         gh.next_turn();
     }
 }
