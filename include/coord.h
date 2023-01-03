@@ -15,5 +15,6 @@ XY operator+(const XY&, const XY&);
 void coord_convert(XY (&xy)[2], char (&inp)[6]);
 void coord_to_char(XY (&xy)[2], char* inp);
 bool check_c_oob(const XY &); //out of bounds
+void print_char_coord(char* playerInput);
 
 #endif

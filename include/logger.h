@@ -7,7 +7,8 @@
 namespace Log{
 
 void reset_log_file();
-void log(char*);
+void log_cinput(char*);
+void log_coin(int);
 
 };
 
@@ -15,6 +16,7 @@ class Logger{
 public:
     Logger(std::string&);
     int read_log(char *inp);
+    int read_coin_log();
     ~Logger(){
         ifsptr->close(); 
         delete ifsptr;

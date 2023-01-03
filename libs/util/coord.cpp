@@ -79,3 +79,12 @@ bool check_c_oob(const XY& c) {
     if(c.xy[0] >= 0 && c.xy[0] < GRIDSIZE && c.xy[1] >= 0 && c.xy[1] < GRIDSIZE) return false;
     return true;
 }
+
+void print_char_coord(char* playerInput){
+    std::cout << playerInput[0];
+    for(int i = 1; i < 6 && playerInput[i] != '\0'; ++i){
+        if(std::isalpha(playerInput[i])) std::cout << ' ';
+        std::cout << playerInput[i];
+    }
+    std::cout << "\n "<< std::endl;
+}

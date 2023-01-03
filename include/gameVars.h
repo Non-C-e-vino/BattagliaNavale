@@ -1,7 +1,7 @@
 #ifndef GAMEVARS_H
 #define GAMEVARS_H
 
-constexpr int GRIDSIZE = 12;
+constexpr int GRIDSIZE = 12;    //MAX 23 in quanto i caratteri X Y Z sono riservati
 constexpr int CORA = 3 *2;
 constexpr int SUPP = 3 *2;
 constexpr int ESPL = 2 *2;

@@ -2,16 +2,19 @@
 #include <string>
 #include <fstream>
 #include <cstring>
-#include "gameLoops.h"
+#include "replayLoops.h"
+
+#define DELAY_MS 1000
 
 int main(int argc, char *argv[]){
 
     if(argc == 3 && !std::strcmp(argv[1], "v")){
-        std::string fileName = argv[2];
 
-        gameLoops::replay_loop(fileName, true);
+        std::string fileName = argv[2];
+        gameLoops::replay_loop(fileName, DELAY_MS);
 
     }else if(argc == 4 && !std::strcmp(argv[1], "f")){
+
         std::string fileName = argv[2];
         std::ofstream ofs(argv[3]);
 

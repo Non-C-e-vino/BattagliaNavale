@@ -230,7 +230,6 @@ void GameHandler::remove_all_sunk(Admirals adm){ //volendo aggiungere cout di se
             }
 
             admiral[(int)adm].delete_ship(shipTarget);
-            
         }
     }
 }
@@ -275,8 +274,8 @@ bool GameHandler::next_turn() {
     return true; 
 }
 
-bool GameHandler::game_end(Admirals adm) {
-    if(admiral[(int)adm].shipC == 0) return true; 
+bool GameHandler::is_winner(Admirals adm) {
+    if(admiral[Admirals((adm + 1)%2)].shipC == 0) return true; 
     return false; 
 }
 

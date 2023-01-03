@@ -15,15 +15,16 @@ public:
     Hull* get_core(int);
     void set_cores();
     bool next_turn();
-    bool game_end(Admirals adm);
+    bool is_winner(Admirals adm);
     int get_turn(){ return turn; }
     void flip_coin();
-    int get_coin(){ return (int)coin; }
+    int get_coin(){ return coin; }
+    int set_coin(int c){ coin = c; return coin; }
     int get_active_ships_n(Admirals adm){ return admiral[(int)adm].shipC; }
     void remove_all_sunk(Admirals);
 private:
     int turn = 0;
-    bool coin;
+    int coin ;
     Admiral admiral[2];
     std::vector<Hull*> cores;
     int gen_ship_c(XY *, XY (&xy)[2], int, Admirals) const;
@@ -38,6 +39,6 @@ private:
     void ricognizione(XY&, Admirals);
 };
 
-//TODO: migliorare turn counter, 
+//TODO: separare i game loops, game da replay, + sistemare coin in replay
 
 #endif
