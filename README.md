@@ -1,7 +1,7 @@
 # BattagliaNavale
 Progetto finale corso Laboratorio di Programmazione
 
-Status: terminata sezione gioco, manca replay
+Status: terminate funzioni principali, revisione e aggiunta commenti
 
 ## Configurazione
 
