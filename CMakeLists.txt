@@ -2,10 +2,10 @@ cmake_minimum_required(VERSION 3.0)
 
 set(CMAKE_BUILD_TYPE Release)
 
+project(BattagliaNavale)
+
 #Come da consegna. Funziona solo per generatori a singola configurazione.
 set(CMAKE_CXX_FLAGS_RELEASE "-O2")
-
-project(BattagliaNavale)
 
 include_directories(include)
 
