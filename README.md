@@ -1,7 +1,7 @@
 # BattagliaNavale
 Progetto finale corso Laboratorio di Programmazione
 
-Status: terminate funzioni principali, revisione e aggiunta commenti
+Status: implementate le funzioni principali, in attesa di revisione e aggiunta commenti
 
 ## Configurazione
 
