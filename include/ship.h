@@ -16,7 +16,9 @@ public:
         //senza modificare lo stato dello scafo, il che porta ad errori logici
         //vengono automaticamente chiamate dai metodi dello scafo stesso, quindi non dovrebbero essere mai usate
         //Possibile soluzione: rendere Hull classe interna a Ship
-    virtual bool full_heal() = 0; //questa f chiama a sua volta i metodi dello scafo, quindi si puo' usare liberamente
+
+    //questa f chiama a sua volta i metodi dello scafo, quindi si puo' usare liberamente
+    virtual bool full_heal() = 0; 
     virtual bool is_core(Hull *) const = 0;
     virtual Hull* get_hull(int x) = 0; 
     virtual int get_size() const = 0; 
