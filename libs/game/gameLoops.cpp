@@ -80,7 +80,6 @@ void gameLoops::init_loop(const std::unique_ptr<Player> (&player)[2], GameHandle
             continue;
         }
         std::cout << "Schieramento riuscito." << std::endl;
-        gh.display_grids(activePlayer); //TEMP
         Log::log_cinput(playerInput);
         gh.next_turn();
     }
