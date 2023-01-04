@@ -18,7 +18,7 @@ public:
     //ritorna 0 se l'operazione e' riuscita
     int set_ship(Admirals, ShipType, XY (&xy)[2]);
 
-    //riceve le coordinate del core della nave di cui attivare l'azione quelle del bersaglio di tale azione
+    //riceve le coordinate del core della nave di cui attivare l'azione e quelle del bersaglio di tale azione
     //se possibile, svolge tale azione
     //ritorna 0 se l'operazione e' riuscita
     int ship_action(Admirals, XY (&xy)[2]);
@@ -54,7 +54,7 @@ private:
     Admiral admiral[2];
     std::vector<Hull*> cores;
 
-    //dati tipo e coordinate di inizio e fine di una berca, genera l'array di coordinate che
+    //dati tipo e coordinate di inizio e fine di una barca, genera l'array di coordinate che
     //tale barca occuperà. E' parte di set_ship
     //ritorna 0 se l'operazione e' riuscita
     int gen_ship_c(XY *, XY (&xy)[2], int, Admirals) const;
