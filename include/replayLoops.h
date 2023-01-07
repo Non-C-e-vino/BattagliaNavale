@@ -1,7 +1,8 @@
 #ifndef GAMELOOPS_H
 #define GAMELOOPS_H
 #include <string>
-#include "replayer.h"
+#include <gameHandler.h>
+#include <logger.h>
 
 namespace gameLoops{
     void replay_loop(std::string&, int delay = false);

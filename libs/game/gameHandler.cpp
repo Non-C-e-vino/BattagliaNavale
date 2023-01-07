@@ -1,8 +1,8 @@
 #include "gameHandler.h"
 #include <iostream>
 
-
-int GameHandler::set_ship(Admirals adm, ShipType st, XY (&xy)[2]){
+int GameHandler::set_ship(Admirals adm, ShipType st, XY (&xy)[2])
+{
     if(check_c_oob(xy[0]) || check_c_oob(xy[1]))
         return -1;
 
@@ -36,7 +36,8 @@ int GameHandler::set_ship(Admirals adm, ShipType st, XY (&xy)[2]){
     return 0;
 }
 
-int GameHandler::gen_ship_c(XY *shipC, XY (&xy)[2], int size, Admirals adm) const {
+int GameHandler::gen_ship_c(XY *shipC, XY (&xy)[2], int size, Admirals adm) const 
+{
     //da due coord. restituisce un array di coordinate contigne (dove sarà la barca)
     //utile in fase di creazione e di spostamento
     //controlla: is free space, is alligned, in ship-coherent. (-1, -2, -3)
@@ -67,7 +68,8 @@ int GameHandler::gen_ship_c(XY *shipC, XY (&xy)[2], int size, Admirals adm) cons
     return 0;
 }
 
-int GameHandler::ship_action(Admirals adm, XY (&xy)[2]){
+int GameHandler::ship_action(Admirals adm, XY (&xy)[2])
+{
     if(check_c_oob(xy[0]) || check_c_oob(xy[1])) return -1;
     Hull* h = admiral[(int)adm].defGrid[xy[0].xy[0]][xy[0].xy[1]];
     if(h == nullptr) return -2;
@@ -92,7 +94,8 @@ int GameHandler::ship_action(Admirals adm, XY (&xy)[2]){
     return 0;
 }
 
-int GameHandler::action_fire(XY& xy, Admirals adm){
+int GameHandler::action_fire(XY& xy, Admirals adm)
+{
     Admirals enemy(Admirals(((int)adm+1)%2));
     Hull* h = admiral[(int)enemy].defGrid[xy.xy[0]][xy.xy[1]];
     if(h != nullptr){
@@ -103,21 +106,24 @@ int GameHandler::action_fire(XY& xy, Admirals adm){
     return 0;
 }
 
-int GameHandler::action_move_heal(Hull* h, XY& xy, Admirals adm){
+int GameHandler::action_move_heal(Hull* h, XY& xy, Admirals adm)
+{
     if(move_ship(h, xy, adm)){
         heal_aoe(h, adm);
     }else return -2;
     return 0;
 }
 
-int GameHandler::action_move_search(Hull* h, XY& xy, Admirals adm){
+int GameHandler::action_move_search(Hull* h, XY& xy, Admirals adm)
+{
     if(move_ship(h, xy, adm)){
         ricognizione(xy, adm);
     }else return -2;
     return 0;
 }
 
-bool GameHandler::move_ship(Hull* h, XY& xy, Admirals adm){
+bool GameHandler::move_ship(Hull* h, XY& xy, Admirals adm)
+{
     Ship* ship = h->getOwner();
     XY offset = xy - ship->get_hull(ship->get_size()/2)->get_c();
 
@@ -136,7 +142,8 @@ bool GameHandler::move_ship(Hull* h, XY& xy, Admirals adm){
     return true;
 }
 
-void GameHandler::heal_aoe(Hull* h, Admirals adm){
+void GameHandler::heal_aoe(Hull* h, Admirals adm)
+{
     XY xy = h->get_c();
     for(int r = -1; r < 2; ++r)
         for(int c = -1; c < 2; ++c){
@@ -147,16 +154,23 @@ void GameHandler::heal_aoe(Hull* h, Admirals adm){
         }
 }
 
-void GameHandler::ricognizione(XY& xy, Admirals adm){
-    for(int r = -1; r < 2; ++r)
-        for(int c = -1; c < 2; ++c){
+void GameHandler::ricognizione(XY& xy, Admirals adm)
+{
+    for(int r = -2; r < 3; ++r)
+        for(int c = -2; c < 3; ++c){
             if(check_c_oob(xy + XY{r,c})) continue;
             if(admiral[((int)adm+1)%2].defGrid[xy.xy[0]+r][xy.xy[1]+c] != nullptr)
-                admiral[(int)adm].attGrid[xy.xy[0]+r][xy.xy[1]+c] = 'Y';
+            if(admiral[((int)adm+1)%2].defGrid[xy.xy[0]+r][xy.xy[1]+c]->is_hit())
+            //come da faq-01/03 
+                admiral[(int)adm].attGrid[xy.xy[0]+r][xy.xy[1]+c] = 'X';
+            else admiral[(int)adm].attGrid[xy.xy[0]+r][xy.xy[1]+c] = 'Y';
+            //ovviamente il sonar rivela anche se *non* ci sono entità
+            else admiral[(int)adm].attGrid[xy.xy[0]+r][xy.xy[1]+c] = 0;
         }
 }
 
-void GameHandler::display_grids(Admirals adm) const {
+void GameHandler::display_grids(Admirals adm) const 
+{
 
     //BARRE SUPERIORI
     std::cout << "\t----GRIGLIA DI DIFESA----\t----GRIGLIA D'ATTACCO----\n" << std::endl;
@@ -168,12 +182,14 @@ void GameHandler::display_grids(Admirals adm) const {
 
     //GRIGLIA DI ATTACCO
     std::cout << "\n";
-    for(int i = 0; i < GRIDSIZE; ++i){
+    for(int i = 0; i < GRIDSIZE; ++i)
+    {
         std::cout << (char)('A' + i);
         std::cout << "\t";
         for(int c = 0; c < GRIDSIZE; ++c){
             if (admiral[(int)adm].defGrid[i][c] == nullptr) std::cout << " ~";
-            else switch(admiral[(int)adm].defGrid[i][c]->getOwner()->get_size()){
+            else switch(admiral[(int)adm].defGrid[i][c]->getOwner()->get_size())
+            {
                 case 5: 
                     if(admiral[(int)adm].defGrid[i][c]->is_hit()) std::cout << " @";
                     else std::cout << " C";
@@ -199,23 +215,26 @@ void GameHandler::display_grids(Admirals adm) const {
     return;
 }
 
-void GameHandler::clear_att_grid(Admirals adm){
+void GameHandler::clear_att_grid(Admirals adm)
+{
     for(int i = 0; i < GRIDSIZE; ++i)
         for(int c = 0; c < GRIDSIZE; ++c)
             admiral[adm].attGrid[i][c] = 0;
     return;
 }
 
-void GameHandler::clear_miss_sonar(Admirals adm){
+void GameHandler::clear_sonar(Admirals adm)
+{
     for(int i = 0; i < GRIDSIZE; ++i)
         for(int c = 0; c < GRIDSIZE; ++c)
-            if(admiral[adm].attGrid[i][c] == 'O' || admiral[adm].attGrid[i][c] == 'Y')
+            if(admiral[adm].attGrid[i][c] == 'Y')
                 admiral[adm].attGrid[i][c] = 0;
     return;
 }
 
-void GameHandler::remove_all_sunk(Admirals adm){ //volendo aggiungere cout di segnalazione affondamento
-
+void GameHandler::remove_all_sunk(Admirals adm) 
+//volendo aggiungere cout di segnalazione affondamento
+{ 
     for(int i = 0 ; i < SHIPSN/2; ++i){
         Ship* shipTarget = admiral[(int)adm].ships[i];
 
@@ -234,7 +253,8 @@ void GameHandler::remove_all_sunk(Admirals adm){ //volendo aggiungere cout di se
     }
 }
 
-void GameHandler::set_ship_on_map(std::unique_ptr<Ship>& ship, Admirals adm){
+void GameHandler::set_ship_on_map(std::unique_ptr<Ship>& ship, Admirals adm)
+{
     //fa si che le corrette caselle della gliglia di difesa puntino ai relativi scafi che le occupano  (movimento e creazione)
     for(int i = 0; i < ship->get_size(); i++){
         XY c = ship->get_hull(i)->get_c();
@@ -242,7 +262,8 @@ void GameHandler::set_ship_on_map(std::unique_ptr<Ship>& ship, Admirals adm){
     }
 }
 
-void GameHandler::set_ship_on_map(Ship* ship, Admirals adm){
+void GameHandler::set_ship_on_map(Ship* ship, Admirals adm)
+{
     //fa si che le corrette caselle della gliglia di difesa puntino ai relativi scafi che le occupano  (movimento e creazione)
     for(int i = 0; i < ship->get_size(); i++){
         XY c = ship->get_hull(i)->get_c();
@@ -250,7 +271,8 @@ void GameHandler::set_ship_on_map(Ship* ship, Admirals adm){
     }
 }
 
-void GameHandler::detach_ship_from_map(Ship* ship, Admirals adm){
+void GameHandler::detach_ship_from_map(Ship* ship, Admirals adm)
+{
     //setta le caselle della griglia che al momento puntano allo scafo di ship a nullptr (movimento e distruzione) 
     for(int i = 0; i < ship->get_size(); ++i){
         XY c = ship->get_hull(i)->get_c();
@@ -258,28 +280,33 @@ void GameHandler::detach_ship_from_map(Ship* ship, Admirals adm){
     }
 }
 
-void GameHandler::set_cores(){
+void GameHandler::set_cores()
+{
     for(int i = 0; i < 2; ++i)
         for(int c = 0; c < SHIPSN/2; ++c)
             if(admiral[i].ships[c] != nullptr) cores.push_back(admiral[i].ships[c]->get_hull(admiral[i].ships[c]->get_size()/2));
 }
 
-Hull* GameHandler::get_core(int i){
+Hull* GameHandler::get_core(int i)
+{
     return cores.at(i);
 }
 
-bool GameHandler::next_turn() {
+bool GameHandler::next_turn() 
+{
     if(turn > MAXTURNS) return false; 
     ++turn;
     return true; 
 }
 
-bool GameHandler::is_winner(Admirals adm) {
+bool GameHandler::is_winner(Admirals adm) 
+{
     if(admiral[Admirals((adm + 1)%2)].shipC == 0) return true; 
     return false; 
 }
 
-void GameHandler::flip_coin() {
+void GameHandler::flip_coin() 
+{
     coin = rand()%2; 
     return; 
 }

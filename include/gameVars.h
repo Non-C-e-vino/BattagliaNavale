@@ -8,7 +8,7 @@ constexpr int CORA = 3 *2;
 constexpr int SUPP = 3 *2;
 constexpr int ESPL = 2 *2;
 constexpr int SHIPSN = CORA + SUPP + ESPL; //da non midificare direttamente. Deve essere pari
-constexpr int MAXTURNS = 1000000000; //comprende la fase di schieramneto
+constexpr int MAXTURNS = 150; //comprende la fase di schieramneto
 constexpr char LOGFILE[] = "log.txt";
 
 #endif

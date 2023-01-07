@@ -10,14 +10,37 @@ struct Hull;
 class Ship{
 public:
     virtual Action get_action() const = 0;
-    bool set_damage();          //nota: vedi sotto  
-    virtual bool heal() = 0;    //nota: vedi sotto  
-        //nota: chiamare queste funzioni significa modificare i punti vita della nave 
+
+        //nota: chiamare le seguenti due funzioni significa modificare i punti vita della nave 
         //senza modificare lo stato dello scafo, il che porta ad errori logici
         //vengono automaticamente chiamate dai metodi dello scafo stesso, quindi non dovrebbero essere mai usate
         //Possibile soluzione: rendere Hull classe interna a Ship
+    /**
+     * @brief La barca perde un punto vita
+     * @warning vedi nota in ship.h
+     * 
+     * @return true 
+     * @return false se gli hp sono gia' a zero.
+     */
+    bool set_damage();
+        /**
+     * @brief La barca recupera un punto vita
+     * @warning vedi nota in ship.h
+     * 
+     * @return true 
+     * @return false se gli hp sono gia' al massimo.
+     * 
+     */  
+    virtual bool heal() = 0;    
 
     //questa f chiama a sua volta i metodi dello scafo, quindi si puo' usare liberamente
+
+    /**
+     * @brief Chiama Hull::heal() su tutti i pezzi di scafo della nave
+     * 
+     * @return true 
+     * @return false se Ship::heal() ritorna false
+     */
     virtual bool full_heal() = 0; 
     virtual bool is_core(Hull *) const = 0;
     virtual Hull* get_hull(int x) = 0; 

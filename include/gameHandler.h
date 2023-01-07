@@ -9,44 +9,76 @@ class GameHandler{
 public:
     void display_grids(Admirals) const;
     void clear_att_grid(Admirals);
+    void clear_sonar(Admirals);
 
-    //rimuove di simobli di mancato bersaglio e del sonar contemporaneamente dalla griglia d'attacco del chiamante
-    void clear_miss_sonar(Admirals);
+    /**
+     * @brief Genera una nave, la assegna ad un ammiraglio e la posiziona sulla griglia di quest'ultimo.
+     * 
+     * @param adm 
+     * @param st Tipo della nave. Vedi Admirals
+     * @param xy Le coordinate di inizio e fine della nave
+     * @return int 0 se l'operazione è andata a buon fine
+     */
+    int set_ship(Admirals adm, ShipType st, XY (&xy)[2]);
 
-    //date le coordinate di inizio e fine di una nave, genera un oggetto del relativo tipo
-    //e lo assegna al relativo ammiraglio, subito prima di aver posizionato la barca sulla griglia di difesa dello stesso
-    //ritorna 0 se l'operazione e' riuscita
-    int set_ship(Admirals, ShipType, XY (&xy)[2]);
+    /**
+     * @brief Se possibile, svolge l'azione richiesta
+     * 
+     * @param adm 
+     * @param xy Le coordinate del core della nave di cui attivare l'azione e quelle del bersaglio di tale azione
+     * @return int 0 se l'operazione è andata a buon fine 
+     */
+    int ship_action(Admirals adm, XY (&xy)[2]);
 
-    //riceve le coordinate del core della nave di cui attivare l'azione e quelle del bersaglio di tale azione
-    //se possibile, svolge tale azione
-    //ritorna 0 se l'operazione e' riuscita
-    int ship_action(Admirals, XY (&xy)[2]);
-
-    //riempie il vettore membro cores con i riferimenti a tutti i core delle navi in gioco
-    //necessario al funzionamento del bot, da chiamare tra la fase di schieramento e quella di combattimento
+    /**
+     * @brief Riempie il vettore membro cores con i riferimenti a tutti i core delle navi in gioco.
+     * Necessario al funzionamento dei Bot, da chiamare tra la fase di schieramento e quella di combattimento
+     */
     void set_cores();
 
-    //ritorna un riferimento al core situato al dato indice
-    Hull* get_core(int);
+    /**
+     * @brief Ritorna un riferimento al core situato al dato indice
+     * 
+     * @param i 
+     * @return Hull* 
+     */
+    Hull* get_core(int i);
 
-    //aumenta il contatore turn, ritorna false se eccede MAXTURNS
+    /**
+     * @brief Aumenta il contatore turn
+     * 
+     * @return true 
+     * @return false se eccede MAXTURNS
+     */
     bool next_turn();
 
-    //true se l'ammiraglio passato ha vinto
+    /**
+     * @brief
+     * 
+     * @param adm 
+     * @return true se l'ammiraglio passato ha vinto
+     * @return false 
+     */
     bool is_winner(Admirals adm);
     int get_turn(){ return turn; }
 
-    //inizializza coin a 0 o a 1
+    /**
+     * @brief inizializza coin a 0 o a 1
+     * @warning da chiamare dopo std::srand(mySeed)
+     */
     void flip_coin();
     int get_coin(){ return coin; }
 
     //necessario per i replay
     int set_coin(int c){ coin = c; return coin; }
+
     int get_active_ships_n(Admirals adm){ return admiral[(int)adm].shipC; }
 
-    //cerca eventuali navi affondate appartenenti al dato ammiraglio e provvede ad eliminarle
-    //dalla mappa, dalla memoria e dal vettore di core attivi
+    //
+    /**
+     * @brief Cerca eventuali navi affondate appartenenti al dato ammiraglio e provvede
+     *  ad eliminarle dalla mappa, dalla memoria e dal vettore di core attivi.
+     */
     void remove_all_sunk(Admirals);
 private:
     int turn = 0;
@@ -54,17 +86,41 @@ private:
     Admiral admiral[2];
     std::vector<Hull*> cores;
 
-    //dati tipo e coordinate di inizio e fine di una barca, genera l'array di coordinate che
-    //tale barca occuperà. E' parte di set_ship
-    //ritorna 0 se l'operazione e' riuscita
-    int gen_ship_c(XY *, XY (&xy)[2], int, Admirals) const;
+    /**
+     * @brief Genera un array di posizioni sulla griglia che una barca
+     *  delle dimensioni specificate possa occupare. Parte di set_ship()
+     * 
+     * @param shipC output
+     * @param xy input, coordinate inizio e fine nave
+     * @param size dimensione nave
+     * @return int 0 se l'output è stato generato correttamente
+     */
+    int gen_ship_c(XY* shipC, XY (&xy)[2], int size, Admirals) const;
 
-    //posiziona la data barca sulla griglia di difesa del dato ammiraglio
-    void set_ship_on_map(std::unique_ptr<Ship>& , Admirals);
-    void set_ship_on_map(Ship*, Admirals);
+    /**
+     * @brief Posiziona la data barca sulla griglia di difesa del dato ammiraglio.
+     * 
+     * @param ship 
+     * @param adm 
+     */
+    void set_ship_on_map(std::unique_ptr<Ship>& ship, Admirals adm);
 
-    //come sopra ma effetto opposto
-    void detach_ship_from_map(Ship*, Admirals);
+    /**
+     * @brief Posiziona la data barca sulla griglia di difesa del dato ammiraglio.
+     * 
+     * @param ship 
+     * @param adm 
+     */
+
+    void set_ship_on_map(Ship* ship, Admirals adm);
+
+    /**
+     * @brief Rimuove la data barca dalla griglia di difesa del dato ammiraglio.
+     * 
+     * @param ship 
+     * @param adm 
+     */
+    void detach_ship_from_map(Ship* ship, Admirals adm);
 
     //i metodi successivi sono le parti di ship_action 
     //responsabili dello svoglimento delle azioni

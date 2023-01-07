@@ -40,14 +40,9 @@ void gameLoops::init_loop(const std::unique_ptr<Player> (&player)[2], GameHandle
             std::cout << "\nGiocatore " << activePlayer + 1 << ", Turno " << gh.get_turn() + 1 <<  ".\n"; 
             std::cout << "Inseri coppia di coordinate oppure [XX XX] [YY YY] [ZZ ZZ]" << std::endl;
             std::cout << "Coordinate ";
-            switch(gh.get_turn()/6){
-                case 0: std::cout << "corazzata: ";
-                break;
-                case 1: std::cout << "nave di supporto: ";
-                break;
-                case 2: std::cout << "sottomarino di esplorazione: ";
-                break;
-            }
+            if(gh.get_turn() < CORA) std::cout << "corazzata: ";
+            else if(gh.get_turn() < SUPP + CORA)  std::cout << "nave di supporto: ";
+            else if(gh.get_turn() < SHIPSN) std::cout << "sottomarino di esplorazione: ";
             ++once;
         }
 
@@ -66,11 +61,11 @@ void gameLoops::init_loop(const std::unique_ptr<Player> (&player)[2], GameHandle
             continue;
         }
         if(xy[0]==XY{-2, -2}){
-            gh.clear_att_grid(activePlayer);
+            gh.clear_sonar(activePlayer);
             continue;
         }
         if(xy[0]==XY{-3, -3}){
-            gh.clear_miss_sonar(activePlayer);
+            gh.clear_att_grid(activePlayer);
             continue;
         }
 
@@ -81,6 +76,7 @@ void gameLoops::init_loop(const std::unique_ptr<Player> (&player)[2], GameHandle
         }
         std::cout << "Schieramento riuscito." << std::endl;
         Log::log_cinput(playerInput);
+        gh.display_grids(activePlayer);
         gh.next_turn();
     }
 }
@@ -114,27 +110,27 @@ void gameLoops::main_loop(const std::unique_ptr<Player> (&player)[2], GameHandle
             continue;
         }
         if(xy[0]==XY{-2, -2}){
-            gh.clear_att_grid(activePlayer);
+            gh.clear_sonar(activePlayer);
             continue;
         }
         if(xy[0]==XY{-3, -3}){
-            gh.clear_miss_sonar(activePlayer);
+            gh.clear_att_grid(activePlayer);
             continue;
         }
+
         if(int err = gh.ship_action(activePlayer, xy)){
             //std::cout << "Coordinate non valide: " << err << std::endl;
             std::cout << "Coordinate non valide. Riprova: ";
             continue;
         }
         Log::log_cinput(playerInput);
-        //gh.display_grids(Admirals((gh.get_turn() + gh.get_coin() + 1)%2)); //TEMP
         std::cout << "Azione avvenuta." << std::endl;
         gh.remove_all_sunk(Admirals((activePlayer + 1)%2));
         if(gh.is_winner(activePlayer)){
             std::cout << "\nVince il giocatore " << activePlayer + 1 << "!" << std::endl;
             return;
         }
-        
+        gh.display_grids(activePlayer);
         gh.next_turn();
     }
 }
