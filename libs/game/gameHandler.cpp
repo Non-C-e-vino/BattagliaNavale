@@ -1,7 +1,5 @@
 #include "gameHandler.h"
 #include <iostream>
-#include <ctime>
-#include <cstdlib>
 
 int GameHandler::set_ship(Admirals adm, ShipType st, XY (&xy)[2])
 {
@@ -60,7 +58,6 @@ int GameHandler::gen_ship_c(XY *shipC, XY (&xy)[2], int size, Admirals adm) cons
     for(int i = 0; i < size; i++){
         if(admiral[(int)adm].defGrid[c.xy[0]][c.xy[1]] != nullptr) return -2;
         shipC[i] = c;
-        //std::cout << "\n" << c.xy[0] << ' ' << "\n" << c.xy[1] << '\n';
         if(sign) --c.xy[dim];
         else ++c.xy[dim];
     }
@@ -110,7 +107,8 @@ int GameHandler::action_fire(XY& xy, Admirals adm)
 
 int GameHandler::action_move_heal(Hull* h, XY& xy, Admirals adm)
 {
-    if(move_ship(h, xy, adm)){
+    //si specifica che per campiere un'azione la nave debba prima muoversi
+    if(h->get_c() != xy && move_ship(h, xy, adm)){
         heal_aoe(h, adm);
     }else return -2;
     return 0;
@@ -129,11 +127,15 @@ bool GameHandler::move_ship(Hull* h, XY& xy, Admirals adm)
     Ship* ship = h->getOwner();
     XY offset = xy - ship->get_hull(ship->get_size()/2)->get_c();
 
+    //una nave puo' muoversi su caselle occupate da essa stessa
+
     for(int i = 0; i < ship->get_size(); i++){
         XY c = ship->get_hull(i)->get_c() + offset;
-        if(check_c_oob(c) || admiral[(int)adm].defGrid[c.xy[0]][c.xy[1]] != nullptr)
+        if(check_c_oob(c) || (admiral[(int)adm].defGrid[c.xy[0]][c.xy[1]] != nullptr 
+            && admiral[(int)adm].defGrid[c.xy[0]][c.xy[1]]->getOwner() != h->getOwner()))
             return false;
     }
+
     detach_ship_from_map(ship, adm);
 
     for(int i = 0; i < ship->get_size(); i++){
@@ -311,53 +313,4 @@ void GameHandler::flip_coin()
 {
     coin = rand()%2; 
     return; 
-}
-
-GameHandler::Bot::Bot(GameHandler* gh) : gh (gh){}
-
-int GameHandler::Bot::get_ship_pos(char *inp)
-{
-    XY xy[2];
-    gen_rand_ship_coord(xy);
-    coord_to_char(xy, inp);
-    std::cout << "Bot input." << std::endl;
-    return 0;
-}
-
-int GameHandler::Bot::get_ship_act(char *inp)
-{
-    XY xy[2];
-    gen_rand_coord(xy);
-    coord_to_char(xy, inp);
-    std::cout << "Bot input." << std::endl;
-    return 0;
-}
-
-void GameHandler::Bot::gen_rand_ship_coord(XY (&xy)[2]) const 
-{
-    xy[0].xy[0] = rand() % GRIDSIZE;
-    xy[0].xy[1] = rand() % GRIDSIZE;
-    xy[1] = xy[0];
-
-    int dim = rand()%2;     //orientamento della nave, asse x o y
-    int type;               //tipo nave
-
-    if(gh->get_turn() < CORA) type = 2;
-    else if(gh->get_turn() < SUPP + CORA) type = 1;
-    else if(gh->get_turn() < SHIPSN) type = 0;
-
-    xy[1].xy[dim] += type*2; 
-    if(check_c_oob(xy[1])) xy[1].xy[dim] -= type*4; 
-
-    //std::cout << "\n" << xy[0].xy[0] << ' '  << xy[0].xy[1] << ' '  << xy[1].xy[0] << ' '  << xy[1].xy[1] << ' ' << gh->get_turn() << '\n';
-}
-
-void GameHandler::Bot::gen_rand_coord(XY (&xy)[2]) const 
-{
-    if(Admirals((gh->get_turn() + gh->get_coin())%2) == RedAdm)
-        xy[0] = gh->get_core(rand()%gh->get_active_ships_n(RedAdm))->get_c();
-    else
-        xy[0] = gh->get_core(gh->get_active_ships_n(RedAdm) + rand()%gh->get_active_ships_n(BlueAdm))->get_c();
-    xy[1].xy[0] = rand() % GRIDSIZE;
-    xy[1].xy[1] = rand() % GRIDSIZE;
 }

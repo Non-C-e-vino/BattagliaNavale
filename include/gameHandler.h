@@ -6,9 +6,9 @@
 #include "gameVars.h"
 #include "player.h"
 
-/*! \mainpage Pagina principale
+/*! \mainpage Note di implementazione
  *
- * \section imp_sec Note di implementazione
+ * \section imp_sec 
  *
  * testtesttest
  *
@@ -79,6 +79,7 @@ public:
      * @return false 
      */
     bool is_winner(Admirals adm);
+    
     int get_turn(){ return turn; }
 
     /**

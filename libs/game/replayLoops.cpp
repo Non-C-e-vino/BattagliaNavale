@@ -5,7 +5,8 @@
 #include <iostream>
 
 
-void gameLoops::replay_loop(std::string& fileName, int delay){
+void gameLoops::replay_loop(std::string& fileName, int delay)
+{
     GameHandler gh{};
     Logger l(fileName);
     char playerInput[6];
@@ -19,12 +20,12 @@ void gameLoops::replay_loop(std::string& fileName, int delay){
     replay_main_loop(l, gh, playerInput, delay);
 }
 
-void gameLoops::replay_init_loop(Logger & l, GameHandler& gh, char (&playerInput)[6], int delay){
-
+void gameLoops::replay_init_loop(Logger & l, GameHandler& gh, char (&playerInput)[6], int delay)
+{
     int shipType = 2;
 
-    while(gh.get_turn() < SHIPSN && gh.get_turn() < MAXTURNS){ 
-
+    while(gh.get_turn() < SHIPSN && gh.get_turn() < MAXTURNS)
+    {
         Admirals activePlayer = Admirals((gh.get_turn() + gh.get_coin())%2);
 
         if(gh.get_turn() == CORA) --shipType;
@@ -40,7 +41,8 @@ void gameLoops::replay_init_loop(Logger & l, GameHandler& gh, char (&playerInput
             break;
         }
 
-        if(l.read_log(playerInput)){
+        if(l.read_log(playerInput))
+        {
             std::cout << "Partita tarminata prematuramente."<< std::endl;
             return;
         }
@@ -59,17 +61,19 @@ void gameLoops::replay_init_loop(Logger & l, GameHandler& gh, char (&playerInput
     }
 }
 
-void gameLoops::replay_main_loop(Logger & l, GameHandler& gh, char (&playerInput)[6], int delay){
-
+void gameLoops::replay_main_loop(Logger & l, GameHandler& gh, char (&playerInput)[6], int delay)
+{
     gh.set_cores();
 
-    while(gh.get_turn() < MAXTURNS){
+    while(gh.get_turn() < MAXTURNS)
+    {
         Admirals activePlayer = Admirals((gh.get_turn() + gh.get_coin())%2);
 
         std::cout << "\nGiocatore " << activePlayer + 1 << ", Turno " << gh.get_turn() + 1 <<  ".\n"; 
         std::cout << "Coordinate nave e bersaglio:  ";
 
-        if(l.read_log(playerInput)){
+        if(l.read_log(playerInput))
+        {
             std::cout << "Partita tarminata prematuramente."<< std::endl;
             return;
         }
@@ -84,7 +88,8 @@ void gameLoops::replay_main_loop(Logger & l, GameHandler& gh, char (&playerInput
         gh.remove_all_sunk(Admirals((activePlayer + 1)%2));
         gh.display_grids(activePlayer);
 
-        if(gh.is_winner(activePlayer)){
+        if(gh.is_winner(activePlayer))
+        {
             std::cout << "\nVince il giocatore " << activePlayer + 1 << "!" << std::endl;
             return;
         }
