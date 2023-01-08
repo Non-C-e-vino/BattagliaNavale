@@ -17,7 +17,7 @@ public:
         //Possibile soluzione: rendere Hull classe interna a Ship
     /**
      * @brief La barca perde un punto vita
-     * @warning vedi nota in ship.h
+     * @warning Sconsigliato l'utilizzo. Vedi nota in ship.h
      * 
      * @return true 
      * @return false se gli hp sono gia' a zero.
@@ -25,7 +25,7 @@ public:
     bool set_damage();
         /**
      * @brief La barca recupera un punto vita
-     * @warning vedi nota in ship.h
+     * @warning Sconsigliato l'utilizzo. Vedi nota in ship.h
      * 
      * @return true 
      * @return false se gli hp sono gia' al massimo.
@@ -41,8 +41,16 @@ public:
      * @return true 
      * @return false se Ship::heal() ritorna false
      */
-    virtual bool full_heal() = 0; 
-    virtual bool is_core(Hull *) const = 0;
+    virtual bool full_heal() = 0;
+
+    /**
+     * @brief Il core e' la parte centrale dello scafo
+     * 
+     * @param ref
+     * @return true se ref punta al core della nave
+     * @return false 
+     */
+    virtual bool is_core(Hull* ref) const = 0;
     virtual Hull* get_hull(int x) = 0; 
     virtual int get_size() const = 0; 
     bool is_sunk(){ return !hp; }
@@ -57,10 +65,9 @@ protected:
         Ship * getOwner(){ return owner; }
         bool is_hit() const { return !armor; }
         bool set_hit();
+        bool heal();
         XY get_c() const { return c; }
         void set_c(XY &c){ this->c = c; }
-        bool heal();
-
     private:
         XY c; 
         bool armor = true;

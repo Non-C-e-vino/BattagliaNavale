@@ -3,7 +3,7 @@
 #include <memory>
 #include "player.h"
 #include "humanPlayer.h"
-#include "bot.h"
+#include "gameHandler.h"
 
 namespace gameLoops{
     void game_loop(bool);

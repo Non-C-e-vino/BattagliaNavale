@@ -15,6 +15,6 @@ add_executable(replay src/replay.cpp)
 
 add_subdirectory(libs)
 
-target_link_libraries(battaglia_navale gameLoops gameHandler player humanPlayer bot ship coord admiral logger corazzata naveSupporto ricognitore)
+target_link_libraries(battaglia_navale gameLoops gameHandler player humanPlayer ship coord admiral logger corazzata naveSupporto ricognitore)
 
 target_link_libraries(replay replayLoops gameHandler ship coord admiral logger corazzata naveSupporto ricognitore)
