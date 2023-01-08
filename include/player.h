@@ -2,6 +2,8 @@
 #define PLAYER_H
 #include "coord.h"
 
+
+/// @brief Interfaccia per le classi che gestiscono l'input
 class Player{
 public:
     /**

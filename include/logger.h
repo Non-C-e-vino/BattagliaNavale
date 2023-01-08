@@ -6,7 +6,7 @@
 
 namespace Log{
 
-//sovrascrive il file log
+///@brief Sovrascrive il file log
 void reset_log_file();
 
 //in output il file viene aperto e chiuso ad ogni lettura
@@ -18,16 +18,21 @@ void reset_log_file();
 //essendo che la consegna richiede una forma testuale,
 //non avrebbe avuto senso pratico
 
-//registra le coordinate su file log
+///@brief registra le coordinate su file log
 void log_cinput(char*);
 
-//da chiamare dopo aver lanciato la moneta, ma prima della fase di schieramento
-//serve a sapere quale giocatore a iniziato
+/**
+ * @brief registra su log quale giocatore a iniziato
+ * 
+ * @warning da chiamare dopo aver lanciato la moneta, ma prima della fase di schieramento
+ */
 void log_coin(int);
 
 };
 //d'altro canto ottimizzare la lettura velocità
 //di trascrizione può avere senso
+
+/// @brief Gestisce la lettura dei file di log
 class Logger{
 public:
     Logger(std::string&);
@@ -37,7 +42,13 @@ public:
 
     int read_log(char *inp);
 
-    //da chiamare al posto del lancio della moneta
+    /**
+     * @brief Legge il valore della moneta registrato su log
+     * 
+     * @warning da chiamare al posto del lancio della moneta
+     * 
+     * @return int coin
+     */
     int read_coin_log();
     ~Logger(){
         ifsptr->close(); 

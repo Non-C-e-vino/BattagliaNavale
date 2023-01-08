@@ -26,6 +26,5 @@ bool NaveSupporto::heal()
 {
     if(hp == size) return false;
     ++hp;
-    throw std::runtime_error("That's it");
     return true;
 }

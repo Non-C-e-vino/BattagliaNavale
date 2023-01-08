@@ -5,6 +5,7 @@
 #include "humanPlayer.h"
 #include "gameHandler.h"
 
+/// @brief Loops di gioco che connettono le classi di input/output con GameHandler
 namespace gameLoops{
     void game_loop(bool);
     void init_loop(const std::unique_ptr<Player> (&player)[2], GameHandler&, char (&playerInput)[6]);

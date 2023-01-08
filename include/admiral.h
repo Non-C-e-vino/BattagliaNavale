@@ -9,6 +9,10 @@
 
 enum Admirals{ RedAdm, BlueAdm };
 
+/**
+ * @brief struttura dati utilizzata da GameHandler
+ * 
+ */
 struct Admiral{
     Admiral(void){};
 

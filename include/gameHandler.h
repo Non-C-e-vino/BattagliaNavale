@@ -8,7 +8,7 @@
 
 /*! \mainpage Pagina principale
  *
- * \section imp_sec Note implementative
+ * \section imp_sec Note di implementazione
  *
  * testtesttest
  *
@@ -24,6 +24,7 @@
  * testtesttest
  */
 
+/// @brief Gestisce tutto cio' che concerne le meccaniche di gioco
 class GameHandler{
 public:
     void display_grids(Admirals) const;
@@ -85,6 +86,7 @@ public:
      * @warning da chiamare dopo std::srand(mySeed)
      */
     void flip_coin();
+
     int get_coin(){ return coin; }
 
     //necessario per i replay
@@ -92,13 +94,17 @@ public:
 
     int get_active_ships_n(Admirals adm){ return admiral[(int)adm].shipC; }
 
-    //
     /**
      * @brief Cerca eventuali navi affondate appartenenti al dato ammiraglio e provvede
      *  ad eliminarle dalla mappa, dalla memoria e dal vettore di core attivi.
      */
     void remove_all_sunk(Admirals);
 
+    /**
+     * @brief giocatore automatico che effettua mosse casuali ogni turno
+     * @warning prima di utilizzare i metodi di questa classe,
+     * assicurarsi di aver chiamato almeno una volta std::srand(mySeed)
+     */
     class Bot : public Player {
     public:
         Bot(GameHandler*);
@@ -119,7 +125,7 @@ private:
     std::vector<Hull*> cores;
 
     Hull* get_core(int i);
-    
+
     /**
      * @brief Genera un array di posizioni sulla griglia che una barca
      *  delle dimensioni specificate possa occupare. Parte di set_ship()
