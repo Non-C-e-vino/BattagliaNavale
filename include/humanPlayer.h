@@ -4,6 +4,7 @@
 #include <iostream>
 #include <cctype>
 
+/// @brief Gestisce l'input da terminale
 class HumanPlayer : public Player{
 public:
     int get_ship_pos(char *) override;

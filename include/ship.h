@@ -58,20 +58,22 @@ protected:
     int hp;
 };
 
-    struct Hull{
-    public:
-        Hull(){}
-        Hull(Ship* owner, XY& c) : owner{owner}, c{c}{}
-        Ship * getOwner(){ return owner; }
-        bool is_hit() const { return !armor; }
-        bool set_hit();
-        bool heal();
-        XY get_c() const { return c; }
-        void set_c(XY &c){ this->c = c; }
-    private:
-        XY c; 
-        bool armor = true;
-        Ship * owner; 
-    };
+/// @brief  Lo scafo o parde dello scafo di una nave
+struct Hull
+{
+public:
+    Hull(){}
+    Hull(Ship* owner, XY& c) : owner{owner}, c{c}{}
+    Ship * getOwner(){ return owner; }
+    bool is_hit() const { return !armor; }
+    bool set_hit();
+    bool heal();
+    XY get_c() const { return c; }
+    void set_c(XY &c){ this->c = c; }
+private:
+    XY c; 
+    bool armor = true;
+    Ship * owner; 
+};
 
 #endif

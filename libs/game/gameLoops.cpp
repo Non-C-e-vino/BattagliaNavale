@@ -3,7 +3,6 @@
 #include <cstdlib>
 #include <ctime>
 
-
 void gameLoops::game_loop(bool pc){
     GameHandler gh{};
     std::unique_ptr<Player> player[2];
