@@ -29,5 +29,7 @@ int main(int argc, char *argv[]){
 }
 
 void argsError(){
-    std::cout << "Fornire un argomento valido:\n\t[pc]: player vs computer\n\t[cc]: computer vs computer\n";
+    std::cout << "Fornire un argomento valido:\n\t"
+    << "argomento \"pc\": player vs computer\n\t"
+    << "argomento \"cc\": computer vs computer\n" << std::endl;
 }

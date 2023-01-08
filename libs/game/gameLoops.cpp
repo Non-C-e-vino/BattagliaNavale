@@ -3,7 +3,8 @@
 #include <cstdlib>
 #include <ctime>
 
-void gameLoops::game_loop(bool pc){
+void gameLoops::game_loop(bool pc)
+{
     GameHandler gh{};
     std::unique_ptr<Player> player[2];
     
@@ -24,16 +25,17 @@ void gameLoops::game_loop(bool pc){
     main_loop(player, gh, playerInput);
 }
 
-void gameLoops::init_loop(const std::unique_ptr<Player> (&player)[2], GameHandler& gh, char (&playerInput)[6]){
-
+void gameLoops::init_loop(const std::unique_ptr<Player> (&player)[2], GameHandler& gh, char (&playerInput)[6])
+{
     int shipType = 2;
     int once = -1;
 
-    while(gh.get_turn() < SHIPSN && gh.get_turn() < MAXTURNS){ 
-
+    while(gh.get_turn() < SHIPSN && gh.get_turn() < MAXTURNS)
+    { 
         Admirals activePlayer = Admirals((gh.get_turn() + gh.get_coin())%2);
 
-        if(once != gh.get_turn()){
+        if(once != gh.get_turn())
+        {
             if(gh.get_turn() == CORA) --shipType;
             if(gh.get_turn() == SUPP+CORA) --shipType;
             std::cout << "\nGiocatore " << activePlayer + 1 << ", Turno " << gh.get_turn() + 1 <<  ".\n"; 
@@ -45,7 +47,8 @@ void gameLoops::init_loop(const std::unique_ptr<Player> (&player)[2], GameHandle
             ++once;
         }
 
-        if(int err = player[activePlayer]->get_ship_pos(playerInput)){
+        if(int err = player[activePlayer]->get_ship_pos(playerInput))
+        {
             //std::cout << "Formato input non valido: " << err << std::endl;
             std::cout << "Formato input non valido. Riprova: ";
             continue;
@@ -68,19 +71,21 @@ void gameLoops::init_loop(const std::unique_ptr<Player> (&player)[2], GameHandle
             continue;
         }
 
-        if(int err = gh.set_ship(activePlayer, ShipType(shipType), xy)){
+        if(int err = gh.set_ship(activePlayer, ShipType(shipType), xy))
+        {
             //std::cout << "Posizione non valida: " << err << std::endl;
             std::cout << "Posizione non valida. Riprova: ";
             continue;
         }
+
         std::cout << "Schieramento riuscito." << std::endl;
         Log::log_cinput(playerInput);
-        gh.display_grids(activePlayer);
         gh.next_turn();
     }
 }
 
-void gameLoops::main_loop(const std::unique_ptr<Player> (&player)[2], GameHandler& gh, char (&playerInput)[6]){
+void gameLoops::main_loop(const std::unique_ptr<Player> (&player)[2], GameHandler& gh, char (&playerInput)[6])
+{
     gh.set_cores();
     int once = gh.get_turn()-1;
 
@@ -94,7 +99,8 @@ void gameLoops::main_loop(const std::unique_ptr<Player> (&player)[2], GameHandle
             ++once;
         }
 
-        if(int err = player[activePlayer]->get_ship_act(playerInput)){
+        if(int err = player[activePlayer]->get_ship_act(playerInput))
+        {
             //std::cout << "Formato input non valido: " << err << std::endl;
             std::cout << "Formato input non valido. Riprova: ";
             continue;
@@ -117,19 +123,22 @@ void gameLoops::main_loop(const std::unique_ptr<Player> (&player)[2], GameHandle
             continue;
         }
 
-        if(int err = gh.ship_action(activePlayer, xy)){
+        if(int err = gh.ship_action(activePlayer, xy))
+        {
             //std::cout << "Coordinate non valide: " << err << std::endl;
             std::cout << "Coordinate non valide. Riprova: ";
             continue;
         }
-        Log::log_cinput(playerInput);
         std::cout << "Azione avvenuta." << std::endl;
+        Log::log_cinput(playerInput);
+
         gh.remove_all_sunk(Admirals((activePlayer + 1)%2));
-        if(gh.is_winner(activePlayer)){
+
+        if(gh.is_winner(activePlayer))
+        {
             std::cout << "\nVince il giocatore " << activePlayer + 1 << "!" << std::endl;
             return;
         }
-        gh.display_grids(activePlayer);
         gh.next_turn();
     }
 }
