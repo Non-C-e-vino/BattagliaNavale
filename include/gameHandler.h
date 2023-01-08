@@ -4,6 +4,25 @@
 #include <vector>
 #include "admiral.h"
 #include "gameVars.h"
+#include "player.h"
+
+/*! \mainpage Pagina principale
+ *
+ * \section imp_sec Note implementative
+ *
+ * testtesttest
+ *
+ * \section err_sec Problemi
+ *
+ * \subsection ott_sec di ottimizzazione
+ * testtesttest
+ * 
+ * \subsection des_sec di design
+ * testtesttest
+ *
+ * \subsection leg_sec di leggibilita'
+ * testtesttest
+ */
 
 class GameHandler{
 public:
@@ -42,7 +61,6 @@ public:
      * @param i 
      * @return Hull* 
      */
-    Hull* get_core(int i);
 
     /**
      * @brief Aumenta il contatore turn
@@ -80,12 +98,28 @@ public:
      *  ad eliminarle dalla mappa, dalla memoria e dal vettore di core attivi.
      */
     void remove_all_sunk(Admirals);
+
+    class Bot : public Player {
+    public:
+        Bot(GameHandler*);
+        int get_ship_pos(char *) override;
+        int get_ship_act(char *) override;
+        // ovviamente le gen va sempre a buon fine, return sempre = 0;
+    private: 
+        GameHandler* gh;
+        void gen_rand_coord(XY (&xy)[2]) const;
+        void gen_rand_ship_coord(XY (&xy)[2]) const;
+        // variabili tipo difficolta' in caso di ia non comp. randomica
+    };
+
 private:
     int turn = 0;
     int coin ;
     Admiral admiral[2];
     std::vector<Hull*> cores;
 
+    Hull* get_core(int i);
+    
     /**
      * @brief Genera un array di posizioni sulla griglia che una barca
      *  delle dimensioni specificate possa occupare. Parte di set_ship()

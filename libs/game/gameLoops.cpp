@@ -9,10 +9,10 @@ void gameLoops::game_loop(bool pc){
     std::unique_ptr<Player> player[2];
     
     if(pc) player[0] = std::make_unique<HumanPlayer>();
-    else player[0] = std::make_unique<Bot>(&gh);
-    player[1] = std::make_unique<Bot>(&gh);
+    else player[0] = std::make_unique<GameHandler::Bot>(&gh);
+    player[1] = std::make_unique<GameHandler::Bot>(&gh);
 
-    srand(time(NULL));
+    std::srand(time(NULL));
     gh.flip_coin();
     char playerInput[6];
 
@@ -134,4 +134,3 @@ void gameLoops::main_loop(const std::unique_ptr<Player> (&player)[2], GameHandle
         gh.next_turn();
     }
 }
-
