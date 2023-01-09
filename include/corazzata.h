@@ -6,7 +6,7 @@ public:
     Corazzata(const Corazzata&) = delete;
     Corazzata(XY *);
     Corazzata operator=(const Corazzata&) = delete;
-    Action get_action() const override{ return Action::Fire; }
+    ShipAction get_action() const override{ return ShipAction::Fire; }
     bool full_heal(); 
     bool heal(); 
     bool is_core(Hull *) const override; //possibilmente helper f 

@@ -2,6 +2,7 @@
 #define GAMEHAMDLER_H
 #include <memory>
 #include <vector>
+#include <set>
 #include "admiral.h"
 #include "gameVars.h"
 #include "player.h"
@@ -79,7 +80,7 @@ public:
      * @return false 
      */
     bool is_winner(Admirals adm);
-    
+
     int get_turn(){ return turn; }
 
     /**
@@ -112,11 +113,21 @@ public:
         int get_ship_pos(char *) override;
         int get_ship_act(char *) override;
         // ovviamente le gen va sempre a buon fine, return sempre = 0;
-    private: 
+    protected: 
         GameHandler* gh;
-        void gen_rand_coord(XY (&xy)[2]) const;
+        virtual void gen_rand_coord(XY (&xy)[2]);
         void gen_rand_ship_coord(XY (&xy)[2]) const;
         // variabili tipo difficolta' in caso di ia non comp. randomica
+    };
+
+    class CleverBot : public Bot {
+    public:
+        CleverBot(GameHandler*);
+    private:
+        void gen_rand_coord(XY (&xy)[2]) override;
+        std::set<XY> targets;
+        bool shootingTime = false;
+        bool hasScanned = true;
     };
 
 private:

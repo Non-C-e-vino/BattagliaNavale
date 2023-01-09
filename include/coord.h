@@ -8,6 +8,7 @@ struct XY{
     int xy[2]; 
     bool operator==(const XY&) const;
     bool operator!=(const XY&) const;
+    bool operator<(const XY&) const;
     XY operator+=(const XY&);
 };
 XY operator-(const XY&, const XY&);

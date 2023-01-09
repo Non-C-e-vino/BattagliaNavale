@@ -6,7 +6,7 @@ public:
     Ricognitore(const Ricognitore&) = delete;
     Ricognitore(XY *);
     Ricognitore operator=(const Ricognitore&) = delete;
-    Action get_action() const override{ return Action::MoveAndSearch; }
+    ShipAction get_action() const override{ return ShipAction::MoveAndSearch; }
     bool full_heal(); 
     bool heal();  
     bool is_core(Hull *) const override;

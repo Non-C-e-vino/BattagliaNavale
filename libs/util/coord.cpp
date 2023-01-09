@@ -56,6 +56,13 @@ bool XY::operator==(const XY&ref) const {
     return false;
 }
 
+bool XY::operator<(const XY&ref) const {
+    if(this->xy[0] < ref.xy[0]) return true;
+    else if(this->xy[0] > ref.xy[0]) return false;
+    else if(this->xy[1] < ref.xy[1]) return true;
+    else return false;
+}
+
 bool XY::operator!=(const XY& ref) const {
     if(*this == ref) return false;
     return true;

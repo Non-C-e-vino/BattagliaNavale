@@ -2,14 +2,14 @@
 #define SHIP_H
 #include "coord.h"
 
-enum class Action{Fire, MoveAndRepair, MoveAndSearch};
+enum class ShipAction{Fire, MoveAndRepair, MoveAndSearch};
 enum class ShipType{Cor, NDS, Sot};
 
 struct Hull;
 
 class Ship{
 public:
-    virtual Action get_action() const = 0;
+    virtual ShipAction get_action() const = 0;
 
         //nota: chiamare le seguenti due funzioni significa modificare i punti vita della nave 
         //senza modificare lo stato dello scafo, il che porta ad errori logici

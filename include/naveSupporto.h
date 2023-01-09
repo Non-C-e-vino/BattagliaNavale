@@ -6,7 +6,7 @@ public:
     NaveSupporto(const NaveSupporto&) = delete;
     NaveSupporto(XY *);
     NaveSupporto operator=(const NaveSupporto&) = delete;
-    Action get_action() const override{ return Action::MoveAndRepair; }
+    ShipAction get_action() const override{ return ShipAction::MoveAndRepair; }
     bool full_heal(); 
     bool heal();  
     bool is_core(Hull *) const override;
