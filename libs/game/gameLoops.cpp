@@ -10,7 +10,11 @@ void gameLoops::game_loop(bool pc)
     
     if(pc) player[0] = std::make_unique<HumanPlayer>();
     else player[0] = std::make_unique<GameHandler::Bot>(&gh);
+<<<<<<< HEAD
     player[1] = std::make_unique<GameHandler::CleverBot>(&gh);
+=======
+    player[1] = std::make_unique<GameHandler::Bot>(&gh);
+>>>>>>> 8b746e5ccba67772300698f4480711b8dddca19e
 
     std::srand(time(NULL));
     gh.flip_coin();

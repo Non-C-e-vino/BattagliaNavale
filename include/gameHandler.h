@@ -80,7 +80,11 @@ public:
      * @return false 
      */
     bool is_winner(Admirals adm);
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 8b746e5ccba67772300698f4480711b8dddca19e
     int get_turn(){ return turn; }
 
     /**
@@ -113,13 +117,20 @@ public:
         int get_ship_pos(char *) override;
         int get_ship_act(char *) override;
         // ovviamente le gen va sempre a buon fine, return sempre = 0;
+<<<<<<< HEAD
     protected: 
         GameHandler* gh;
         virtual void gen_rand_coord(XY (&xy)[2]);
+=======
+    private: 
+        GameHandler* gh;
+        void gen_rand_coord(XY (&xy)[2]) const;
+>>>>>>> 8b746e5ccba67772300698f4480711b8dddca19e
         void gen_rand_ship_coord(XY (&xy)[2]) const;
         // variabili tipo difficolta' in caso di ia non comp. randomica
     };
 
+<<<<<<< HEAD
     class CleverBot : public Bot {
     public:
         CleverBot(GameHandler*);
@@ -130,6 +141,8 @@ public:
         bool hasScanned = true;
     };
 
+=======
+>>>>>>> 8b746e5ccba67772300698f4480711b8dddca19e
 private:
     int turn = 0;
     int coin ;
