@@ -93,5 +93,4 @@ void print_char_coord(char* playerInput){
         if(std::isalpha(playerInput[i])) std::cout << ' ';
         std::cout << playerInput[i];
     }
-    std::cout << "\n "<< std::endl;
 }

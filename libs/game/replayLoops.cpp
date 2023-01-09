@@ -80,6 +80,8 @@ void gameLoops::replay_main_loop(Logger & l, GameHandler& gh, char (&playerInput
         
         print_char_coord(playerInput);
 
+        std::cout << "\n" << std::endl;
+
         XY xy[2];
 
         coord_convert(xy, playerInput);
