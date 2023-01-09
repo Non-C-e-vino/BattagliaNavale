@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cstring>
+#include <fstream>
 #include "gameLoops.h"
 
 void argsError();

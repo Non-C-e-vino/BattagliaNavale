@@ -8,7 +8,7 @@
 void gameLoops::replay_loop(std::string& fileName, int delay)
 {
     GameHandler gh{};
-    Logger l(fileName);
+    InLogger l(fileName);
     char playerInput[6];
 
     if(gh.set_coin(l.read_coin_log()) == -1) 
@@ -20,7 +20,7 @@ void gameLoops::replay_loop(std::string& fileName, int delay)
     replay_main_loop(l, gh, playerInput, delay);
 }
 
-void gameLoops::replay_init_loop(Logger & l, GameHandler& gh, char (&playerInput)[6], int delay)
+void gameLoops::replay_init_loop(InLogger & l, GameHandler& gh, char (&playerInput)[6], int delay)
 {
     int shipType = 2;
 
@@ -61,7 +61,7 @@ void gameLoops::replay_init_loop(Logger & l, GameHandler& gh, char (&playerInput
     }
 }
 
-void gameLoops::replay_main_loop(Logger & l, GameHandler& gh, char (&playerInput)[6], int delay)
+void gameLoops::replay_main_loop(InLogger & l, GameHandler& gh, char (&playerInput)[6], int delay)
 {
     gh.set_cores();
 

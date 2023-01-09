@@ -5,13 +5,13 @@
 #include <memory>
 #include <cctype>
 
-Logger::Logger(std::string& fileName){
+InLogger::InLogger(std::string& fileName){
     std::unique_ptr<std::ifstream> ifs= std::make_unique<std::ifstream>(fileName);
     if(!ifs->is_open()) throw std::runtime_error("Impossibile aprire il log file.");
     ifsptr = ifs.release();
 }
 
-int Logger::read_log(char *inp){
+int InLogger::read_log(char *inp){
     if(ifsptr->is_open()){
         if(!std::isalpha(ifsptr->peek())) return -1;
         int i = 0;
@@ -24,7 +24,7 @@ int Logger::read_log(char *inp){
     else throw std::runtime_error("Impossibile aprire il log file.");
 }
 
-int Logger::read_coin_log(){
+int InLogger::read_coin_log(){
     if(ifsptr->is_open()){
         if(!std::isdigit(ifsptr->peek())) return -1;
         int i;
@@ -43,26 +43,28 @@ void Log::reset_log_file()
     ofs.close(); //anche se non servirebbe uscendo dallo scope
 }
 
-void Log::log_cinput(char* inp)
-{
-    std::ofstream ofs;
-    ofs.open(LOGFILE, std::ios::app);
-    if(ofs.is_open()){
-        for(int i = 0; i < 6 && inp[i] != '\0'; ++i) 
-            ofs << inp[i];
-        ofs << '-';
-    }
-    else throw std::runtime_error("Impossibile aprire il log file.");
-    ofs.close();
+OutLogger::OutLogger(void){
+    std::unique_ptr<std::ofstream> ofs= std::make_unique<std::ofstream>();
+    ofs->open(LOGFILE, std::ios::app);
+    if(!ofs->is_open()) throw std::runtime_error("Impossibile aprire il log file.");
+    ofsptr = ofs.release();
 }
 
-void Log::log_coin(int coin)
+void OutLogger::log_cinput(char* inp)
 {
-    std::ofstream ofs;
-    ofs.open(LOGFILE, std::ios::app);
-    if(ofs.is_open()){
-        ofs << coin;
+    if(ofsptr->is_open()){
+        int i = 3;
+        while(i < 6 && inp[i] != '\0') ++i;
+        (*ofsptr).write(inp, i);
+        (*ofsptr) << '-';
     }
     else throw std::runtime_error("Impossibile aprire il log file.");
-    ofs.close();
+}
+
+void OutLogger::log_coin(int coin)
+{
+    if(ofsptr->is_open()){
+        (*ofsptr) << coin;
+    }
+    else throw std::runtime_error("Impossibile aprire il log file.");
 }

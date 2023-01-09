@@ -1,11 +1,11 @@
 #include "gameLoops.h"
-#include "logger.h"
 #include <cstdlib>
 #include <ctime>
 
 void gameLoops::game_loop(bool pc)
 {
     GameHandler gh{};
+    OutLogger ol{};
     std::unique_ptr<Player> player[2];
     
     if(pc) player[0] = std::make_unique<HumanPlayer>();
@@ -14,22 +14,22 @@ void gameLoops::game_loop(bool pc)
     else player[0] = std::make_unique<GameHandler::Bot>(&gh);
     //il secondo bot e' clever. Il giocatore iniziale e' scelto a caso,
     //quindi non sara' necessariamente il giocatore 2 
-    player[1] = std::make_unique<GameHandler::CleverBot>(&gh);
+    player[1] = std::make_unique<GameHandler::Bot>(&gh);
 
     std::srand(time(NULL));
     gh.flip_coin();
     char playerInput[6];
 
     Log::reset_log_file();
-    Log::log_coin(gh.get_coin());
+    ol.log_coin(gh.get_coin());
     
     std::cout << "\n\n-----Fase di schieramento-----" << std::endl;
-    init_loop(player, gh, playerInput, pc);
+    init_loop(player, gh, ol, playerInput, pc);
     std::cout << "\n\n-----Fase di combattimento-----" << std::endl;
-    main_loop(player, gh, playerInput, pc);
+    main_loop(player, gh, ol, playerInput, pc);
 }
 
-void gameLoops::init_loop(const std::unique_ptr<Player> (&player)[2], GameHandler& gh, char (&playerInput)[6], bool pc)
+void gameLoops::init_loop(const std::unique_ptr<Player> (&player)[2], GameHandler& gh, OutLogger& ol,  char (&playerInput)[6], bool pc)
 {
     int shipType = 2;
     int once = -1;
@@ -90,12 +90,12 @@ void gameLoops::init_loop(const std::unique_ptr<Player> (&player)[2], GameHandle
         }
 
         if(pc) std::cout << "Schieramento riuscito." << std::endl;
-        Log::log_cinput(playerInput);
+        ol.log_cinput(playerInput);
         gh.next_turn();
     }
 }
 
-void gameLoops::main_loop(const std::unique_ptr<Player> (&player)[2], GameHandler& gh, char (&playerInput)[6], bool pc)
+void gameLoops::main_loop(const std::unique_ptr<Player> (&player)[2], GameHandler& gh, OutLogger& ol, char (&playerInput)[6], bool pc)
 {
     gh.set_cores();
     int once = gh.get_turn()-1;
@@ -149,7 +149,7 @@ void gameLoops::main_loop(const std::unique_ptr<Player> (&player)[2], GameHandle
             continue;
         }
         if(pc) std::cout << "Azione avvenuta." << std::endl;
-        Log::log_cinput(playerInput);
+        ol.log_cinput(playerInput);
 
         gh.remove_all_sunk(Admirals((activePlayer + 1)%2));
 

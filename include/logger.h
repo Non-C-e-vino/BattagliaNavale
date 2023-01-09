@@ -4,41 +4,19 @@
 #include <fstream>
 #include <string>
 
-namespace Log{
-
-///@brief Sovrascrive il file log
-void reset_log_file();
-
-//in output il file viene aperto e chiuso ad ogni lettura
-//non dovrebbe essere un problema in quanto non ci si aspetta
-//che ottimizzare la velocita' dei turni sia importante in un gioco
-//strategico di questo tipo
-
-//si sarebbero potute salvare le coordinate gia' convertite ma, 
-//essendo che la consegna richiede una forma testuale,
-//non avrebbe avuto senso pratico
-
-///@brief registra le coordinate su file log
-void log_cinput(char*);
-
-/**
- * @brief registra su log quale giocatore a iniziato
- * 
- * @warning da chiamare dopo aver lanciato la moneta, ma prima della fase di schieramento
- */
-void log_coin(int);
-
+namespace Log
+{
+    ///@brief Sovrascrive il file log
+    void reset_log_file();
 };
-//d'altro canto ottimizzare la lettura velocità
-//di trascrizione può avere senso
 
 /// @brief Gestisce la lettura dei file di log
-class Logger{
+class InLogger{
 public:
-    Logger(std::string&);
+    InLogger(std::string&);
 
-    Logger(const Logger&) = delete;
-    Logger operator=(const Logger&) = delete;
+    InLogger(const InLogger&) = delete;
+    InLogger operator=(const InLogger&) = delete;
 
     int read_log(char *inp);
 
@@ -50,7 +28,7 @@ public:
      * @return int coin
      */
     int read_coin_log();
-    ~Logger(){
+    ~InLogger(){
         ifsptr->close(); 
         delete ifsptr;
     }
@@ -58,6 +36,29 @@ private:
     std::ifstream* ifsptr;
 };
 
+class OutLogger{
+public:
+    OutLogger(void);
 
+    OutLogger(const OutLogger&) = delete;
+    OutLogger operator=(const OutLogger&) = delete;
+
+    ///@brief Registra coordinate in forma char su log file
+    void log_cinput(char*);
+
+    /**
+     * @brief registra su log quale giocatore a iniziato
+     * 
+     * @warning da chiamare dopo aver lanciato la moneta, ma prima della fase di schieramento
+     */
+    void log_coin(int);
+
+    ~OutLogger(){
+        ofsptr->close(); 
+        delete ofsptr;
+    }
+private:
+    std::ofstream* ofsptr;
+};
 
 #endif

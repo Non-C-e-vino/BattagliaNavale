@@ -214,7 +214,7 @@ void GameHandler::display_grids(Admirals adm) const
             if (admiral[(int)adm].attGrid[i][c] == 0) std::cout << " ~";
             else std::cout << ' ' << admiral[(int)adm].attGrid[i][c];
         }
-        std::cout << std::endl;;
+        std::cout << std::endl;
     }
     return;
 }
