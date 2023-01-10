@@ -13,11 +13,11 @@ InLogger::InLogger(std::string& fileName){
 
 int InLogger::read_log(char *inp){
     if(ifsptr->is_open()){
-        if(!std::isalpha(ifsptr->peek())) return -1;
+        if(!std::isalpha((*ifsptr).peek())) return -1;
         int i = 0;
-        for(; ifsptr->peek() != '-'; ++i)
-            ifsptr->get(inp[i]);
-        ifsptr->ignore(1);
+        for(; (*ifsptr).peek() != '-'; ++i)
+            (*ifsptr).get(inp[i]);
+        (*ifsptr).ignore(1);
         if(i < 6) inp[i] = '\0';
         return 0;
     }
@@ -26,9 +26,9 @@ int InLogger::read_log(char *inp){
 
 int InLogger::read_coin_log(){
     if(ifsptr->is_open()){
-        if(!std::isdigit(ifsptr->peek())) return -1;
+        if(!std::isdigit((*ifsptr).peek())) return -1;
         int i;
-        ifsptr->operator>>(i);
+        (*ifsptr) >> i;
         return i;
     }
     else throw std::runtime_error("Impossibile aprire il log file.");

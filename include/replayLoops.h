@@ -1,8 +1,8 @@
 #ifndef GAMELOOPS_H
 #define GAMELOOPS_H
 #include <string>
-#include <gameHandler.h>
-#include <logger.h>
+#include "gameHandler.h"
+#include "logger.h"
 
 /// @brief Loops semplificati utili a mettere in atto le giocate estratte da Logger
 namespace gameLoops{

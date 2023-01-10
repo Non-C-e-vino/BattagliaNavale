@@ -1,4 +1,5 @@
 #include "gameLoops.h"
+#include <iostream>
 #include <cstdlib>
 #include <ctime>
 
@@ -14,7 +15,7 @@ void gameLoops::game_loop(bool pc)
     else player[0] = std::make_unique<GameHandler::Bot>(&gh);
     //il secondo bot e' clever. Il giocatore iniziale e' scelto a caso,
     //quindi non sara' necessariamente il giocatore 2 
-    player[1] = std::make_unique<GameHandler::Bot>(&gh);
+    player[1] = std::make_unique<GameHandler::CleverBot>(&gh);
 
     std::srand(time(NULL));
     gh.flip_coin();

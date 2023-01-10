@@ -1,5 +1,7 @@
 #include "humanPlayer.h"
+#include <iostream>
 #include <cstring>
+#include <cctype>
 
 int HumanPlayer::get_ship_pos(char *inp){
     return get_input(inp);

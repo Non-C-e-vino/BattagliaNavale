@@ -1,8 +1,6 @@
 #ifndef HUMANPLAYER_H
 #define HUMANPLAYER_H
 #include "player.h"
-#include <iostream>
-#include <cctype>
 
 /// @brief Gestisce l'input da terminale
 class HumanPlayer : public Player{
