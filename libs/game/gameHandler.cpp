@@ -1,5 +1,11 @@
 #include "gameHandler.h"
 #include <iostream>
+#include <ctime>
+#include <cstdlib>
+
+GameHandler::GameHandler(){
+    std::srand(time(NULL));
+}
 
 int GameHandler::set_ship(Admirals adm, ShipType st, XY (&xy)[2])
 {

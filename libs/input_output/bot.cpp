@@ -75,11 +75,13 @@ void GameHandler::CleverBot::gen_clever_coord(XY (&xy)[2])
     
     ShipAction action = gh->admiral[activePlayer].defGrid[xy[0].xy[0]][xy[0].xy[1]]->getOwner()->get_action();
 
-    if(!hasScanned && !shootingTime){
+    //WIP: se sono presenti, l'azione viene riassegnata ad uno dei ricognitori.
+    //avviene solo se una scan e' necessaria
+    /*if(!hasScanned && !shootingTime){
         
         //TODO: metodo Admiral getCurrentPlayer() in GameHandler
 
-    }
+    }*/
 
     if(action == ShipAction::Fire)
     {

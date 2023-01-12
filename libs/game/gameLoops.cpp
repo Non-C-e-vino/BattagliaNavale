@@ -17,7 +17,6 @@ void gameLoops::game_loop(bool pc)
     //quindi non sara' necessariamente il giocatore 2 
     player[1] = std::make_unique<GameHandler::CleverBot>(&gh);
 
-    std::srand(time(NULL));
     gh.flip_coin();
     char playerInput[6];
 
