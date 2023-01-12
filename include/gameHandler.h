@@ -110,7 +110,7 @@ public:
         std::set<XY> targets;
         bool shootingTime = false;
         bool hasScanned = true;
-        bool scanners = RICO;
+        //bool scanners = RICO; //  WIP
     };
 
 private:
@@ -168,6 +168,11 @@ private:
 };
 
 #endif
+
+//TODO: metodo Admiral getCurrentPlayer() in GameHandler
+// sostituire dove viene ricavato per esteso (GameLoops, Bot, ..)
+
+
 
 /*! \mainpage Note di implementazione
  *
