@@ -35,7 +35,7 @@ void GameHandler::Bot::gen_rand_ship_coord(XY (&xy)[2]) const
 
     if(gh->get_turn() < CORA) type = 2;
     else if(gh->get_turn() < SUPP + CORA) type = 1;
-    else if(gh->get_turn() < SHIPSN) type = 0;
+    else if(gh->get_turn() < SHIPS_TOT) type = 0;
 
     xy[1].xy[dim] += type*2; 
     if(check_c_oob(xy[1])) xy[1].xy[dim] -= type*4; 
@@ -75,7 +75,11 @@ void GameHandler::CleverBot::gen_clever_coord(XY (&xy)[2])
     
     ShipAction action = gh->admiral[activePlayer].defGrid[xy[0].xy[0]][xy[0].xy[1]]->getOwner()->get_action();
 
-    //std::cout << "clever boy\n\n";
+    if(!hasScanned && !shootingTime){
+        
+        //TODO: metodo Admiral getCurrentPlayer() in GameHandler
+
+    }
 
     if(action == ShipAction::Fire)
     {

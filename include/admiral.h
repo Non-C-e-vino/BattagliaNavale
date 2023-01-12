@@ -21,7 +21,7 @@ struct Admiral{
     Admiral operator=(const Admiral&) = delete; //non dovrebbe essere necessario con C++ 11
     Hull *defGrid[GRIDSIZE][GRIDSIZE];
     char attGrid[GRIDSIZE][GRIDSIZE];
-    Ship *ships[SHIPSN/2];
+    Ship *ships[SHIPS_TOT/2];
     int shipC = 0;
     void delete_ship(Ship*);
     void add_ship(std::unique_ptr<Ship>&);

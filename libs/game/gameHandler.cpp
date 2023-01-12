@@ -168,8 +168,19 @@ void GameHandler::ricognizione(XY& xy, Admirals adm)
             //come da faq-01/03 
                 admiral[(int)adm].attGrid[xy.xy[0]+r][xy.xy[1]+c] = 'X';
             else admiral[(int)adm].attGrid[xy.xy[0]+r][xy.xy[1]+c] = 'Y';
-            //ovviamente il sonar rivela anche se *non* ci sono entità
-            else admiral[(int)adm].attGrid[xy.xy[0]+r][xy.xy[1]+c] = 0;
+
+            //se una nave si e' spostata o e'stata distrutta, ha senso utilizzare
+            //le informazioni ottenute dal sonar per aggiornare la mappa di conseguenza.
+            //Si potrebbe contrassegnare tutte le zone dove non e' presente una nave
+            //con un simbolo, che dovrebbe pero' essere diverso da 'O' perche'
+            //quest'ultimo trasmette un informazione aggiuntiva (cioe' non solo che
+            //non e' presente una barca, ma anche una corazzata ha colpito la zona
+            //a vuoto). Introdurre un nuovo simbolo comporterebbe un eccessivo
+            //"rumore" sulla mappa, che rischierebbe di diventare illeggibile.
+            //Si e' quindi optato per cancellare tutti i simboli che indichino la
+            //presenza, preservando 'O' che fornisce info aggiuntive. 
+            else if(admiral[(int)adm].attGrid[xy.xy[0]+r][xy.xy[1]+c] != 'O')
+                admiral[(int)adm].attGrid[xy.xy[0]+r][xy.xy[1]+c] = 0;
         }
 }
 
@@ -239,7 +250,7 @@ void GameHandler::clear_sonar(Admirals adm)
 void GameHandler::remove_all_sunk(Admirals adm) 
 //volendo aggiungere cout di segnalazione affondamento
 { 
-    for(int i = 0 ; i < SHIPSN/2; ++i){
+    for(int i = 0 ; i < SHIPS_TOT/2; ++i){
         Ship* shipTarget = admiral[(int)adm].ships[i];
 
         if(shipTarget != nullptr && shipTarget->is_sunk()){
@@ -251,7 +262,6 @@ void GameHandler::remove_all_sunk(Admirals adm)
                     break;
                 }
             }
-
             admiral[(int)adm].delete_ship(shipTarget);
         }
     }
@@ -287,7 +297,7 @@ void GameHandler::detach_ship_from_map(Ship* ship, Admirals adm)
 void GameHandler::set_cores()
 {
     for(int i = 0; i < 2; ++i)
-        for(int c = 0; c < SHIPSN/2; ++c)
+        for(int c = 0; c < SHIPS_TOT/2; ++c)
             if(admiral[i].ships[c] != nullptr) cores.push_back(admiral[i].ships[c]->get_hull(admiral[i].ships[c]->get_size()/2));
 }
 

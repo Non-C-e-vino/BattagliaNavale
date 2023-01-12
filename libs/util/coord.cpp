@@ -3,7 +3,7 @@
 #include <cctype>
 #include <iostream>
 
-void coord_convert(XY (&xy)[2], char (&inp)[6]){
+void char_to_coord(XY (&xy)[2], char (&inp)[6]){
 
     if(inp[0] == 'X'){      //non serve confrontare tutta la stringa, sono caratteri riservati
         xy[0] = XY{-1,-1};

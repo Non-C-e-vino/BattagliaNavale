@@ -7,7 +7,7 @@ void argsError();
 
 int main(int argc, char *argv[]){
 
-    if(SHIPSN%2){
+    if(SHIPS_TOT%2){
         std::cout << "Il numero totale delle navi in gioco deve essere pari.";
         return 0;
     }

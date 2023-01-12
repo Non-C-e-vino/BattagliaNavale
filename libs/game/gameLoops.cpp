@@ -35,7 +35,7 @@ void gameLoops::init_loop(const std::unique_ptr<Player> (&player)[2], GameHandle
     int shipType = 2;
     int once = -1;
 
-    while(gh.get_turn() < SHIPSN && gh.get_turn() < MAXTURNS)
+    while(gh.get_turn() < SHIPS_TOT && gh.get_turn() < MAXTURNS)
     { 
         Admirals activePlayer = Admirals((gh.get_turn() + gh.get_coin())%2);
 
@@ -50,7 +50,7 @@ void gameLoops::init_loop(const std::unique_ptr<Player> (&player)[2], GameHandle
                 std::cout << "Coordinate ";
                 if(gh.get_turn() < CORA) std::cout << "corazzata: ";
                 else if(gh.get_turn() < SUPP + CORA)  std::cout << "nave di supporto: ";
-                else if(gh.get_turn() < SHIPSN) std::cout << "sottomarino di esplorazione: ";
+                else if(gh.get_turn() < SHIPS_TOT) std::cout << "sottomarino di esplorazione: ";
             }
             ++once;
         }
@@ -64,7 +64,7 @@ void gameLoops::init_loop(const std::unique_ptr<Player> (&player)[2], GameHandle
 
         XY xy[2];
 
-        coord_convert(xy, playerInput);
+        char_to_coord(xy, playerInput);
 
         if(pc)
         {
@@ -124,7 +124,7 @@ void gameLoops::main_loop(const std::unique_ptr<Player> (&player)[2], GameHandle
 
         XY xy[2];
 
-        coord_convert(xy, playerInput);
+        char_to_coord(xy, playerInput);
 
         if(pc)
         {
@@ -149,7 +149,9 @@ void gameLoops::main_loop(const std::unique_ptr<Player> (&player)[2], GameHandle
             if(pc) std::cout << "Coordinate non valide. Riprova: ";
             continue;
         }
+        
         if(pc) std::cout << "Azione avvenuta." << std::endl;
+
         ol.log_cinput(playerInput);
 
         gh.remove_all_sunk(Admirals((activePlayer + 1)%2));

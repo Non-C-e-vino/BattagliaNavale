@@ -7,24 +7,6 @@
 #include "gameVars.h"
 #include "player.h"
 
-/*! \mainpage Note di implementazione
- *
- * \section imp_sec 
- *
- * testtesttest
- *
- * \section err_sec Problemi
- *
- * \subsection ott_sec di ottimizzazione
- * testtesttest
- * 
- * \subsection des_sec di design
- * testtesttest
- *
- * \subsection leg_sec di leggibilita'
- * testtesttest
- */
-
 /// @brief Gestisce tutto cio' che concerne le meccaniche di gioco
 class GameHandler{
 public:
@@ -128,6 +110,7 @@ public:
         std::set<XY> targets;
         bool shootingTime = false;
         bool hasScanned = true;
+        bool scanners = RICO;
     };
 
 private:
@@ -185,3 +168,24 @@ private:
 };
 
 #endif
+
+/*! \mainpage Note di implementazione
+ *
+ * \section imp_sec 
+ *
+ * testtesttest
+ *
+ * \section err_sec Problemi
+ *
+ * \subsection ott_sec di ottimizzazione
+ * testtesttest
+ * 
+ * \subsection des_sec di design
+ * testtesttest
+ *
+ * \subsection leg_sec di leggibilita'
+ * Scarso uso di convenzioni.
+ * Gli oggetti di classe XY non vengono dichiarati sempre sotto lo stesso nome 
+ * (ad es. "c", "ref", "xy"). La scrittura risulta ambigua in quanto quando si 
+ * accede al membro xy[2] si scrive spesso xy[indiceOggettoXY].xy[IndiceArrayMembro] .
+ */

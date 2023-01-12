@@ -57,6 +57,8 @@ void OutLogger::log_cinput(char* inp)
         while(i < 6 && inp[i] != '\0') ++i;
         (*ofsptr).write(inp, i);
         (*ofsptr) << '-';
+        (*ofsptr).flush();
+
     }
     else throw std::runtime_error("Impossibile aprire il log file.");
 }

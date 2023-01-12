@@ -24,7 +24,7 @@ void gameLoops::replay_init_loop(InLogger & l, GameHandler& gh, char (&playerInp
 {
     int shipType = 2;
 
-    while(gh.get_turn() < SHIPSN && gh.get_turn() < MAXTURNS)
+    while(gh.get_turn() < SHIPS_TOT && gh.get_turn() < MAXTURNS)
     {
         Admirals activePlayer = Admirals((gh.get_turn() + gh.get_coin())%2);
 
@@ -51,7 +51,7 @@ void gameLoops::replay_init_loop(InLogger & l, GameHandler& gh, char (&playerInp
 
         XY xy[2];
 
-        coord_convert(xy, playerInput);
+        char_to_coord(xy, playerInput);
 
         gh.set_ship(activePlayer, ShipType(shipType), xy);
         gh.display_grids(activePlayer);
@@ -84,7 +84,7 @@ void gameLoops::replay_main_loop(InLogger & l, GameHandler& gh, char (&playerInp
 
         XY xy[2];
 
-        coord_convert(xy, playerInput);
+        char_to_coord(xy, playerInput);
 
         gh.ship_action(activePlayer, xy);
         gh.remove_all_sunk(Admirals((activePlayer + 1)%2));
