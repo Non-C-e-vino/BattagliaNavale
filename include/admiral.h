@@ -14,7 +14,7 @@ enum Admirals{ RedAdm, BlueAdm };
  * 
  */
 struct Admiral{
-    Admiral(void){};
+    Admiral(void);
 
     //si potrebbero implementare assieme a move ass. e const. ma non avrebbero reale utilizzo
     Admiral(const Admiral&) = delete;

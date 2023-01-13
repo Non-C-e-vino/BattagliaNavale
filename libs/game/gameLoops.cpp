@@ -84,8 +84,8 @@ void gameLoops::init_loop(const std::unique_ptr<Player> (&player)[2], GameHandle
 
         if(int err = gh.set_ship(activePlayer, ShipType(shipType), xy))
         {
-            //std::cout << "Posizione non valida: " << err << std::endl;
-            if(pc) std::cout << "Posizione non valida. Riprova: ";
+            std::cout << "Posizione non valida: " << err << std::endl;
+            //if(pc) std::cout << "Posizione non valida. Riprova: ";
             continue;
         }
 

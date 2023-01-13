@@ -13,7 +13,7 @@ int HumanPlayer::get_ship_act(char *inp){
 
 int HumanPlayer::get_input(char *inp){
     int i = 0;
-    //bug: imposibile inserire coordinate con la lettera X (58+ caselle, sorvolabile)
+    //I caratteri dalla x y z sono riservati per i comandi speciali
     if(std::cin.peek() == 'X' || std::cin.peek() == 'Y' || std::cin.peek() == 'Z'){
         std::cin.read(inp, 5);
         inp[5] = '\0';

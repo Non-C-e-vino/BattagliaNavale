@@ -84,9 +84,7 @@ public:
     void remove_all_sunk(Admirals);
 
     /**
-     * @brief giocatore automatico che effettua mosse casuali ogni turno
-     * @warning prima di utilizzare i metodi di questa classe,
-     * assicurarsi di aver chiamato almeno una volta std::srand(mySeed)
+     * @brief Giocatore automatico che effettua mosse casuali ogni turno.
      */
     class Bot : public Player {
     public:
@@ -100,6 +98,10 @@ public:
         void gen_rand_ship_coord(XY (&xy)[2]) const;
         // variabili tipo difficolta' in caso di ia non comp. randomica
     };
+    /**
+     * @brief Bozza di bot intelligente, ha un comportamento ancora simile a Bot,
+     * con la differenza che le corazzate sparano solo su bersagli rilevati dal sonar, se presenti.
+     */ 
 
     class CleverBot : public Bot {
     public:
