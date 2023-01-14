@@ -28,22 +28,22 @@ void gameLoops::game_loop(bool pc)
         std::cout << "\n\n-----INTRODUZIONE-----" << std::endl;
         //WIP 
         std::cout << "\n-Leggenda simboli-\n"
-                    << "zone griglia di difesa:\n"
-                    << "C: occupata da una corazzata;\n"
-                    << "@: danneggiata di una corazzata;\n"
-                    << "S: occupata da una nave di supporto;\n"
-                    << "$: danneggiata di una nave di supporto;\n"
-                    << "E: occupata da un sottomarino di esplorazione;\n"
-                    << "£: danneggiata di un sottomarino di esplorazione;\n"
-                    << "zone griglia di attacco:\n"
-                    << "X: dove una corazzata alleata ha colpito una una nave nemica;\n"
-                    << "O: dove una corazzata alleata ha colpito a vuoto;\n"
-                    << "Y: dove un sottomarino alleato ha rilevato una nave nemica."
+                    << "\nZone griglia di difesa:\n"
+                    << "\tC: occupata da una corazzata;\n"
+                    << "\t@: danneggiata di una corazzata;\n"
+                    << "\tS: occupata da una nave di supporto;\n"
+                    << "\t$: danneggiata di una nave di supporto;\n"
+                    << "\tE: occupata da un sottomarino di esplorazione;\n"
+                    << "\t£: danneggiata di un sottomarino di esplorazione.\n"
+                    << "\nZone griglia di attacco:\n"
+                    << "\tX: dove una corazzata alleata ha colpito una una nave nemica;\n"
+                    << "\tO: dove una corazzata alleata ha colpito a vuoto;\n"
+                    << "\tY: dove un sottomarino alleato ha rilevato una nave nemica."
                     << std::endl;
         std::cout << "\nLista comandi speciali:\n"
-                    << "XX XX: Mostra griglie di attacco e di difesa;\n"
-                    << "YY YY: Rimuove i simboli 'Y' dalla griglia di attacco;\n"
-                    << "ZZ ZZ: Rimuove tutti i simboli dalla griglia di attacco.\n"
+                    << "\tXX XX: Mostra griglie di attacco e di difesa;\n"
+                    << "\tYY YY: Rimuove i simboli 'Y' dalla griglia di attacco;\n"
+                    << "\tZZ ZZ: Rimuove tutti i simboli dalla griglia di attacco.\n"
                     << std::endl;
 
         std::cout << "Premi invio per iniziare la partita.\n";

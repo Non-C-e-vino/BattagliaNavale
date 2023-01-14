@@ -24,7 +24,14 @@ struct Admiral{
     Ship *ships[SHIPS_TOT/2];
     int shipC = 0;
     void delete_ship(Ship*);
-    void add_ship(std::unique_ptr<Ship>&);
+
+    /**
+     * @brief Si appropria della nave passata e rilascia il puntatore di ship
+     * se ha ancora slot liberi, altrimenti non fa nulla.
+     * 
+     * @param ship La nave di cui l'ammiraglio deve impadronirsi.
+     */
+    void add_ship(std::unique_ptr<Ship>& ship);
     ~Admiral();
 };
     

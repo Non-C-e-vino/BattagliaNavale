@@ -46,7 +46,7 @@ int GameHandler::gen_ship_c(XY *shipC, XY (&xy)[2], int size, Admirals adm) cons
 {
     //da due coord. restituisce un array di coordinate cosecutive (dove sarà posizionata la barca)
     //utilizzato in fase di creazione
-    //controlla: is free space, is alligned, in ship-coherent. (-1, -2, -3)
+    //controlla: is free space, is alligned, is ship-coherent. (-1, -2, -3)
 
     //controllo se la prima coordinata precede la seconda o viceversa
     int sign = -1;
