@@ -23,7 +23,34 @@ void gameLoops::game_loop(bool pc)
     Log::reset_log_file();
     ol.log_coin(gh.get_coin());
     
-    std::cout << "\n\n-----Fase di schieramento-----" << std::endl;
+    if(pc)
+    {
+        std::cout << "\n\n-----INTRODUZIONE-----" << std::endl;
+        //WIP 
+        std::cout << "\n-Leggenda simboli-\n"
+                    << "zone griglia di difesa:\n"
+                    << "C: occupata da una corazzata;\n"
+                    << "@: danneggiata di una corazzata;\n"
+                    << "S: occupata da una nave di supporto;\n"
+                    << "$: danneggiata di una nave di supporto;\n"
+                    << "E: occupata da un sottomarino di esplorazione;\n"
+                    << "£: danneggiata di un sottomarino di esplorazione;\n"
+                    << "zone griglia di attacco:\n"
+                    << "X: dove una corazzata alleata ha colpito una una nave nemica;\n"
+                    << "O: dove una corazzata alleata ha colpito a vuoto;\n"
+                    << "Y: dove un sottomarino alleato ha rilevato una nave nemica."
+                    << std::endl;
+        std::cout << "\nLista comandi speciali:\n"
+                    << "XX XX: Mostra griglie di attacco e di difesa;\n"
+                    << "YY YY: Rimuove i simboli 'Y' dalla griglia di attacco;\n"
+                    << "ZZ ZZ: Rimuove tutti i simboli dalla griglia di attacco.\n"
+                    << std::endl;
+
+        std::cout << "Premi invio per iniziare la partita.\n";
+        std::cin.ignore(264, '\n');
+    }
+
+    std::cout << "\n-----Fase di schieramento-----" << std::endl;
     init_loop(player, gh, ol, playerInput, pc);
     std::cout << "\n\n-----Fase di combattimento-----" << std::endl;
     main_loop(player, gh, ol, playerInput, pc);
@@ -45,7 +72,7 @@ void gameLoops::init_loop(const std::unique_ptr<Player> (&player)[2], GameHandle
             if(pc)
             {
                 std::cout << "\nGiocatore " << activePlayer + 1 << ", Turno " << gh.get_turn() + 1 <<  ".\n"; 
-                std::cout << "Inseri coppia di coordinate oppure [XX XX] [YY YY] [ZZ ZZ]" << std::endl;
+                std::cout << "Inserire coppia di coordinate oppure un comando speciale." << std::endl;
                 std::cout << "Coordinate ";
                 if(gh.get_turn() < CORA) std::cout << "corazzata: ";
                 else if(gh.get_turn() < SUPP + CORA)  std::cout << "nave di supporto: ";
@@ -84,8 +111,8 @@ void gameLoops::init_loop(const std::unique_ptr<Player> (&player)[2], GameHandle
 
         if(int err = gh.set_ship(activePlayer, ShipType(shipType), xy))
         {
-            std::cout << "Posizione non valida: " << err << std::endl;
-            //if(pc) std::cout << "Posizione non valida. Riprova: ";
+            //std::cout << "Posizione non valida: " << err << std::endl;
+            if(pc) std::cout << "Posizione non valida. Riprova: ";
             continue;
         }
 
@@ -108,7 +135,7 @@ void gameLoops::main_loop(const std::unique_ptr<Player> (&player)[2], GameHandle
             if(pc)
             {
                 std::cout << "\nGiocatore " << activePlayer + 1 << ", Turno " << gh.get_turn() + 1 <<  ".\n"; 
-                std::cout << "Inserire coppia di coordinate oppure [XX XX] [YY YY] [ZZ ZZ]" << std::endl;
+                std::cout << "Inserire coppia di coordinate oppure un comando speciale." << std::endl;
                 std::cout << "Coordinate nave e bersaglio:  ";
             }
             ++once;

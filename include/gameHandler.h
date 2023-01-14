@@ -166,7 +166,7 @@ private:
     int action_move_search(Hull*, XY&, Admirals);
     bool move_ship(Hull*, XY&, Admirals);
     void heal_aoe(Hull*, Admirals);
-    void ricognizione(XY&, Admirals);
+    void scout(XY&, Admirals);
 };
 
 #endif

@@ -9,7 +9,7 @@ public:
     ShipAction get_action() const override{ return ShipAction::Fire; }
     bool full_heal(); 
     bool heal(); 
-    bool is_core(Hull *) const override; //possibilmente helper f 
+    bool is_core(Hull *) const override;
     Hull* get_hull(int x) override { return &hull[x]; }
     int get_size() const override { return size; }
 

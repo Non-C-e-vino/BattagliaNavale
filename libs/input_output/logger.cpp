@@ -5,28 +5,41 @@
 #include <memory>
 #include <cctype>
 
-InLogger::InLogger(std::string& fileName){
+InLogger::InLogger(std::string& fileName)
+{
     std::unique_ptr<std::ifstream> ifs= std::make_unique<std::ifstream>(fileName);
-    if(!ifs->is_open()) throw std::runtime_error("Impossibile aprire il log file.");
+    if(!ifs->is_open())
+        throw std::runtime_error("Impossibile aprire il log file.");
     ifsptr = ifs.release();
 }
 
-int InLogger::read_log(char *inp){
-    if(ifsptr->is_open()){
-        if(!std::isalpha((*ifsptr).peek())) return -1;
+int InLogger::read_log(char *inp)
+{
+    if(ifsptr->is_open())
+    {
+        if(!std::isalpha((*ifsptr).peek()))
+            return -1;
+
         int i = 0;
         for(; (*ifsptr).peek() != '-'; ++i)
             (*ifsptr).get(inp[i]);
+
+        //ignora il successivo '-' in vista della prossima lettura
         (*ifsptr).ignore(1);
-        if(i < 6) inp[i] = '\0';
+
+        if(i < 6)
+            inp[i] = '\0';
         return 0;
     }
     else throw std::runtime_error("Impossibile aprire il log file.");
 }
 
-int InLogger::read_coin_log(){
-    if(ifsptr->is_open()){
-        if(!std::isdigit((*ifsptr).peek())) return -1;
+int InLogger::read_coin_log()
+{
+    if(ifsptr->is_open())
+    {
+        if(!std::isdigit((*ifsptr).peek()))
+            return -1;
         int i;
         (*ifsptr) >> i;
         return i;
@@ -43,7 +56,8 @@ void Log::reset_log_file()
     ofs.close(); //anche se non servirebbe uscendo dallo scope
 }
 
-OutLogger::OutLogger(void){
+OutLogger::OutLogger(void)
+{
     std::unique_ptr<std::ofstream> ofs= std::make_unique<std::ofstream>();
     ofs->open(LOGFILE, std::ios::app);
     if(!ofs->is_open()) throw std::runtime_error("Impossibile aprire il log file.");
@@ -52,9 +66,11 @@ OutLogger::OutLogger(void){
 
 void OutLogger::log_cinput(char* inp)
 {
-    if(ofsptr->is_open()){
+    if(ofsptr->is_open())
+    {
         int i = 3;
-        while(i < 6 && inp[i] != '\0') ++i;
+        while(i < 6 && inp[i] != '\0') 
+            ++i;
         (*ofsptr).write(inp, i);
         (*ofsptr) << '-';
         (*ofsptr).flush();
@@ -65,7 +81,8 @@ void OutLogger::log_cinput(char* inp)
 
 void OutLogger::log_coin(int coin)
 {
-    if(ofsptr->is_open()){
+    if(ofsptr->is_open())
+    {
         (*ofsptr) << coin;
     }
     else throw std::runtime_error("Impossibile aprire il log file.");

@@ -6,18 +6,21 @@ Ricognitore::Ricognitore(XY * xy){
 }
 
 bool Ricognitore::is_core(Hull* ref) const{
-    if(hull[0].get_c() == ref->get_c()) return true;
+    if(hull[0].get_c() == ref->get_c())
+        return true;
     return false;
 }
 
 bool Ricognitore::full_heal(){
-    if(hp == size) return false;
+    if(hp == size)
+        return false;
     hull[0].heal();
     return true;
 }
 
 bool Ricognitore::heal(){
-    if(hp == size) return false;
+    if(hp == size)
+        return false;
     ++hp;
     return true;
 }
