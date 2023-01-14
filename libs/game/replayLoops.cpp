@@ -49,6 +49,8 @@ void gameLoops::replay_init_loop(InLogger & l, GameHandler& gh, char (&playerInp
 
         print_char_coord(playerInput);
 
+        std::cout << "\n" << std::endl;
+
         XY xy[2];
 
         char_to_coord(xy, playerInput);
