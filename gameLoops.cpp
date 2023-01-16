@@ -65,7 +65,7 @@ void gameLoops::init_loop(const std::unique_ptr<Player> (&player)[2], GameHandle
 
     while(gh.get_turn() < SHIPS_TOT && gh.get_turn() < MAXTURNS)
     { 
-        Admirals activePlayer =Admirals getCurrentPlayer();
+        Admirals activePlayer =gh.getCurrentPlayer(gh.get_turn(),gh.get_coin());
 
         if(once != gh.get_turn())
         {
@@ -130,7 +130,7 @@ void gameLoops::main_loop(const std::unique_ptr<Player> (&player)[2], GameHandle
     int once = gh.get_turn()-1;
 
     while(gh.get_turn() < MAXTURNS){
-        Admirals activePlayer = Admirals getCurrentPlayer();
+        Admirals activePlayer = gh.getCurrentPlayer(gh.get_turn(), gh.get_coin());
 
         if(once != gh.get_turn())
         {
