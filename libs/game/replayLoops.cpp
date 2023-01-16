@@ -55,7 +55,13 @@ void gameLoops::replay_init_loop(InLogger & l, GameHandler& gh, char (&playerInp
 
         char_to_coord(xy, playerInput);
 
-        gh.set_ship(activePlayer, ShipType(shipType), xy);
+        if(check_c_oob(xy[0]) || check_c_oob(xy[0]) || gh.set_ship(activePlayer, ShipType(shipType), xy))
+        {
+            std::cout << "File log corrotto."<< std::endl;
+            //si postrebbe anche valutare il lancio di un eccezione.
+            return;
+        }
+
         gh.display_grids(activePlayer);
         gh.next_turn();
 
@@ -88,7 +94,13 @@ void gameLoops::replay_main_loop(InLogger & l, GameHandler& gh, char (&playerInp
 
         char_to_coord(xy, playerInput);
 
-        gh.ship_action(activePlayer, xy);
+        if(check_c_oob(xy[0]) || check_c_oob(xy[0]) || gh.ship_action(activePlayer, xy))
+        {
+            std::cout << "File log corrotto."<< std::endl;
+            //si postrebbe anche valutare il lancio di un eccezione.
+            return;
+        }
+
         gh.remove_all_sunk(Admirals((activePlayer + 1)%2));
         gh.display_grids(activePlayer);
 

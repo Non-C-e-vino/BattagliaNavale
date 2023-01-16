@@ -1,12 +1,5 @@
 #include "admiral.h"
 
-Admiral::Admiral()
-{
-    std::fill(&defGrid[0][0], &defGrid[0][0] + GRIDSIZE*GRIDSIZE, nullptr);
-    std::fill(&attGrid[0][0], &attGrid[0][0] + GRIDSIZE*GRIDSIZE, (char)0);
-    std::fill(ships, ships + SHIPS_TOT/2, nullptr);
-}
-
 void Admiral::add_ship(std::unique_ptr<Ship> &ship)
 {
     if(shipC == SHIPS_TOT/2) return;

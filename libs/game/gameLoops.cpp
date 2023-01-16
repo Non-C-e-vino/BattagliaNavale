@@ -29,6 +29,7 @@ void gameLoops::game_loop(bool pc)
         //WIP 
         std::cout << "\n-Leggenda simboli-\n"
                     << "\nZone griglia di difesa:\n"
+                    << "\t~: dove non è presente una nave alleata;\n"
                     << "\tC: occupata da una corazzata;\n"
                     << "\t@: danneggiata di una corazzata;\n"
                     << "\tS: occupata da una nave di supporto;\n"
@@ -36,6 +37,7 @@ void gameLoops::game_loop(bool pc)
                     << "\tE: occupata da un sottomarino di esplorazione;\n"
                     << "\t£: danneggiata di un sottomarino di esplorazione.\n"
                     << "\nZone griglia di attacco:\n"
+                    << "\t~: dove non sono state rilevate navi nemiche;\n"
                     << "\tX: dove una corazzata alleata ha colpito una una nave nemica;\n"
                     << "\tO: dove una corazzata alleata ha colpito a vuoto;\n"
                     << "\tY: dove un sottomarino alleato ha rilevato una nave nemica."
