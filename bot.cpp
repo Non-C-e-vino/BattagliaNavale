@@ -45,7 +45,7 @@ void GameHandler::Bot::gen_rand_ship_coord(XY (&xy)[2]) const
 
 void GameHandler::Bot::gen_rand_coord(XY (&xy)[2]) const
 {
-    if(gh->getCurrentPlayer(gh->get_turn(), gh->GameHandler::get_coin())== RedAdm)
+    if(gh->getCurrentPlayer() == RedAdm)
         xy[0] = gh->get_core(rand()%gh->get_active_ships_n(RedAdm))->get_c();
     else
         xy[0] = gh->get_core(gh->get_active_ships_n(RedAdm) + rand()%gh->get_active_ships_n(BlueAdm))->get_c();
@@ -71,7 +71,7 @@ void GameHandler::CleverBot::gen_clever_coord(XY (&xy)[2])
 {
     gen_rand_coord(xy);
 
-    Admirals activePlayer =gh->getCurrentPlayer(gh->get_turn(), gh->get_coin());
+    Admirals activePlayer = gh->getCurrentPlayer();
     
     ShipAction action = gh->admiral[activePlayer].defGrid[xy[0].xy[0]][xy[0].xy[1]]->getOwner()->get_action();
 

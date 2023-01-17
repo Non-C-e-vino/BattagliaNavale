@@ -405,11 +405,7 @@ void GameHandler::flip_coin()
     return; 
 }
 
-Admirals GameHandler::getCurrentPlayer(int turn, int coin)
+Admirals GameHandler::getCurrentPlayer()
 {
-	Admirals x;
-	if((turn+(coin%2))%2==0)
-	return x=RedAdm;
-	else
-	return x=BlueAdm;
+	return Admirals((turn + coin())%2);
 }

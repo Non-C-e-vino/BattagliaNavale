@@ -14,7 +14,7 @@ public:
     void display_grids(Admirals) const;
     void clear_att_grid(Admirals);
     void clear_sonar(Admirals);
-	Admirals getCurrentPlayer(int turn, int coin);  //metodo che ritorna il giocatore attivo
+
     /**
      * @brief Genera una nave, la assegna ad un ammiraglio e la posiziona sulla griglia di quest'ultimo.
      * 
@@ -158,6 +158,9 @@ private:
      * @param adm 
      */
     void detach_ship_from_map(Ship* ship, Admirals adm);
+    
+    Admirals getCurrentPlayer(); 
+    //metodo che ritorna il giocatore attivo
 
     //i metodi successivi sono le parti di ship_action 
     //responsabili dello svoglimento delle azioni
