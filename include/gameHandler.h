@@ -70,6 +70,9 @@ public:
      */
     void flip_coin();
 
+    /// @brief ritorna il giocatore attivo
+    Admirals getCurrentPlayer(); 
+    
     int get_coin(){ return coin; }
 
     //necessario per i replay
@@ -167,6 +170,7 @@ private:
     bool move_ship(Hull*, XY&, Admirals);
     void heal_aoe(Hull*, Admirals);
     void scout(XY&, Admirals);
+    
 };
 
 #endif

@@ -36,7 +36,7 @@ int GameHandler::set_ship(Admirals adm, ShipType st, XY (&xy)[2])
 
     admiral[(int)adm].add_ship(ship);
 
-    if(ship.get() != nullptr)    //admiral non ha accettato il punattore (es. ha gia' 8 navi)
+    if(ship.get() != nullptr)    //admiral non ha accettato il puntatore (es. ha gia' 8 navi)
         return -3;
     
     return 0;
@@ -382,6 +382,11 @@ void GameHandler::set_cores()
 Hull* GameHandler::get_core(int i)
 {
     return cores.at(i);
+}
+
+Admirals GameHandler::getCurrentPlayer()
+{
+	return Admirals((turn + coin)%2);
 }
 
 bool GameHandler::next_turn() 

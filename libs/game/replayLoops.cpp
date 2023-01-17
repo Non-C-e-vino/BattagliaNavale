@@ -26,7 +26,7 @@ void gameLoops::replay_init_loop(InLogger & l, GameHandler& gh, char (&playerInp
 
     while(gh.get_turn() < SHIPS_TOT && gh.get_turn() < MAXTURNS)
     {
-        Admirals activePlayer = Admirals((gh.get_turn() + gh.get_coin())%2);
+        Admirals activePlayer = gh.getCurrentPlayer();
 
         if(gh.get_turn() == CORA) --shipType;
         if(gh.get_turn() == SUPP+CORA) --shipType;
@@ -75,7 +75,7 @@ void gameLoops::replay_main_loop(InLogger & l, GameHandler& gh, char (&playerInp
 
     while(gh.get_turn() < MAXTURNS)
     {
-        Admirals activePlayer = Admirals((gh.get_turn() + gh.get_coin())%2);
+        Admirals activePlayer = gh.getCurrentPlayer();
 
         std::cout << "\nGiocatore " << activePlayer + 1 << ", Turno " << gh.get_turn() + 1 <<  ".\n"; 
         std::cout << "Coordinate nave e bersaglio:  ";
