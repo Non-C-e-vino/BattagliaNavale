@@ -6,6 +6,13 @@ e riutilizzabilità proprie della programazione orientata agli oggetti. E' stata
 di modificare a piacimento alcune variabili di gioco, quali la grandezza della griglia, la quantità 
 di navi in gioco per tipo, il numero di turni, dal file gameVars.h, secondo le restrizioni indicate 
 sul suddetto file.
+E' anche presente una versione alternativa di Bot, CleverBot. Questa versione aggiusta il tiro
+delle sue corazzate per colpire zone in cui delle navi nemiche sono state rilevate tramite sonar.
+In modalita' PC il giocatore umano affronta CleverBot, mentre in modalita' CC la sfida avviene tra
+un Bot e un CleverBot. Modificare i player in gioco nelle varie modalita' e' semplice, perche'
+le istanze delle classi che gestiscono l'input vengono assegnate a generici puntatori di tipo Player
+tramite upcasting. Basta dunque modificare le classi di partenza al principio di GameLoops, inserendo
+qualsiasi classe discenda da Player.
 
 Ottimizzazione
 Inizialemente il file di log veniva aperto e chiuso ad ogni turno,
@@ -35,3 +42,5 @@ Gli oggetti di classe XY non vengono dichiarati sempre sotto lo stesso nome
 accede al membro xy[2] si scrive spesso xy[indiceOggettoXY].xy[IndiceArrayMembro] .
 L'intero sistema di gestione delle coordinate in forma testuale risulta inutilmente
 complicato per via di mancanza di esperienza e tentativi di microottimizzazione evitabili.
+
+Repository GitHub: https://github.com/Non-C-e-vino/BattagliaNavale.git

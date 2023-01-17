@@ -6,7 +6,7 @@ Status: implementate le funzioni principali, in attesa di revisione e aggiunta c
 ## Configurazione
 
 ```bash
-git clone git@github.com:Non-C-e-vino/BattagliaNavale.git
+git clone https://github.com/Non-C-e-vino/BattagliaNavale.git
 ```
 ```bash
 cd ./BattagliaNavale
