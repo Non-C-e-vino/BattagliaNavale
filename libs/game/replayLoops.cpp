@@ -1,3 +1,9 @@
+/**
+ * 
+ * @author Callegaro Gabriele
+ * 
+ */
+
 #include "replayLoops.h"
 #include "logger.h"
 #include <thread>

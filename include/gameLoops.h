@@ -1,3 +1,9 @@
+/**
+ * 
+ * @author Callegaro Gabriele
+ * 
+ */
+
 #ifndef GAMELOOPS_H
 #define GAMELOOPS_H
 #include <memory>

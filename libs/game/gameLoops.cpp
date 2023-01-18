@@ -1,3 +1,9 @@
+/**
+ * 
+ * @author Callegaro Gabriele
+ * 
+ */
+
 #include "gameLoops.h"
 #include <iostream>
 #include <cstdlib>

@@ -1,3 +1,9 @@
+/**
+ * 
+ * @author Demo Filippo
+ * 
+ */
+
 #include "logger.h"
 #include "gameVars.h"
 #include <fstream>

@@ -1,3 +1,9 @@
+/*
+ * 
+ * @author Salese Alberto
+ * 
+ */
+
 #ifndef NAVE_SUPPORTO_H
 #define NAVE_SUPPORTO_H
 #include "ship.h"

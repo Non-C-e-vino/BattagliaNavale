@@ -1,3 +1,9 @@
+/**
+ * 
+ * @author Demo Filippo
+ * 
+ */
+
 #include "coord.h"
 #include "gameVars.h"
 #include <cctype>
@@ -5,7 +11,7 @@
 
 void char_to_coord(XY (&xy)[2], char (&inp)[6]){
 
-    if(inp[0] == 'X'){      //non serve confrontare tutta la stringa, sono caratteri riservati
+    if(inp[0] == 'X'){      //non serve confrontare tutta la stringa (X, Y, Z sono caratteri riservati)
         xy[0] = XY{-1,-1};
         return;
     }
@@ -45,7 +51,6 @@ void coord_to_char(XY (&xy)[2], char *inp){
         ++i;
     }
     if(i < 6) inp [i] = '\0';
-    //std::cout << inp;
     return;
 }
 

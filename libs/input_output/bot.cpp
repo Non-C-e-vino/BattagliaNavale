@@ -1,3 +1,9 @@
+/**
+ * 
+ * @author Salese Alberto
+ * 
+ */
+
 #include "gameHandler.h"
 #include <iostream>
 #include <ctime>

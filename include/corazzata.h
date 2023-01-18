@@ -1,3 +1,9 @@
+/*
+ * 
+ * @author Salese Alberto
+ * 
+ */
+
 #ifndef CORAZZATA_H
 #define CORAZZATA_H
 #include "ship.h"

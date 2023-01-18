@@ -1,3 +1,9 @@
+/*
+ * 
+ * @author Salese Alberto
+ * 
+ */
+
 #ifndef RICOGNITORE_H
 #define RICOGNITORE_H
 #include "ship.h"

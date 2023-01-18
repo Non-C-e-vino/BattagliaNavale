@@ -1,3 +1,9 @@
+/**
+ * 
+ * @author Callegaro Gabriele
+ * 
+ */
+
 #include "gameHandler.h"
 #include <iostream>
 #include <ctime>

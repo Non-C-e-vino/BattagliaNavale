@@ -1,3 +1,9 @@
+/**
+ * 
+ * @author Salese Alberto
+ * 
+ */
+
 #include "naveSupporto.h"
 #include <iostream>
 

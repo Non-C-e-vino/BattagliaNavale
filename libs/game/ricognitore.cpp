@@ -1,3 +1,9 @@
+/**
+ * 
+ * @author Salese Alberto
+ * 
+ */
+
 #include "ricognitore.h"
 
 Ricognitore::Ricognitore(XY * xy){

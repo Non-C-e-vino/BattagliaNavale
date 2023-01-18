@@ -1,3 +1,9 @@
+/**
+ * 
+ * @author Callegaro Gabriele
+ * 
+ */
+
 #ifndef GAMEHANDLER_H
 #define GAMEHAMDLER_H
 #include <memory>

@@ -1,3 +1,9 @@
+/**
+ * 
+ * @author Callegaro Gabriele
+ * 
+ */
+
 #ifndef ADMIRAL_H
 #define ADMIRAL_H
 #include <memory>

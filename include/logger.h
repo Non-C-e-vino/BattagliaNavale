@@ -1,3 +1,9 @@
+/**
+ * 
+ * @author Demo Filippo
+ * 
+ */
+
 #ifndef LOGGER_H
 #define LOGGER_H
 #include <fstream>
@@ -27,6 +33,7 @@ public:
      * @return int coin
      */
     int read_coin_log();
+    
     ~InLogger(){
         ifsptr->close(); 
         delete ifsptr;
@@ -46,8 +53,7 @@ public:
     void log_cinput(char*);
 
     /**
-     * @brief registra su log quale giocatore a iniziato
-     * 
+     * @brief registra su log quale giocatore ha iniziato
      * @warning da chiamare dopo aver lanciato la moneta, ma prima della fase di schieramento
      */
     void log_coin(int);

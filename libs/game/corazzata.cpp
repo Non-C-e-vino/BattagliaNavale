@@ -1,3 +1,9 @@
+/**
+ * 
+ * @author Salese Alberto
+ * 
+ */
+
 #include "corazzata.h"
 
 Corazzata::Corazzata(XY * xy) {

@@ -1,3 +1,9 @@
+/**
+ * 
+ * @author Salese Alberto
+ * 
+ */
+
 #include "ship.h"
 #include "iostream"
 

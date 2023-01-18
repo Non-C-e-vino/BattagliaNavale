@@ -5,4 +5,5 @@ Partite registrate con le seguenti variabili impostate:
 	-RICO = 2
 	-MAXTURNS = 15000000
 
-E' necessario che tutte le variabili siano le stesse di qundo la partita è stata registrata se si vuole visualizzare/stampare correttamente il replay. Eccezione per MAXTURNS che se inferiore al numero di turni effettivi causerà solo la fine anticipata della partita.
+E' necessario che tutte le variabili siano le stesse di quando la partita è stata registrata se si vuole visualizzare/stampare correttamente il replay. 
+Eccezione per MAXTURNS che se inferiore al numero di turni effettivi causerà solo la fine anticipata della partita.

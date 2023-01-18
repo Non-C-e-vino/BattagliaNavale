@@ -1,3 +1,9 @@
+/**
+ * 
+ * @author Demo Filippo
+ * 
+ */
+
 #include "humanPlayer.h"
 #include <iostream>
 #include <cstring>
@@ -13,10 +19,10 @@ int HumanPlayer::get_ship_act(char *inp){
 
 int HumanPlayer::get_input(char *inp){
 
-    //conta le lettere inserite
+    //Conta le lettere inserite
     int i = 0;
 
-    //I caratteri dalla x y z sono riservati per i comandi speciali
+    //I caratteri X Y Z sono riservati per i comandi speciali
     if(std::cin.peek() == 'X' || std::cin.peek() == 'Y' || std::cin.peek() == 'Z')
     {
         std::cin.get(inp, 6);
@@ -28,6 +34,8 @@ int HumanPlayer::get_input(char *inp){
 
         return -4;
     }
+    
+    //Controllo la presenza di una coppia valida di coordinate  
     do{
         if(std::cin.peek() >= 'A' && std::cin.peek() < 'X')
         {

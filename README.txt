@@ -2,7 +2,7 @@ Note di implementazione
 
 Informazioni generali
 Nella creazione del progetto si è cercato di applicare le caratteristiche di modularità 
-e riutilizzabilità proprie della programazione orientata agli oggetti. E' stata anche inclusa la possibilità
+e riutilizzabilità proprie della programmazione orientata agli oggetti. E' stata anche inclusa la possibilità
 di modificare a piacimento alcune variabili di gioco, quali la grandezza della griglia, la quantità 
 di navi in gioco per tipo, il numero di turni, dal file gameVars.h, secondo le restrizioni indicate 
 sul suddetto file.
@@ -30,7 +30,7 @@ sarebbe sicuramente piu' pratico se GameHandler potesse simulare la giocata di B
 senza che quest'ultimo generi effettivamente delle coordinate in forma testuale
 che vanno poi riconvertite, passando per i loop di gioco. E' anche vero che in
 questo modo si andrebbe a complicare la gestione dei log.
-Anche Hull sarebbe dovuta diventare interna a Ship, ma, sinceramente, non mi e' ancora chiaro se
+Anche Hull sarebbe dovuta diventare interna a Ship, ma, sinceramente, non ci e' ancora chiaro se
 una classe virtuale pura puo' avere in se' classi interne non virtuali pure. Sono quindi
 pubblichi dei metodi che sarebbe meglio non lo fossero ( Ship::set_damage(), Ship::heal() ).
 
@@ -40,7 +40,3 @@ membro con la notazione m_datoMembro) .
 Gli oggetti di classe XY non vengono dichiarati sempre sotto lo stesso nome 
 (ad es. "c", "ref", "xy"), e la scrittura risulta ambigua in quanto quando si 
 accede al membro xy[2] si scrive spesso xy[indiceOggettoXY].xy[IndiceArrayMembro] .
-L'intero sistema di gestione delle coordinate in forma testuale risulta inutilmente
-complicato per via di mancanza di esperienza e tentativi di microottimizzazione evitabili.
-
-Repository GitHub: https://github.com/Non-C-e-vino/BattagliaNavale.git
