@@ -70,6 +70,9 @@ public:
      */
     void flip_coin();
 
+    /// @brief ritorna il giocatore attivo
+    Admirals getCurrentPlayer(); 
+    
     int get_coin(){ return coin; }
 
     //necessario per i replay
@@ -167,6 +170,7 @@ private:
     bool move_ship(Hull*, XY&, Admirals);
     void heal_aoe(Hull*, Admirals);
     void scout(XY&, Admirals);
+    
 };
 
 #endif
@@ -184,8 +188,14 @@ private:
  * di modificare a piacimento alcune variabili di gioco, quali la grandezza della griglia, la quantità 
  * di navi in gioco per tipo, il numero di turni, dal file gameVars.h, secondo le restrizioni indicate 
  * sul suddetto file.
+ * E' anche presente una versione alternativa di Bot, CleverBot. Questa versione aggiusta il tiro
+ * delle sue corazzate per colpire zone in cui delle navi nemiche sono state rilevate tramite sonar.
+ * In modalita' PC il giocatore umano affronta CleverBot, mentre in modalita' CC la sfida avviene tra
+ * un Bot e un CleverBot. Modificare i player in gioco nelle varie modalita' e' semplice, perche'
+ * le istanze delle classi che gestiscono l'input vengono assegnate a generici puntatori di tipo Player
+ * tramite upcasting. Basta dunque modificare le classi di partenza al principio di GameLoops, inserendo
+ * qualsiasi classe discenda da Player. 
  * 
- *
  * \subsection ott_sec Ottimizzazione
  * Inizialemente il file di log veniva aperto e chiuso ad ogni turno,
  * ma e' evidente (grazie al profiler di VS) che questo sia molto inefficiente soprattutto
